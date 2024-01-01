@@ -1,6 +1,6 @@
 {
 	"id": "cluster",
-	"name": "Cluster",
+	"name": "cluster",
 	"version": "1.0.0",
 	"minAppVersion": "1.5.3",
 	"description": "Cluster plugin mainly designed to simplify the process of note clustering on mobile devices and work well on PCs ether",
