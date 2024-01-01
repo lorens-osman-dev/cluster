@@ -46,7 +46,10 @@
 
 - You can use the mobile ribbon actions
 
-![mobileOption|300](src/imgs/mOption.jpg)
+
+
+<img src="src/imgs/mOption.jpg" width="250" height="250">
+
 
 
 ---
