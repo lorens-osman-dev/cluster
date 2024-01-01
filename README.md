@@ -26,16 +26,28 @@
 ##### 💻PC :
 - You can use hotkeys to create Cluster, create Son, create Brother and Delete.
 -  You can use note options 
+
 ![noteOption](src/imgs/note_option.png)
+
+
 - You can use the ribbon actions
+
+
 ![pcOption](src/imgs/pc_options.png)
+
+
 
 ##### 📱 Mobile Phone :
 - You can use note options 
+
+
 ![noteOption](src/imgs/note_option.png)
+
+
 - You can use the mobile ribbon actions
 
 ![mobileOption|300](src/imgs/phone_options.jpg)
+
 
 ---
 
