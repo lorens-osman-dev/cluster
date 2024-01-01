@@ -1,8 +1,171 @@
-/*
 
-This CSS file will be included with your plugin, and
-available in the app when your plugin is enabled.
+/* - PC FAMILY MODAL STYLES-------------------*/
 
-If your plugin does not need CSS, delete this file.
+.prompt{
+    
+    
+    display: grid !important;
+    align-items: center !important;
+    grid-template-columns: 30% 70%;
 
-*/
+    top: 30% !important;
+    
+
+}
+ .prompt-input {
+    border: none !important;
+}
+.inputMsgCon{
+    background-color: hsl(340.53deg 50% 30%);
+    display: grid;
+    grid-template-columns: 65px 1fr;
+    align-items: center;
+    font-size: var(--font-ui-medium);
+    font-weight: bold;
+    justify-items: center;
+    height: 57px;
+}
+.brother{
+    background-color: hsl(210.38deg 50% 30%)
+}
+.cluster{
+    background-color:hsl(154.99deg 50% 30%)
+}
+.delete{
+    background-color:hsl(5, 83%, 42%)
+}
+.prompt:has(.noThing){
+    border-radius: 0 !important;
+    grid-template-columns: 65px 1fr;
+}
+.prompt:has(.noThing) .delMsg{
+    padding-left: 0 !important;
+   
+}
+.noThing{
+    background-color: var(--background-primary);
+}
+.inputDelete{
+    opacity: 0.0;
+    position: absolute;
+}
+.delMsg{
+    color:var(--text-faint);
+    padding-left: var(--size-4-6);
+}
+.delMsg .delNoteNameMsg{
+    color:hsl(5, 83%, 42%);
+    text-decoration: underline;
+    
+}
+
+.prompt:has(.delMsg){
+    height: 85px;
+}
+
+
+.textMsg{
+    justify-self: left;
+}
+.svg{
+    text-align: center;
+    height: 40px;
+    width: 40px;
+}
+.clusterSvg{
+    fill: var(--text-normal) !important;
+    transform: rotate(-16deg);
+}
+/* - PHONE FAMILY MODAL STYLES-------------------*/
+
+.is-phone .prompt {
+
+    display: block !important;
+}
+.is-phone  .prompt:has(.delMsg){
+    height: inherit;
+}
+
+.is-phone .delMsg{
+    padding: var(--size-4-4);
+}
+.is-phone .textMsg{
+    margin-left: -70px;
+    justify-self: center;
+    font-size: var(--size-4-5);
+}
+
+
+/* -BUTTONS STYLES-------------------*/
+
+/* *new son*/
+.table-cell-wrapper:has(a[href*="newSon"]) ,
+th:has(a[href*="newSon"]) {
+    padding: 0 !important;
+    background: hsl(341, 50%, 30%) !important;
+}
+a[href*="newSon"] {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    color: var(--text-normal);
+    background-color: none;
+    text-decoration-line: none !important;
+    background-image: none !important;
+    background-color: none !important;
+    align-content: center;
+    justify-items: center;
+    padding: 2px 10px;
+}
+
+/* *new Brother*/
+.table-cell-wrapper:has(a[href*="newBrother"]),
+th:has(a[href*="newBrother"]) {
+    padding: 0 !important;
+    background: hsl(210, 50%, 30%) !important
+}
+a[href*="newBrother"] {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    color: var(--text-normal);
+    background-color: none;
+    text-decoration-line: none !important;
+    background-image: none !important;
+    background-color: none !important;
+    align-content: center;
+    justify-items: center;
+    padding: 2px 10px;
+
+}
+
+/* *Delete*/
+.table-cell-wrapper:has(a[href*="DeleteActiveNote"]) ,
+th:has(a[href*="DeleteActiveNote"]) {
+    padding: 0 !important;
+    background: hsl(5, 83%, 42%) !important
+}
+a[href*="DeleteActiveNote"] {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    color: var(--text-normal);
+    background-color: none;
+    text-decoration-line: none !important;
+    background-image: none !important;
+    background-color: none !important;
+    align-content: center;
+    justify-items: center;
+    padding: 2px 10px;
+
+}
+
+.table-wrapper:has(.external-link) .table-row-btn ,
+.table-wrapper:has(.external-link) .table-col-btn,
+.table-wrapper:has(.external-link) .table-row-drag-handle,
+.table-wrapper:has(.external-link) .table-col-drag-handle{
+    display: none !important;
+
+    cursor: default !important;
+    pointer-events: none !important;
+  }

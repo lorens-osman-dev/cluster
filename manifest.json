@@ -1,11 +1,11 @@
 {
-	"id": "sample-plugin",
-	"name": "Sample Plugin",
+	"id": "cluster",
+	"name": "Cluster",
 	"version": "1.0.0",
-	"minAppVersion": "0.15.0",
-	"description": "Demonstrates some of the capabilities of the Obsidian API.",
-	"author": "Obsidian",
-	"authorUrl": "https://obsidian.md",
-	"fundingUrl": "https://obsidian.md/pricing",
+	"minAppVersion": "1.5.3",
+	"description": "Cluster plugin mainly designed to simplify the process of note clustering on mobile devices and work well on PCs ether",
+	"author": "lorens osman",
+	"authorUrl": "https://twitter.com/lorans_othman",
+	"fundingUrl": "https://github.com/lorens-osman-dev",
 	"isDesktopOnly": false
 }
