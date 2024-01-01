@@ -46,7 +46,7 @@
 
 - You can use the mobile ribbon actions
 
-![mobileOption|300](src/imgs/phone_options.jpg)
+![mobileOption|300](src/imgs/mOption.jpg)
 
 
 ---
