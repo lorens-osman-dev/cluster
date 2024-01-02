@@ -2,12 +2,18 @@ import { TFile } from "obsidian";
 
 import IF from "./bigIF";
 
-export async function templates(activeFile: TFile ,type :string) {
+const commandsNames = {
+    newSon : "new_son",
+    newBrother :"new_brother",
+    newCluster :"new_cluster",
+    deleteActiveNote :"delete_active_note"
+}
+export async function templates(activeFile: any ,type :string) {
     const result = {
         state:false,
-        clusterSonTemplate:undefined as string,
-        normalSonTemplate:undefined as string,
-        brotherTemplate:undefined as string,
+        clusterSonTemplate:undefined as unknown as string,
+        normalSonTemplate:undefined as unknown as string,
+        brotherTemplate:undefined as unknown as string,
     }
 
     if (type == "clusterSon") {
@@ -41,7 +47,7 @@ tags:
 parent: "[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]"
 generation: ${generationFromActiveFilePath}
 ---
-| [Create Son](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newSon) | [Create Brother](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newBrother) | [Delete ](obsidian://advanced-uri?commandname=A%20new%20cluster:%20DeleteActiveNote) |
+| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Create Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- | ---- |
 `
 
@@ -61,12 +67,13 @@ generation: ${generationFromActiveFilePath}
             const parentFileLink =  frontmatterProperties?.parent
 
             IF.checkAll([
+                
                 [ !frontmatterProperties , `Please set frontmatter properties`],
                 [ isClusterTagExist == undefined, `You Should add '${clusterTagName}' tag which refers to the containing cluster.`],
                 [ parentFileLink === undefined, "Set the parent property."],
                 [ parentFileLink === null, "The parent property should'nt be empty."],
                 [ parentFileLink === "", "The parent property should'nt be empty."],
-                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent.name.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
+                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
                 [ ! (typeof(generationFromActiveFileFrontmatterProperties) === 'number'), "The Cluster's generation property must be Number.\nChange the property type to Number"],
                 [ generationFromActiveFileFrontmatterProperties == 0, "JUST Clusters's generation property must be 0"],
                 [ generationFromActiveFileFrontmatterProperties !== generationFromActiveFilePath, `The generation property must be ${generationFromActiveFilePath}`],
@@ -82,7 +89,7 @@ tags:
 parent: "${sonFileParentLink}"
 generation: ${generationFromActiveFilePath+1}
 ---
-| [Create Son](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newSon) | [Create Brother](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newBrother) | [Delete ](obsidian://advanced-uri?commandname=A%20new%20cluster:%20DeleteActiveNote) |
+| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Create Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- | ---- |
 `
 
@@ -106,7 +113,7 @@ generation: ${generationFromActiveFilePath+1}
                 [ parentFileLink === undefined, "Set the parent property."],
                 [ parentFileLink === null, "The parent property should'nt be empty."],
                 [ parentFileLink === "", "The parent property should'nt be empty."],
-                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent.name.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
+                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
                 [ ! (typeof(generationFromActiveFileFrontmatterProperties) === 'number'), "The Cluster's generation property must be Number.\nChange the property type to Number"],
                 [ generationFromActiveFileFrontmatterProperties == 0, "JUST Clusters's generation property must be 0"],
                 [ generationFromActiveFileFrontmatterProperties !== generationFromActiveFilePath, `The generation property must be ${generationFromActiveFilePath}`],
@@ -122,7 +129,7 @@ tags:
 parent: "${activeFileParentLink}"
 generation: ${generationFromActiveFilePath}
 ---
-| [Create Son](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newSon) | [Create Brother](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newBrother) | [Delete ](obsidian://advanced-uri?commandname=A%20new%20cluster:%20DeleteActiveNote) |
+| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Create Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- | ---- |
 `
 
@@ -134,7 +141,9 @@ generation: ${generationFromActiveFilePath}
 }
 
 function getActiveFileParentLink(activeFile :TFile){
+    //@ts-ignore
     const srcPath = activeFile.parent.parent.path
+      //@ts-ignore
     const srcFile = activeFile.parent.name.toLowerCase()
     
     return `[[${srcPath}/${srcFile}|${srcFile}]]`
@@ -150,7 +159,7 @@ tags:
   - Cluster
 generation: 0
 ---
-| [Create Son](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newSon) | [Delete ](obsidian://advanced-uri?commandname=A%20new%20cluster:%20DeleteActiveNote) |
+| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- |
 `
 
@@ -174,7 +183,7 @@ tags:
   - Cluster
 generation: 0
 ---
-| [Create Son](obsidian://advanced-uri?commandname=A%20new%20cluster:%20newSon) | [Delete ](obsidian://advanced-uri?commandname=A%20new%20cluster:%20DeleteActiveNote) |
+| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- |
 
 ![clusterSvg](${encodedBase64Img.intro})
