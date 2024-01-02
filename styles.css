@@ -1,7 +1,10 @@
 
 /* - PC FAMILY MODAL STYLES-------------------*/
 
-.prompt{
+.prompt:has(.brother),
+.prompt:has(.son),
+.prompt:has(.cluster),
+.prompt:has(.delete){
     
     
     display: grid !important;
@@ -12,6 +15,29 @@
     
 
 }
+
+.prompt:has(.brother) .modal-content,
+.prompt:has(.son) .modal-content,
+.prompt:has(.cluster) .modal-content,
+.prompt:has(.delete) .modal-content,
+.prompt:has(.noThing) .modal-content{
+    
+  display: none
+
+}
+.prompt:has(.brother) .modal-close-button,
+.prompt:has(.son) .modal-close-button,
+.prompt:has(.cluster) .modal-close-button,
+.prompt:has(.delete) .modal-close-button,
+.prompt:has(.noThing) .modal-close-button{
+    
+ 
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+
+}
+
  .prompt-input {
     border: none !important;
 }
@@ -35,8 +61,10 @@
     background-color:hsl(5, 83%, 42%)
 }
 .prompt:has(.noThing){
+    display: grid;
     border-radius: 0 !important;
     grid-template-columns: 65px 1fr;
+    align-items: center;
 }
 .prompt:has(.noThing) .delMsg{
     padding-left: 0 !important;
@@ -94,17 +122,46 @@
     justify-self: center;
     font-size: var(--size-4-5);
 }
+.is-phone .prompt:has(.son) .modal-close-button,
+.is-phone .prompt:has(.cluster) .modal-close-button,
+.is-phone .prompt:has(.brother) .modal-close-button,
+.is-phone .prompt:has(.delete) .modal-close-button,
+.is-phone .prompt:has(.noThing) .modal-close-button{
+    
+ 
+    top: 0;
+    right: 0;
+    color:var(--text-normal) ;
+    background-color: hsl(0deg 0% 55.12% / 36%);
+    height: 57px;
+    width: 57px;
+    transform: translateY(0%);
 
+
+}
+.is-phone .prompt:has(.son) .modal-close-button::before,
+.is-phone .prompt:has(.cluster) .modal-close-button::before,
+.is-phone .prompt:has(.brother) .modal-close-button::before,
+.is-phone .prompt:has(.delete) .modal-close-button::before,
+.is-phone .prompt:has(.noThing) .modal-close-button::before{
+    
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+
+}
 
 /* -BUTTONS STYLES-------------------*/
 
 /* *new son*/
-.table-cell-wrapper:has(a[href*="newSon"]) ,
-th:has(a[href*="newSon"]) {
+.table-cell-wrapper:has(a[href*="new_son"]) ,
+th:has(a[href*="new_son"]) {
     padding: 0 !important;
     background: hsl(341, 50%, 30%) !important;
 }
-a[href*="newSon"] {
+a[href*="new_son"] {
     display: grid;
     height: 100%;
     width: 100%;
@@ -119,12 +176,12 @@ a[href*="newSon"] {
 }
 
 /* *new Brother*/
-.table-cell-wrapper:has(a[href*="newBrother"]),
-th:has(a[href*="newBrother"]) {
+.table-cell-wrapper:has(a[href*="new_brother"]),
+th:has(a[href*="new_brother"]) {
     padding: 0 !important;
     background: hsl(210, 50%, 30%) !important
 }
-a[href*="newBrother"] {
+a[href*="new_brother"] {
     display: grid;
     height: 100%;
     width: 100%;
@@ -140,12 +197,12 @@ a[href*="newBrother"] {
 }
 
 /* *Delete*/
-.table-cell-wrapper:has(a[href*="DeleteActiveNote"]) ,
-th:has(a[href*="DeleteActiveNote"]) {
+.table-cell-wrapper:has(a[href*="delete_active_note"]) ,
+th:has(a[href*="delete_active_note"]) {
     padding: 0 !important;
     background: hsl(5, 83%, 42%) !important
 }
-a[href*="DeleteActiveNote"] {
+a[href*="delete_active_note"] {
     display: grid;
     height: 100%;
     width: 100%;
@@ -169,3 +226,138 @@ a[href*="DeleteActiveNote"] {
     cursor: default !important;
     pointer-events: none !important;
   }
+
+/*- animation */
+
+.inputMsgCon.son:hover svg{
+   
+    -webkit-animation: jello-vertical 0.9s both;
+    animation: jello-vertical 0.9s both;
+}
+.prompt:has(.delete):hover svg{
+   
+    -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+    animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+}
+
+
+@-webkit-keyframes jello-vertical {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+    30% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+              transform: scale3d(0.75, 1.25, 1);
+    }
+    40% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+              transform: scale3d(1.25, 0.75, 1);
+    }
+    50% {
+      -webkit-transform: scale3d(0.85, 1.15, 1);
+              transform: scale3d(0.85, 1.15, 1);
+    }
+    65% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+              transform: scale3d(1.05, 0.95, 1);
+    }
+    75% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+              transform: scale3d(0.95, 1.05, 1);
+    }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+  }
+  @keyframes jello-vertical {
+    0% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+    30% {
+      -webkit-transform: scale3d(0.75, 1.25, 1);
+              transform: scale3d(0.75, 1.25, 1);
+    }
+    40% {
+      -webkit-transform: scale3d(1.25, 0.75, 1);
+              transform: scale3d(1.25, 0.75, 1);
+    }
+    50% {
+      -webkit-transform: scale3d(0.85, 1.15, 1);
+              transform: scale3d(0.85, 1.15, 1);
+    }
+    65% {
+      -webkit-transform: scale3d(1.05, 0.95, 1);
+              transform: scale3d(1.05, 0.95, 1);
+    }
+    75% {
+      -webkit-transform: scale3d(0.95, 1.05, 1);
+              transform: scale3d(0.95, 1.05, 1);
+    }
+    100% {
+      -webkit-transform: scale3d(1, 1, 1);
+              transform: scale3d(1, 1, 1);
+    }
+  }
+  
+
+
+@-webkit-keyframes shake-horizontal {
+    0%,
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70% {
+      -webkit-transform: translateX(-10px);
+              transform: translateX(-10px);
+    }
+    20%,
+    40%,
+    60% {
+      -webkit-transform: translateX(10px);
+              transform: translateX(10px);
+    }
+    80% {
+      -webkit-transform: translateX(8px);
+              transform: translateX(8px);
+    }
+    90% {
+      -webkit-transform: translateX(-8px);
+              transform: translateX(-8px);
+    }
+  }
+  @keyframes shake-horizontal {
+    0%,
+    100% {
+      -webkit-transform: translateX(0);
+              transform: translateX(0);
+    }
+    10%,
+    30%,
+    50%,
+    70% {
+      -webkit-transform: translateX(-10px);
+              transform: translateX(-10px);
+    }
+    20%,
+    40%,
+    60% {
+      -webkit-transform: translateX(10px);
+              transform: translateX(10px);
+    }
+    80% {
+      -webkit-transform: translateX(8px);
+              transform: translateX(8px);
+    }
+    90% {
+      -webkit-transform: translateX(-8px);
+              transform: translateX(-8px);
+    }
+  }
+  

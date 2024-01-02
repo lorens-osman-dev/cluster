@@ -16,7 +16,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     //- Commands
     this.addCommand({
       id: "New-Brother",
-      name: "newBrother",
+      name: "new_brother",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
@@ -25,7 +25,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
     this.addCommand({
       id: "New-Son",
-      name: "newSon",
+      name: "new_son",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
@@ -34,7 +34,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
     this.addCommand({
       id: "New-Cluster",
-      name: "newCluster",
+      name: "new_cluster",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
@@ -43,7 +43,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
     this.addCommand({
       id: "Delete-Active-Note",
-      name: "DeleteActiveNote",
+      name: "delete_active_note",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();

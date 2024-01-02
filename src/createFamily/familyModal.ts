@@ -10,7 +10,7 @@ export default class familyModal extends Modal {
   folder: TFolder;
   newDirectoryPath: string;
   inputEl: HTMLInputElement;
-  shouldMakeDir: string;
+  shouldMakeDir: string | undefined;
   inputListener: EventListener;
   createType: string;
   constructor(app: App, mode: NewFileLocation, createType: string) {
@@ -26,9 +26,10 @@ export default class familyModal extends Modal {
 
     //#region Make modal
     this.modalEl.className = 'prompt';
-    this.modalEl.innerHTML = '';
+   
     //svg and placeholders
     let getActiveFile = app.workspace.getActiveFile()
+
     if(getActiveFile === null){
  
       this.inputEl.addClasses(["prompt-input","inputDelete"])
@@ -40,10 +41,10 @@ export default class familyModal extends Modal {
 
     this.modalEl.appendChild(text);
     }else if (this.createType == "newSon") {
-        this.inputEl.placeholder = `Type the son name of [${getActiveFile}] note`;
+        this.inputEl.placeholder = `Type the son name of [${getActiveFile.basename}] note`;
         this.modalEl.appendChild(svgElements().son());
       } else if (this.createType == "newBrother") {
-        this.inputEl.placeholder = `Type the brother name of [${getActiveFile}] note`;
+        this.inputEl.placeholder = `Type the brother name of [${getActiveFile.basename}] note`;
         this.modalEl.appendChild(svgElements().brother());
       } else if (this.createType == "newCluster") {
         this.inputEl.placeholder = `Type the new Cluster name`;
@@ -71,23 +72,24 @@ export default class familyModal extends Modal {
       // prevent enter after note creation
       evt.preventDefault();
 
+      console.log(evt)
       // get current active file
       const getActiveFile = app.workspace.getActiveFile();
   
-      const currentActiveFileName = getActiveFile.basename;
+      const currentActiveFileName = getActiveFile?.basename;
 
 
       //-make clusterSon to the current active file
        if (this.createType == "newSon") {
-        if(getActiveFile.path.startsWith("[CLUSTERS]")){
+        if(getActiveFile?.path.startsWith("[CLUSTERS]")){
           if(getActiveFile.basename.endsWith("-cluster") ){
             if(  (getActiveFile.path.match(/\//g) || []).length == 1  ){
               const result = await templates(getActiveFile,"clusterSon");
               if (result.state) {
                
-                const sonsFolderPath = `${getActiveFile.parent.path}/${currentActiveFileName}`;
+                const sonsFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
                 await this.createDirectory("", sonsFolderPath);
-                const newCreatedSonsFolder = getActiveFile.parent.children.find(
+                const newCreatedSonsFolder = getActiveFile.parent?.children.find(
                   (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
                 );
                 
@@ -108,10 +110,10 @@ export default class familyModal extends Modal {
               const result = await templates(getActiveFile,"normalSon");
               
               if (result.state) {
-                const sonsFolderPath = `${getActiveFile.parent.path}/${currentActiveFileName.toUpperCase()}`;
+                const sonsFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName?.toUpperCase()}`;
                 await this.createDirectory("", sonsFolderPath);
-                const newCreatedSonsFolder = getActiveFile.parent.children.find(
-                  (item: any) => item instanceof TFolder && item.name == currentActiveFileName.toUpperCase()
+                const newCreatedSonsFolder = getActiveFile.parent!.children.find(
+                  (item: any) => item instanceof TFolder && item.name == currentActiveFileName!.toUpperCase()
                 );
                 
                 // @ts-ignore
@@ -132,15 +134,15 @@ export default class familyModal extends Modal {
       }
       //-make Brother to the current active file
       else if (this.createType == "newBrother") {
-        if(getActiveFile.path.startsWith("[CLUSTERS]")){
+        if(getActiveFile!.path.startsWith("[CLUSTERS]")){
         // the next if statement to prevent make brother to a cluster
-          if (currentActiveFileName.endsWith("-cluster")) {
+          if (currentActiveFileName!.endsWith("-cluster")) {
             new Notice(`You cant make Brother to a cluster.\nCreate new cluster instead`);
           } else {
             const result = await templates(getActiveFile,"brother");
 
             if (result.state == true) {
-              this.setFolder( getActiveFile.parent, "");
+              this.setFolder( getActiveFile!.parent!, "");
               this.createNewNote(this.inputEl.value, result.brotherTemplate);
             }
           }
@@ -260,6 +262,7 @@ export default class familyModal extends Modal {
       // Create the file and open it in the active leaf
       let leaf = this.app.workspace.getLeaf(false);
       if (this.mode === NewFileLocation.NewPane) {
+        //@ts-ignore
         leaf = this.app.workspace.splitLeafOrActive();
       } else if (this.mode === NewFileLocation.NewTab) {
         leaf = this.app.workspace.getLeaf(true);
