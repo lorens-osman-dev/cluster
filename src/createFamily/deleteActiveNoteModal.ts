@@ -16,7 +16,7 @@ export default class deleteActiveNoteModal extends Modal {
     this.mode = mode;
 
     //-Create input
-    const getActiveFile = app.workspace.getActiveFile();
+    const getActiveFile = this.app.workspace.getActiveFile();
    
     this.inputEl = document.createElement("input");
     this.inputEl.type = "text";
@@ -61,7 +61,7 @@ export default class deleteActiveNoteModal extends Modal {
       evt.preventDefault();
 
       // get current active file
-      const getActiveFile = app.workspace.getActiveFile();
+      const getActiveFile = this.app.workspace.getActiveFile();
       
       
       //parent folder info 
@@ -83,7 +83,6 @@ export default class deleteActiveNoteModal extends Modal {
         //delete current active file + delete its Sons
         await this.app.vault.adapter.remove(getActiveFile!.path)
         await this.app.vault.adapter.rmdir(theRelatedSonsFolder.path , true)
-        console.log(theRelatedSonsFolder)
         if(theContainingFolder == 2){
           await this.app.vault.adapter.rmdir(theContainingFolderPath , true)
         }

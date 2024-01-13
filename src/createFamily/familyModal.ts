@@ -6,6 +6,7 @@ import { templates , clusterTemplate} from "./templates";
 
 
 export default class familyModal extends Modal {
+  app: App;
   mode: NewFileLocation;
   folder: TFolder;
   newDirectoryPath: string;
@@ -15,6 +16,7 @@ export default class familyModal extends Modal {
   createType: string;
   constructor(app: App, mode: NewFileLocation, createType: string) {
     super(app);
+    this.app = app;
     this.createType = createType;
     this.mode = mode;
 
@@ -28,7 +30,7 @@ export default class familyModal extends Modal {
     this.modalEl.className = 'prompt';
    
     //svg and placeholders
-    let getActiveFile = app.workspace.getActiveFile()
+    let getActiveFile = this.app.workspace.getActiveFile()
 
     if(getActiveFile === null){
  
@@ -71,17 +73,15 @@ export default class familyModal extends Modal {
     if (evt.key === 'Enter') {
       // prevent enter after note creation
       evt.preventDefault();
-
-      console.log(evt)
       // get current active file
-      const getActiveFile = app.workspace.getActiveFile();
+      const getActiveFile = this.app.workspace.getActiveFile();
   
       const currentActiveFileName = getActiveFile?.basename;
 
 
       //-make clusterSon to the current active file
        if (this.createType == "newSon") {
-        if(getActiveFile?.path.startsWith("[CLUSTERS]")){
+        if(getActiveFile?.path.startsWith("CLUSTERS")){
           if(getActiveFile.basename.endsWith("-cluster") ){
             if(  (getActiveFile.path.match(/\//g) || []).length == 1  ){
               const result = await templates(getActiveFile,"clusterSon");
@@ -134,7 +134,7 @@ export default class familyModal extends Modal {
       }
       //-make Brother to the current active file
       else if (this.createType == "newBrother") {
-        if(getActiveFile!.path.startsWith("[CLUSTERS]")){
+        if(getActiveFile!.path.startsWith("CLUSTERS")){
         // the next if statement to prevent make brother to a cluster
           if (currentActiveFileName!.endsWith("-cluster")) {
             new Notice(`You cant make Brother to a cluster.\nCreate new cluster instead`);
@@ -155,7 +155,7 @@ export default class familyModal extends Modal {
 
 
         const rootChildren = this.app.vault.getRoot().children;
-        const ClustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == "[CLUSTERS]");
+        const ClustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == "CLUSTERS");
         // @ts-ignore
         this.setFolder(ClustersFolder, "");
         const clusterName = `${this.inputEl.value}-cluster`;

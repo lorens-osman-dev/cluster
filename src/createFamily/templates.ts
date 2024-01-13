@@ -3,10 +3,10 @@ import { TFile } from "obsidian";
 import IF from "./bigIF";
 
 const commandsNames = {
-    newSon : "new_son",
-    newBrother :"new_brother",
-    newCluster :"new_cluster",
-    deleteActiveNote :"delete_active_note"
+    newSon : "New son".replace(/ /g, "%20"),
+    newBrother :"New brother".replace(/ /g, "%20"),
+    newCluster :"New cluster".replace(/ /g, "%20"),
+    deleteActiveNote :"Delete active note".replace(/ /g, "%20")
 }
 export async function templates(activeFile: any ,type :string) {
     const result = {
@@ -58,7 +58,7 @@ generation: ${generationFromActiveFilePath}
 
         IF.ELSE(() => {
             const frontmatterProperties =  this.app.metadataCache.getFileCache(activeFile).frontmatter;
-            const clusterTagName = activeFile.path.slice(11).replace(/\/.*$/, '')
+            const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '')
             const isClusterTagExist = frontmatterProperties?.tags.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)    
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
@@ -99,7 +99,7 @@ generation: ${generationFromActiveFilePath+1}
 
         IF.ELSE(() => {
             const frontmatterProperties =  this.app.metadataCache.getFileCache(activeFile).frontmatter;
-            const clusterTagName = activeFile.path.slice(11).replace(/\/.*$/, '')
+            const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '')
             const isClusterTagExist = frontmatterProperties?.tags.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)    
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
@@ -190,7 +190,29 @@ generation: 0
 
 # Cluster plugin mainly designed to simplify the process of note clustering on mobile devices and work well on PCs ether.
 
+### Note Clustering
+Note clustering is a way to create a hierarchy or structure among your notes, making it easier to navigate and understand the relationships between them.
+**Cluster Plugin** provides commands, in-note buttons,  and ribbon actions to make clustering process easier on mobile devices and work well on PCs ether.
+**Simple Example:**
+Imagine you have notes about different animals. You could create "Animals cluster"  like:
+- Animals (cluster)
+    - Mammals (first generation note)
+        - Dogs (second generation note)
+        - Cats (second generation note)
+        - Whales (second generation note)
+        
+    - Birds (first generation  note)
+        - Eagles (second generation note)
+        - Penguins (second generation note)
+        - Owls (second generation note)
 
+
+1. From ribbon or using "New cluster" command create "Animals" cluster .
+2. From new opened note click "Create Son" with name "Mammals"
+3. From new opened "Mammals" note click "Create Son" with name "Dogs"
+4. From new opened "Dogs" note click "Create Brother" with name "Cats", 
+alternatively you go back to  "Mammals" note click "Create Son" with name "Cats"
+5. Continue ...
 
 ### 🤩🪄 Features
 

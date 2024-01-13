@@ -8,7 +8,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
   actions = new Map();
 
   async onload() {
-    console.log("loading plugin");
+    console.log("loading Cluster plugin");
     
 
     //-Check For Advanced URI _Plugin
@@ -16,7 +16,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     //- Commands
     this.addCommand({
       id: "New-Brother",
-      name: "new_brother",
+      name: "New brother",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
@@ -25,7 +25,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
     this.addCommand({
       id: "New-Son",
-      name: "new_son",
+      name: "New son",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
@@ -34,7 +34,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
     this.addCommand({
       id: "New-Cluster",
-      name: "new_cluster",
+      name: "new cluster",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
@@ -43,7 +43,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
     this.addCommand({
       id: "Delete-Active-Note",
-      name: "delete_active_note",
+      name: "Delete active note",
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
@@ -71,14 +71,14 @@ export default class AdvancedNewFilePlugin extends Plugin {
   //- createClusterFolder
   async createClusterFolder() {
     try {
-      const folderExists = await this.app.vault.adapter.exists("/[CLUSTERS]");
-      if (!folderExists) await this.app.vault.createFolder("/[CLUSTERS]");
+      const folderExists = await this.app.vault.adapter.exists("/CLUSTERS");
+      if (!folderExists) await this.app.vault.createFolder("/CLUSTERS");
       //@ts-ignore
-      const isOtherClusters = this.app.vault.getRoot().children?.find((item : any) => item instanceof TFolder && item.name =="[CLUSTERS]").children.length
+      const isOtherClusters = this.app.vault.getRoot().children?.find((item : any) => item instanceof TFolder && item.name =="CLUSTERS").children.length
       if(isOtherClusters == 0){
-        const fileExists = await this.app.vault.adapter.exists("/[CLUSTERS]/First-cluster.md");
+        const fileExists = await this.app.vault.adapter.exists("/CLUSTERS/First-cluster.md");
 
-        if (!fileExists) await this.app.vault.create("/[CLUSTERS]/first-cluster.md", firstClusterTemplate);
+        if (!fileExists) await this.app.vault.create("/CLUSTERS/first-cluster.md", firstClusterTemplate);
 
       }
      
@@ -102,6 +102,6 @@ Create Son, Create Brother links to work
   }
 
   onunload() {
-    console.log("unloading plugin");
+    console.log("unloading Cluster plugin");
   }
 }

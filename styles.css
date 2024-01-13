@@ -1,18 +1,17 @@
-
 /* - PC FAMILY MODAL STYLES-------------------*/
 
 .prompt:has(.brother),
 .prompt:has(.son),
 .prompt:has(.cluster),
-.prompt:has(.delete){
-    
-    
-    display: grid !important;
-    align-items: center !important;
-    grid-template-columns: 30% 70%;
+.prompt:has(.delete) {
 
-    top: 30% !important;
-    
+
+  display: grid !important;
+  align-items: center !important;
+  grid-template-columns: 30% 70%;
+
+  top: 30% !important;
+
 
 }
 
@@ -20,135 +19,162 @@
 .prompt:has(.son) .modal-content,
 .prompt:has(.cluster) .modal-content,
 .prompt:has(.delete) .modal-content,
-.prompt:has(.noThing) .modal-content{
-    
-  display: none
+.prompt:has(.noThing) .modal-content {
 
+  display: none
 }
+
 .prompt:has(.brother) .modal-close-button,
 .prompt:has(.son) .modal-close-button,
 .prompt:has(.cluster) .modal-close-button,
 .prompt:has(.delete) .modal-close-button,
-.prompt:has(.noThing) .modal-close-button{
-    
- 
+.prompt:has(.noThing) .modal-close-button {
+
+
   top: 50%;
   transform: translateY(-50%);
   z-index: 1000;
 
 }
 
- .prompt-input {
-    border: none !important;
-}
-.inputMsgCon{
-    background-color: hsl(340.53deg 50% 30%);
-    display: grid;
-    grid-template-columns: 65px 1fr;
-    align-items: center;
-    font-size: var(--font-ui-medium);
-    font-weight: bold;
-    justify-items: center;
-    height: 57px;
-}
-.brother{
-    background-color: hsl(210.38deg 50% 30%)
-}
-.cluster{
-    background-color:hsl(154.99deg 50% 30%)
-}
-.delete{
-    background-color:hsl(5, 83%, 42%)
-}
-.prompt:has(.noThing){
-    display: grid;
-    border-radius: 0 !important;
-    grid-template-columns: 65px 1fr;
-    align-items: center;
-}
-.prompt:has(.noThing) .delMsg{
-    padding-left: 0 !important;
-   
-}
-.noThing{
-    background-color: var(--background-primary);
-}
-.inputDelete{
-    opacity: 0.0;
-    position: absolute;
-}
-.delMsg{
-    color:var(--text-faint);
-    padding-left: var(--size-4-6);
-}
-.delMsg .delNoteNameMsg{
-    color:hsl(5, 83%, 42%);
-    text-decoration: underline;
-    
+.prompt-input {
+  border: none !important;
 }
 
-.prompt:has(.delMsg){
-    height: 85px;
+.inputMsgCon {
+  background-color: hsl(340.53deg 50% 30%);
+  display: grid;
+  grid-template-columns: 65px 1fr;
+  align-items: center;
+  font-size: var(--font-ui-medium);
+  font-weight: bold;
+  justify-items: center;
+  height: 57px;
+}
+
+.brother {
+  background-color: hsl(210.38deg 50% 30%)
+}
+
+.cluster {
+  background-color: hsl(154.99deg 50% 30%)
+}
+
+.delete {
+  background-color: hsl(5, 83%, 42%)
+}
+
+.prompt:has(.noThing) {
+  display: grid;
+  border-radius: 0 !important;
+  grid-template-columns: 65px 1fr;
+  align-items: center;
+}
+
+.prompt:has(.noThing) .delMsg {
+  padding-left: 0 !important;
+
+}
+
+.noThing {
+  background-color: var(--background-primary);
+}
+
+.inputDelete {
+  opacity: 0.0;
+  position: absolute;
+}
+
+.delMsg {
+  color: var(--text-faint);
+  padding-left: var(--size-4-6);
+}
+
+.delMsg .delNoteNameMsg {
+  color: hsl(5, 83%, 42%);
+  text-decoration: underline;
+
+}
+
+.prompt:has(.delMsg) {
+  height: 85px;
 }
 
 
-.textMsg{
-    justify-self: left;
+.textMsg {
+  justify-self: left;
 }
-.svg{
-    text-align: center;
-    height: 40px;
-    width: 40px;
+
+.svg {
+  text-align: center;
+  height: 40px;
+  width: 40px;
 }
-.clusterSvg{
-    fill: var(--text-normal) !important;
-    transform: rotate(-16deg);
+
+.inputMsgCon .lucide-baby,
+.inputMsgCon .lucide-git-compare,
+.inputMsgCon .lucide-trash-2,
+.inputMsgCon .lucide-x-circle,
+.inputMsgCon .cluster-svg {
+  text-align: center;
+  height: 40px !important;
+  width: 40px !important;
+
 }
+
+.cluster-svg {
+  fill: #dcddde00 !important;
+}
+
 /* - PHONE FAMILY MODAL STYLES-------------------*/
 
 .is-phone .prompt {
 
-    display: block !important;
-}
-.is-phone  .prompt:has(.delMsg){
-    height: inherit;
+  display: block !important;
 }
 
-.is-phone .delMsg{
-    padding: var(--size-4-4);
+.is-phone .prompt:has(.delMsg) {
+  height: inherit;
 }
-.is-phone .textMsg{
-    margin-left: -70px;
-    justify-self: center;
-    font-size: var(--size-4-5);
+
+.is-phone .delMsg {
+  padding: var(--size-4-4);
 }
+
+.is-phone .textMsg {
+  margin-left: -70px;
+  justify-self: center;
+  font-size: var(--size-4-5);
+}
+
 .is-phone .prompt:has(.son) .modal-close-button,
 .is-phone .prompt:has(.cluster) .modal-close-button,
 .is-phone .prompt:has(.brother) .modal-close-button,
 .is-phone .prompt:has(.delete) .modal-close-button,
-.is-phone .prompt:has(.noThing) .modal-close-button{
-    
- 
-    top: 0;
-    right: 0;
-    color:var(--text-normal) ;
-    background-color: hsl(0deg 0% 55.12% / 36%);
-    height: 57px;
-    width: 57px;
-    transform: translateY(0%);
+.is-phone .prompt:has(.noThing) .modal-close-button {
+
+
+  top: 0;
+  right: 0;
+  color: var(--text-normal);
+  background-color: hsl(0deg 0% 55.12% / 36%);
+  height: 57px;
+  width: 57px;
+  transform: translateY(0%);
 
 
 }
+
 .is-phone .prompt:has(.son) .modal-close-button::before,
 .is-phone .prompt:has(.cluster) .modal-close-button::before,
 .is-phone .prompt:has(.brother) .modal-close-button::before,
 .is-phone .prompt:has(.delete) .modal-close-button::before,
-.is-phone .prompt:has(.noThing) .modal-close-button::before{
-    
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+.is-phone .prompt:has(.noThing) .modal-close-button::before {
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 
 
 }
@@ -156,208 +182,235 @@
 /* -BUTTONS STYLES-------------------*/
 
 /* *new son*/
-.table-cell-wrapper:has(a[href*="new_son"]) ,
-th:has(a[href*="new_son"]) {
-    padding: 0 !important;
-    background: hsl(341, 50%, 30%) !important;
+.table-cell-wrapper:has(a[href*="New%20son"]),
+th:has(a[href*="New%20son"]) {
+  padding: 0 !important;
+  background: hsl(341, 50%, 30%) !important;
 }
-a[href*="new_son"] {
-    display: grid;
-    height: 100%;
-    width: 100%;
-    color: var(--text-normal);
-    background-color: none;
-    text-decoration-line: none !important;
-    background-image: none !important;
-    background-color: none !important;
-    align-content: center;
-    justify-items: center;
-    padding: 2px 10px;
+
+a[href*="New%20son"] {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  color: var(--text-normal);
+  background-color: none;
+  text-decoration-line: none !important;
+  background-image: none !important;
+  background-color: none !important;
+  align-content: center;
+  justify-items: center;
+  padding: 2px 10px;
 }
 
 /* *new Brother*/
-.table-cell-wrapper:has(a[href*="new_brother"]),
-th:has(a[href*="new_brother"]) {
-    padding: 0 !important;
-    background: hsl(210, 50%, 30%) !important
+.table-cell-wrapper:has(a[href*="New%20brother"]),
+th:has(a[href*="New%20brother"]) {
+  padding: 0 !important;
+  background: hsl(210, 50%, 30%) !important
 }
-a[href*="new_brother"] {
-    display: grid;
-    height: 100%;
-    width: 100%;
-    color: var(--text-normal);
-    background-color: none;
-    text-decoration-line: none !important;
-    background-image: none !important;
-    background-color: none !important;
-    align-content: center;
-    justify-items: center;
-    padding: 2px 10px;
+
+a[href*="New%20brother"] {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  color: var(--text-normal);
+  background-color: none;
+  text-decoration-line: none !important;
+  background-image: none !important;
+  background-color: none !important;
+  align-content: center;
+  justify-items: center;
+  padding: 2px 10px;
 
 }
 
 /* *Delete*/
-.table-cell-wrapper:has(a[href*="delete_active_note"]) ,
-th:has(a[href*="delete_active_note"]) {
-    padding: 0 !important;
-    background: hsl(5, 83%, 42%) !important
+.table-cell-wrapper:has(a[href*="Delete%20active%20note"]),
+th:has(a[href*="Delete%20active%20note"]) {
+  padding: 0 !important;
+  background: hsl(5, 83%, 42%) !important
 }
-a[href*="delete_active_note"] {
-    display: grid;
-    height: 100%;
-    width: 100%;
-    color: var(--text-normal);
-    background-color: none;
-    text-decoration-line: none !important;
-    background-image: none !important;
-    background-color: none !important;
-    align-content: center;
-    justify-items: center;
-    padding: 2px 10px;
+
+a[href*="Delete%20active%20note"] {
+  display: grid;
+  height: 100%;
+  width: 100%;
+  color: var(--text-normal);
+  background-color: none;
+  text-decoration-line: none !important;
+  background-image: none !important;
+  background-color: none !important;
+  align-content: center;
+  justify-items: center;
+  padding: 2px 10px;
 
 }
 
-.table-wrapper:has(.external-link) .table-row-btn ,
+.table-wrapper:has(.external-link) .table-row-btn,
 .table-wrapper:has(.external-link) .table-col-btn,
 .table-wrapper:has(.external-link) .table-row-drag-handle,
-.table-wrapper:has(.external-link) .table-col-drag-handle{
-    display: none !important;
+.table-wrapper:has(.external-link) .table-col-drag-handle {
+  display: none !important;
 
-    cursor: default !important;
-    pointer-events: none !important;
-  }
+  cursor: default !important;
+  pointer-events: none !important;
+}
 
 /*- animation */
 
-.inputMsgCon.son:hover svg{
-   
-    -webkit-animation: jello-vertical 0.9s both;
-    animation: jello-vertical 0.9s both;
+.inputMsgCon.son:hover svg {
+
+  -webkit-animation: jello-vertical 0.9s both;
+  animation: jello-vertical 0.9s both;
 }
-.prompt:has(.delete):hover svg{
-   
-    -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-    animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+
+.prompt:has(.delete):hover svg {
+
+  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
+  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 }
 
 
 @-webkit-keyframes jello-vertical {
-    0% {
-      -webkit-transform: scale3d(1, 1, 1);
-              transform: scale3d(1, 1, 1);
-    }
-    30% {
-      -webkit-transform: scale3d(0.75, 1.25, 1);
-              transform: scale3d(0.75, 1.25, 1);
-    }
-    40% {
-      -webkit-transform: scale3d(1.25, 0.75, 1);
-              transform: scale3d(1.25, 0.75, 1);
-    }
-    50% {
-      -webkit-transform: scale3d(0.85, 1.15, 1);
-              transform: scale3d(0.85, 1.15, 1);
-    }
-    65% {
-      -webkit-transform: scale3d(1.05, 0.95, 1);
-              transform: scale3d(1.05, 0.95, 1);
-    }
-    75% {
-      -webkit-transform: scale3d(0.95, 1.05, 1);
-              transform: scale3d(0.95, 1.05, 1);
-    }
-    100% {
-      -webkit-transform: scale3d(1, 1, 1);
-              transform: scale3d(1, 1, 1);
-    }
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
   }
-  @keyframes jello-vertical {
-    0% {
-      -webkit-transform: scale3d(1, 1, 1);
-              transform: scale3d(1, 1, 1);
-    }
-    30% {
-      -webkit-transform: scale3d(0.75, 1.25, 1);
-              transform: scale3d(0.75, 1.25, 1);
-    }
-    40% {
-      -webkit-transform: scale3d(1.25, 0.75, 1);
-              transform: scale3d(1.25, 0.75, 1);
-    }
-    50% {
-      -webkit-transform: scale3d(0.85, 1.15, 1);
-              transform: scale3d(0.85, 1.15, 1);
-    }
-    65% {
-      -webkit-transform: scale3d(1.05, 0.95, 1);
-              transform: scale3d(1.05, 0.95, 1);
-    }
-    75% {
-      -webkit-transform: scale3d(0.95, 1.05, 1);
-              transform: scale3d(0.95, 1.05, 1);
-    }
-    100% {
-      -webkit-transform: scale3d(1, 1, 1);
-              transform: scale3d(1, 1, 1);
-    }
+
+  30% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
   }
-  
+
+  40% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(0.85, 1.15, 1);
+    transform: scale3d(0.85, 1.15, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
+@keyframes jello-vertical {
+  0% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+
+  30% {
+    -webkit-transform: scale3d(0.75, 1.25, 1);
+    transform: scale3d(0.75, 1.25, 1);
+  }
+
+  40% {
+    -webkit-transform: scale3d(1.25, 0.75, 1);
+    transform: scale3d(1.25, 0.75, 1);
+  }
+
+  50% {
+    -webkit-transform: scale3d(0.85, 1.15, 1);
+    transform: scale3d(0.85, 1.15, 1);
+  }
+
+  65% {
+    -webkit-transform: scale3d(1.05, 0.95, 1);
+    transform: scale3d(1.05, 0.95, 1);
+  }
+
+  75% {
+    -webkit-transform: scale3d(0.95, 1.05, 1);
+    transform: scale3d(0.95, 1.05, 1);
+  }
+
+  100% {
+    -webkit-transform: scale3d(1, 1, 1);
+    transform: scale3d(1, 1, 1);
+  }
+}
+
 
 
 @-webkit-keyframes shake-horizontal {
-    0%,
-    100% {
-      -webkit-transform: translateX(0);
-              transform: translateX(0);
-    }
-    10%,
-    30%,
-    50%,
-    70% {
-      -webkit-transform: translateX(-10px);
-              transform: translateX(-10px);
-    }
-    20%,
-    40%,
-    60% {
-      -webkit-transform: translateX(10px);
-              transform: translateX(10px);
-    }
-    80% {
-      -webkit-transform: translateX(8px);
-              transform: translateX(8px);
-    }
-    90% {
-      -webkit-transform: translateX(-8px);
-              transform: translateX(-8px);
-    }
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
-  @keyframes shake-horizontal {
-    0%,
-    100% {
-      -webkit-transform: translateX(0);
-              transform: translateX(0);
-    }
-    10%,
-    30%,
-    50%,
-    70% {
-      -webkit-transform: translateX(-10px);
-              transform: translateX(-10px);
-    }
-    20%,
-    40%,
-    60% {
-      -webkit-transform: translateX(10px);
-              transform: translateX(10px);
-    }
-    80% {
-      -webkit-transform: translateX(8px);
-              transform: translateX(8px);
-    }
-    90% {
-      -webkit-transform: translateX(-8px);
-              transform: translateX(-8px);
-    }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
   }
-  
+
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}
+
+@keyframes shake-horizontal {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}

@@ -1,3 +1,5 @@
+import { addIcon, setIcon } from "obsidian";
+
 //@ts-ignore
 export default function svgElements(){
     
@@ -8,40 +10,7 @@ export default function svgElements(){
             con.classList.add("inputMsgCon","son");
 
             // 2 - SVG Element
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            svg.setAttribute("width", "48");
-            svg.setAttribute("height", "48");
-            svg.setAttribute("viewBox", "0 0 24 24");
-            svg.setAttribute("fill", "none");
-            svg.setAttribute("stroke", "currentColor");
-            svg.setAttribute("stroke-width", "1.25");
-            svg.setAttribute("stroke-linecap", "round");
-            svg.setAttribute("stroke-linejoin", "round");
-            svg.classList.add("lucide", "lucide-baby", "svg","lorens");
-
-            // Path 1
-            const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path1.setAttribute("d", "M9 12h.01");
-            svg.appendChild(path1);
-
-            // Path 2
-            const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path2.setAttribute("d", "M15 12h.01");
-            svg.appendChild(path2);
-
-            // Path 3
-            const path3 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path3.setAttribute("d", "M10 16c.5.3 1.2.5 2 .5s1.5-.2 2-.5");
-            svg.appendChild(path3);
-
-            // Path 4
-            const path4 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path4.setAttribute("d", "M19 6.3a9 9 0 0 1 1.8 3.9 2 2 0 0 1 0 3.6 9 9 0 0 1-17.6 0 2 2 0 0 1 0-3.6A9 9 0 0 1 12 3c2 0 3.5 1.1 3.5 2.5s-.9 2.5-2 2.5c-.8 0-1.5-.4-1.5-1");
-            svg.appendChild(path4);
-
-            // Append SVG to the container
-            con.appendChild(svg);
+            setIcon(con, 'baby');
 
             // 3 - Text Element
             const text = document.createElement('div');
@@ -59,44 +28,7 @@ export default function svgElements(){
             con.classList.add("inputMsgCon","brother");
 
             // 2 - SVG Element
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            svg.setAttribute("width", "48");
-            svg.setAttribute("height", "48");
-            svg.setAttribute("viewBox", "0 0 24 24");
-            svg.setAttribute("fill", "none");
-            svg.setAttribute("stroke", "currentColor");
-            svg.setAttribute("stroke-width", "1");
-            svg.setAttribute("stroke-linecap", "round");
-            svg.setAttribute("stroke-linejoin", "round");
-            svg.classList.add("lucide", "lucide-git-compare", "svg");
-
-            // Circle 1
-            const circle1 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            circle1.setAttribute("cx", "18");
-            circle1.setAttribute("cy", "18");
-            circle1.setAttribute("r", "3");
-            svg.appendChild(circle1);
-
-            // Circle 2
-            const circle2 = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            circle2.setAttribute("cx", "6");
-            circle2.setAttribute("cy", "6");
-            circle2.setAttribute("r", "3");
-            svg.appendChild(circle2);
-
-            // Path 1
-            const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path1.setAttribute("d", "M13 6h3a2 2 0 0 1 2 2v7");
-            svg.appendChild(path1);
-
-            // Path 2
-            const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path2.setAttribute("d", "M11 18H8a2 2 0 0 1-2-2V9");
-            svg.appendChild(path2);
-
-            // Append SVG to the container
-            con.appendChild(svg);
+            setIcon(con , "git-compare")
 
             // 3 - Text Element
             const text = document.createElement('div');
@@ -114,38 +46,16 @@ export default function svgElements(){
             con.classList.add("inputMsgCon","cluster");
 
             // 2 - SVG Element
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            svg.setAttribute("viewBox", "0 0 16 16");
-            svg.setAttribute("class", "clusterSvg");
-            svg.setAttribute("version", "1.1");
-
-            // G Elements
-            const g1 = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            g1.setAttribute("id", "SVGRepo_bgCarrier");
-            g1.setAttribute("stroke-width", "0");
-
-            const g2 = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            g2.setAttribute("id", "SVGRepo_tracerCarrier");
-            g2.setAttribute("stroke-linecap", "round");
-            g2.setAttribute("stroke-linejoin", "round");
-
-            const g3 = document.createElementNS("http://www.w3.org/2000/svg", "g");
-            g3.setAttribute("id", "SVGRepo_iconCarrier");
-
-            // Path 1
-            const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path1.setAttribute("d", "M14 12c-0.372 0.011-0.716 0.121-1.008 0.305l-2.212-2.155c0.434-0.547 0.708-1.239 0.74-1.993l1.57-0.157c0.225 0.556 0.76 0.941 1.385 0.941 0.823 0 1.49-0.667 1.49-1.49s-0.667-1.49-1.49-1.49c-0.749 0-1.368 0.552-1.474 1.271l-1.591 0.128c-0.224-1.136-0.973-2.060-1.978-2.521l0.308-0.839h0.26c1.099-0.008 1.986-0.9 1.986-2 0-1.105-0.895-2-2-2s-2 0.895-2 2c0 0.742 0.404 1.39 1.004 1.735l-0.27 0.855c-0.227-0.054-0.487-0.084-0.754-0.084-0.83 0-1.59 0.296-2.181 0.789l-2.994-3.004c0.141-0.224 0.225-0.497 0.225-0.79 0-0.828-0.672-1.5-1.5-1.5s-1.5 0.672-1.5 1.5c0 0.823 0.663 1.492 1.484 1.5 0.281-0.001 0.544-0.079 0.767-0.214l2.993 3.004c-0.474 0.588-0.76 1.344-0.76 2.168 0 0.015 0 0.030 0 0.045-0 0.058-0 0.108-0 0.158l-0.66 0.11c-0.313-0.72-1.019-1.214-1.839-1.214-1.105 0-2 0.895-2 2s0.895 2 2 2c1.105 0 2-0.895 2-2 0-0.020-0-0.039-0.001-0.059l0.63-0.097c0.242 0.843 0.768 1.538 1.466 1.992l-0.556 1.188c-0.161-0.049-0.347-0.078-0.539-0.080-0.006-0-0.012-0-0.017-0-1.105 0-2 0.895-2 2s0.895 2 2 2c1.105 0 2-0.895 2-2 0-0.64-0.301-1.211-0.769-1.577l0.566-1.153c0.364 0.146 0.787 0.231 1.229 0.231 0.847 0 1.621-0.311 2.216-0.824l2.176 2.124c-0.25 0.33-0.4 0.748-0.4 1.2 0 1.105 0.895 2 2 2s2-0.895 2-2c0-1.105-0.895-2-2-2 0 0 0 0 0 0zM5 15c-0.552 0-1-0.448-1-1s0.448-1 1-1c0.552 0 1 0.448 1 1s-0.448 1-1 1zM8 10.5c-1.381 0-2.5-1.119-2.5-2.5s1.119-2.5 2.5-2.5c1.381 0 2.5 1.119 2.5 2.5s-1.119 2.5-2.5 2.5z");
-
-            // Append elements
-            g3.appendChild(path1);
-            svg.appendChild(g1);
-            svg.appendChild(g2);
-            svg.appendChild(g3);
-
-            // Append SVG to the container
-            con.appendChild(svg);
-
+            addIcon("cluster-svg", `<g clip-path="url(#clip0_2_2)">
+            <path d="M87.4883 74.9859C85.1634 75.0547 83.0136 75.7421 81.1887 76.8918L67.3645 63.4256C70.0769 60.0075 71.7893 55.6833 71.9892 50.9717L81.8011 49.9906C83.2073 53.465 86.5508 55.8708 90.4568 55.8708C95.6003 55.8708 99.7688 51.7028 99.7688 46.56C99.7688 41.4172 95.6003 37.2493 90.4568 37.2493C85.7759 37.2493 81.9074 40.6986 81.2449 45.1915L71.3018 45.9914C69.9019 38.8927 65.2209 33.1188 58.9401 30.2381L60.8649 24.9953H62.4898C69.3582 24.9453 74.9016 19.3714 74.9016 12.4977C74.9016 5.5927 69.3082 0 62.4023 0C55.4965 0 49.9031 5.5927 49.9031 12.4977C49.9031 17.1343 52.428 21.1835 56.1777 23.3394L54.4903 28.6821C53.0717 28.3447 51.4468 28.1572 49.7781 28.1572C44.591 28.1572 39.8413 30.0069 36.1477 33.0875L17.4364 14.3161C18.3176 12.9163 18.8426 11.2104 18.8426 9.37949C18.8426 4.20546 14.6428 0.00624883 9.46816 0.00624883C4.29348 0.00624883 0.0937441 4.20546 0.0937441 9.37949C0.0937441 14.5223 4.23723 18.7027 9.36816 18.7527C11.1243 18.7465 12.768 18.2591 14.1616 17.4155L32.8667 36.187C29.9044 39.8613 28.117 44.5854 28.117 49.7344C28.117 49.8282 28.117 49.9219 28.117 50.0156C28.117 50.3781 28.117 50.6905 28.117 51.0029L23.9922 51.6903C22.0361 47.1912 17.6239 44.1042 12.4992 44.1042C5.5934 44.1042 0 49.6969 0 56.6019C0 63.5068 5.5934 69.0995 12.4992 69.0995C19.405 69.0995 24.9984 63.5068 24.9984 56.6019C24.9984 56.4769 24.9984 56.3582 24.9922 56.2332L28.9294 55.6271C30.4418 60.8948 33.7291 65.2378 38.0914 68.0747L34.6166 75.4983C33.6104 75.1922 32.448 75.0109 31.248 74.9984C31.2105 74.9984 31.1731 74.9984 31.1418 74.9984C24.236 74.9984 18.6426 80.5911 18.6426 87.4961C18.6426 94.4011 24.236 99.9938 31.1418 99.9938C38.0476 99.9938 43.641 94.4011 43.641 87.4961C43.641 83.4968 41.7599 79.9288 38.8351 77.6417L42.3724 70.4368C44.6472 71.3491 47.2908 71.8803 50.0531 71.8803C55.3465 71.8803 60.1837 69.9369 63.9022 66.7312L77.5014 80.0038C75.939 82.0659 75.0016 84.6779 75.0016 87.5023C75.0016 94.4073 80.595 100 87.5008 100C94.4066 100 100 94.4073 100 87.5023C100 80.5974 94.4066 75.0047 87.5008 75.0047L87.4883 74.9859ZM31.2418 93.7324C27.792 93.7324 24.9922 90.933 24.9922 87.4836C24.9922 84.0342 27.792 81.2348 31.2418 81.2348C34.6916 81.2348 37.4914 84.0342 37.4914 87.4836C37.4914 90.933 34.6916 93.7324 31.2418 93.7324ZM49.9906 65.6127C41.3599 65.6127 34.3666 58.6203 34.3666 49.9906C34.3666 41.361 41.3599 34.3686 49.9906 34.3686C58.6213 34.3686 65.6146 41.361 65.6146 49.9906C65.6146 58.6203 58.6213 65.6127 49.9906 65.6127Z" fill="#DCDDDE"/>
+            </g>
+            <defs>
+            <clipPath id="clip0_2_2">
+            <rect width="100" height="100" fill="white"/>
+            </clipPath>
+            </defs>`);
+            
+            setIcon(con ,"cluster-svg")
             // 3 - Text Element
             const text = document.createElement('div');
             text.innerText = "Create Cluster";
@@ -157,56 +67,12 @@ export default function svgElements(){
             return con;
         },
         delete:function(){
-                // 1 - Container Element
+            // 1 - Container Element
             const con = document.createElement('div');
             con.classList.add("inputMsgCon","delete");
 
             // 2 - SVG Element
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            svg.setAttribute("width", "24");
-            svg.setAttribute("height", "24");
-            svg.setAttribute("viewBox", "0 0 24 24");
-            svg.setAttribute("fill", "none");
-            svg.setAttribute("stroke", "currentColor");
-            svg.setAttribute("stroke-width", "2");
-            svg.setAttribute("stroke-linecap", "round");
-            svg.setAttribute("stroke-linejoin", "round");
-            svg.classList.add("lucide", "lucide-trash-2");
-
-            // Path 1
-            const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path1.setAttribute("d", "M3 6h18");
-            svg.appendChild(path1);
-
-            // Path 2
-            const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path2.setAttribute("d", "M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6");
-            svg.appendChild(path2);
-
-            // Path 3
-            const path3 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path3.setAttribute("d", "M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2");
-            svg.appendChild(path3);
-
-            // Line 1
-            const line1 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            line1.setAttribute("x1", "10");
-            line1.setAttribute("x2", "10");
-            line1.setAttribute("y1", "11");
-            line1.setAttribute("y2", "17");
-            svg.appendChild(line1);
-
-            // Line 2
-            const line2 = document.createElementNS("http://www.w3.org/2000/svg", "line");
-            line2.setAttribute("x1", "14");
-            line2.setAttribute("x2", "14");
-            line2.setAttribute("y1", "11");
-            line2.setAttribute("y2", "17");
-            svg.appendChild(line2);
-
-            // Append SVG to the container
-            con.appendChild(svg);
+            setIcon(con ,"trash-2")
 
             // 3 - Text Element
             const text = document.createElement('div');
@@ -224,37 +90,7 @@ export default function svgElements(){
             con.classList.add("inputMsgCon","noThing");
         
             // 2 - SVG Element
-            const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-            svg.setAttribute("xmlns", "http://www.w3.org/2000/svg");
-            svg.setAttribute("width", "24");
-            svg.setAttribute("height", "24");
-            svg.setAttribute("viewBox", "0 0 24 24");
-            svg.setAttribute("fill", "none");
-            svg.setAttribute("stroke", "currentColor");
-            svg.setAttribute("stroke-width", "2");
-            svg.setAttribute("stroke-linecap", "round");
-            svg.setAttribute("stroke-linejoin", "round");
-            svg.classList.add("lucide", "lucide-x-circle");
-        
-            // Circle
-            const circle = document.createElementNS("http://www.w3.org/2000/svg", "circle");
-            circle.setAttribute("cx", "12");
-            circle.setAttribute("cy", "12");
-            circle.setAttribute("r", "10");
-            svg.appendChild(circle);
-        
-            // Path 1
-            const path1 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path1.setAttribute("d", "m15 9-6 6");
-            svg.appendChild(path1);
-        
-            // Path 2
-            const path2 = document.createElementNS("http://www.w3.org/2000/svg", "path");
-            path2.setAttribute("d", "m9 9 6 6");
-            svg.appendChild(path2);
-        
-            // Append SVG to the container
-            con.appendChild(svg);
+           setIcon(con ,"x-circle")
         
             return con;
         },
