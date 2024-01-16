@@ -6,6 +6,7 @@ const commandsNames = {
     newSon : "New son".replace(/ /g, "%20"),
     newBrother :"New brother".replace(/ /g, "%20"),
     newCluster :"New cluster".replace(/ /g, "%20"),
+    newOrphan :"New orphan".replace(/ /g, "%20"),
     deleteActiveNote :"Delete active note".replace(/ /g, "%20")
 }
 export async function templates(activeFile: any ,type :string) {
@@ -47,8 +48,8 @@ tags:
 parent: "[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]"
 generation: ${generationFromActiveFilePath}
 ---
-| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Create Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- | ---- |
+| [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) |[Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
+| ---- | ---- | ---- | ---- |
 `
 
             return result
@@ -89,8 +90,8 @@ tags:
 parent: "${sonFileParentLink}"
 generation: ${generationFromActiveFilePath+1}
 ---
-| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Create Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- | ---- |
+| [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) |[Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
+| ---- | ---- | ---- | ---- |
 `
 
             return result
@@ -129,8 +130,8 @@ tags:
 parent: "${activeFileParentLink}"
 generation: ${generationFromActiveFilePath}
 ---
-| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Create Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- | ---- |
+| [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
+| ---- | ---- | ---- | ---- |
 `
 
             return result
@@ -148,7 +149,17 @@ function getActiveFileParentLink(activeFile :TFile){
     
     return `[[${srcPath}/${srcFile}|${srcFile}]]`
 }
+//#region ORPHAN Template
+export const orphanTemplate = 
+`---
+tags:
+  - Orphan
+---
+| [Create Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
+| ---- |---- |
 
+`;
+//#endregion
 
 //#region Cluster template handling
 export  function clusterTemplate(name: string) :string{

@@ -3,6 +3,7 @@
 .prompt:has(.brother),
 .prompt:has(.son),
 .prompt:has(.cluster),
+.prompt:has(.orphan),
 .prompt:has(.delete) {
 
 
@@ -19,6 +20,7 @@
 .prompt:has(.son) .modal-content,
 .prompt:has(.cluster) .modal-content,
 .prompt:has(.delete) .modal-content,
+.prompt:has(.orphan) .modal-content,
 .prompt:has(.noThing) .modal-content {
 
   display: none
@@ -28,6 +30,7 @@
 .prompt:has(.son) .modal-close-button,
 .prompt:has(.cluster) .modal-close-button,
 .prompt:has(.delete) .modal-close-button,
+.prompt:has(.orphan) .modal-close-button,
 .prompt:has(.noThing) .modal-close-button {
 
 
@@ -125,7 +128,17 @@
 .cluster-svg {
   fill: #dcddde00 !important;
 }
+/* -orphan */
+.inputMsgCon.orphan{
+  background-color: hsl(303deg 50% 30%);
+  display: grid;
+  grid-template-columns: 1fr;
 
+}
+.inputMsgCon.orphan .textMsg{
+justify-self: center;
+
+}
 /* - PHONE FAMILY MODAL STYLES-------------------*/
 
 .is-phone .prompt {
@@ -151,6 +164,7 @@
 .is-phone .prompt:has(.cluster) .modal-close-button,
 .is-phone .prompt:has(.brother) .modal-close-button,
 .is-phone .prompt:has(.delete) .modal-close-button,
+.is-phone .prompt:has(.orphan) .modal-close-button,
 .is-phone .prompt:has(.noThing) .modal-close-button {
 
 
@@ -169,6 +183,7 @@
 .is-phone .prompt:has(.cluster) .modal-close-button::before,
 .is-phone .prompt:has(.brother) .modal-close-button::before,
 .is-phone .prompt:has(.delete) .modal-close-button::before,
+.is-phone .prompt:has(.orphan) .modal-close-button::before,
 .is-phone .prompt:has(.noThing) .modal-close-button::before {
 
   position: absolute;
@@ -224,6 +239,26 @@ a[href*="New%20brother"] {
 
 }
 
+/* *new Orphan*/
+.table-cell-wrapper:has(a[href*="New%20orphan"]),
+th:has(a[href*="New%20orphan"]) {
+    padding: 0 !important;
+    background: hsl(303, 50%, 30%) !important
+}
+a[href*="New%20orphan"] {
+    display: grid;
+    height: 100%;
+    width: 100%;
+    color: var(--text-normal);
+    background-color: none;
+    text-decoration-line: none !important;
+    background-image: none !important;
+    background-color: none !important;
+    align-content: center;
+    justify-items: center;
+    padding: 2px 10px;
+
+}
 /* *Delete*/
 .table-cell-wrapper:has(a[href*="Delete%20active%20note"]),
 th:has(a[href*="Delete%20active%20note"]) {

@@ -2,7 +2,7 @@ import { App, normalizePath, Platform, TFolder, Notice, Modal, Instruction, Vaul
 import { NewFileLocation } from '../util/enums';
 import { path } from '../util/utils';
 import svgElements from "./svg";
-import { templates , clusterTemplate} from "./templates";
+import { templates , clusterTemplate ,  orphanTemplate} from "./templates";
 
 
 export default class familyModal extends Modal {
@@ -51,7 +51,11 @@ export default class familyModal extends Modal {
       } else if (this.createType == "newCluster") {
         this.inputEl.placeholder = `Type the new Cluster name`;
         this.modalEl.appendChild(svgElements().cluster());
+      }else if (this.createType == "newOrphan") {
+        this.inputEl.placeholder = `Type the new Orphan name`;
+        this.modalEl.appendChild(svgElements().orphan());
       }
+
   
       //input
       this.modalEl.appendChild(this.inputEl);
@@ -150,14 +154,25 @@ export default class familyModal extends Modal {
           new Notice("Create new brother should not work outside [CLUSTERS] folder")
         }
       }
+      //-make newOrphan 
+      else if (this.createType == "newOrphan") {
+
+
+        const rootChildren = this.app.vault.getRoot().children;
+        const orphansFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == "ORPHANS");
+        // @ts-ignore
+        this.setFolder(orphansFolder, "");
+        const orphanName = this.inputEl.value
+        this.createNewNote(orphanName, orphanTemplate);
+      }
       //-make newCluster to the current active file
       else if (this.createType == "newCluster") {
 
 
         const rootChildren = this.app.vault.getRoot().children;
-        const ClustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == "CLUSTERS");
+        const clustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == "CLUSTERS");
         // @ts-ignore
-        this.setFolder(ClustersFolder, "");
+        this.setFolder(clustersFolder, "");
         const clusterName = `${this.inputEl.value}-cluster`;
         this.createNewNote(clusterName, clusterTemplate(clusterName));
       }

@@ -93,6 +93,21 @@ export default function svgElements(){
            setIcon(con ,"x-circle")
         
             return con;
+        },        
+        orphan: function () {
+            // 1 - Container Element
+            const con = document.createElement('div');
+            con.classList.add("inputMsgCon","orphan");
+
+            // 3 - Text Element
+            const text = document.createElement('div');
+            text.innerText = "Create Orphan";
+            text.classList.add("textMsg");
+
+            // Append Text element to the container
+            con.appendChild(text);
+
+            return con;
         },
     }
 }

@@ -50,6 +50,15 @@ export default class AdvancedNewFilePlugin extends Plugin {
         new deleteActiveNoteModal(this.app, NewFileLocation.NewTab, "deleteNote").open();
       },
     });
+    this.addCommand({
+      id: "New-Orphan",
+      name: "New orphan",
+      callback: () => {
+        this.createClusterFolder();
+        this.checkForAdvancedURI_Plugin();
+        new familyModal(this.app, NewFileLocation.NewTab, "newOrphan").open();
+      },
+    });
 
     //- Ribbon Icon
     this.addRibbonIcon("baby", "Create Son to the current active note", (evt) => {
@@ -69,16 +78,23 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
   }
   //- createClusterFolder
+
   async createClusterFolder() {
     try {
+      //orphans folder
+      const orphanFolderExists = await this.app.vault.adapter.exists("/ORPHANS");
+      if (!orphanFolderExists) await this.app.vault.createFolder("/ORPHANS");
+      //cluster folder
       const folderExists = await this.app.vault.adapter.exists("/CLUSTERS");
-      if (!folderExists) await this.app.vault.createFolder("/CLUSTERS");
+      if (!folderExists) {
+        await this.app.vault.createFolder("/CLUSTERS");
+      }
       //@ts-ignore
       const isOtherClusters = this.app.vault.getRoot().children?.find((item : any) => item instanceof TFolder && item.name =="CLUSTERS").children.length
       if(isOtherClusters == 0){
         const fileExists = await this.app.vault.adapter.exists("/CLUSTERS/First-cluster.md");
 
-        if (!fileExists) await this.app.vault.create("/CLUSTERS/first-cluster.md", firstClusterTemplate);
+        if (!fileExists) await this.app.vault.create("/CLUSTERS/First-cluster.md", firstClusterTemplate);
 
       }
      
@@ -86,6 +102,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
       console.log(error);
     }
   }
+
   //- checkForAdvancedURI_Plugin
   checkForAdvancedURI_Plugin() {
     //@ts-ignore
