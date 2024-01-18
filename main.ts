@@ -20,7 +20,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
-        new familyModal(this.app, NewFileLocation.NewTab, "newBrother").open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newBrother" ,undefined).open();
       },
     });
     this.addCommand({
@@ -29,7 +29,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
-        new familyModal(this.app, NewFileLocation.NewTab, "newSon").open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newSon" ,undefined).open();
       },
     });
     this.addCommand({
@@ -38,7 +38,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
-        new familyModal(this.app, NewFileLocation.NewTab, "newCluster").open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
       },
     });
     this.addCommand({
@@ -56,7 +56,7 @@ export default class AdvancedNewFilePlugin extends Plugin {
       callback: () => {
         this.createClusterFolder();
         this.checkForAdvancedURI_Plugin();
-        new familyModal(this.app, NewFileLocation.NewTab, "newOrphan").open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newOrphan",undefined ).open();
       },
     });
 
@@ -64,18 +64,56 @@ export default class AdvancedNewFilePlugin extends Plugin {
     this.addRibbonIcon("baby", "Create Son to the current active note", (evt) => {
       this.createClusterFolder();
       this.checkForAdvancedURI_Plugin();
-      new familyModal(this.app, NewFileLocation.NewTab, "newSon").open();
+      new familyModal(this.app, NewFileLocation.NewTab, "newSon",undefined).open();
     });
     this.addRibbonIcon("git-compare", "Create Brother to the current active note", (evt) => {
       this.createClusterFolder();
       this.checkForAdvancedURI_Plugin();
-      new familyModal(this.app, NewFileLocation.NewTab, "newBrother").open();
+      new familyModal(this.app, NewFileLocation.NewTab, "newBrother",undefined).open();
     });
     this.addRibbonIcon("folder-git-2", "Create New Cluster", (evt) => {
       this.createClusterFolder();
       this.checkForAdvancedURI_Plugin();
-      new familyModal(this.app, NewFileLocation.NewTab, "newCluster").open();
+      new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
     });
+    //- file-menu
+    this.registerEvent(
+      
+			this.app.workspace.on("file-menu", (menu, file) => {
+        menu.addSeparator()
+			})
+		  );
+    this.registerEvent(
+      
+			this.app.workspace.on("file-menu", (menu, file) => {
+			  menu.addItem((item) => {
+				item
+					.setTitle("New son")
+					.setIcon("baby")
+					.onClick(async () => {
+            this.createClusterFolder();
+            this.checkForAdvancedURI_Plugin();
+            const graphActiveFile = file
+            new familyModal(this.app, NewFileLocation.NewTab, "newSon" ,graphActiveFile).open();
+					});
+			  });
+			})
+		  );
+    this.registerEvent(
+      this.app.workspace.on("file-menu", (menu, file) => {
+        menu.addItem((item) => {
+        item
+          .setTitle("New brother")
+          .setIcon("git-compare")
+          .onClick(async () => {
+            this.createClusterFolder();
+            this.checkForAdvancedURI_Plugin();
+            const graphActiveFile = file
+            new familyModal(this.app, NewFileLocation.NewTab, "newBrother" ,graphActiveFile).open();
+          });
+        });
+      })
+      );
   }
   //- createClusterFolder
 

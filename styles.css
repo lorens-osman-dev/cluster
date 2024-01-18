@@ -139,6 +139,21 @@
 justify-self: center;
 
 }
+/* - FILE MENU -------------------*/
+.menu-item:has(.menu-item-icon .lucide-baby ) {
+  background-color: hsl(341deg 50% 30% / 40%)  !important;
+  margin-bottom: 2px;
+}
+.menu-item.selected:has(.menu-item-icon .lucide-baby ) {
+  background-color:hsl(341deg 50% 30% / 80%)  !important;
+}
+.menu-item:has(.menu-item-icon .lucide-git-compare ) {
+  background-color: hsl(210deg 50% 30% / 40%)   !important;
+}
+.menu-item.selected:has(.menu-item-icon .lucide-git-compare ) {
+  background-color:hsl(210deg 50% 30% / 80%)   !important;
+}
+
 /* - PHONE FAMILY MODAL STYLES-------------------*/
 
 .is-phone .prompt {

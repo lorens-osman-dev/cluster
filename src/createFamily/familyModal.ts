@@ -14,9 +14,12 @@ export default class familyModal extends Modal {
   shouldMakeDir: string | undefined;
   inputListener: EventListener;
   createType: string;
-  constructor(app: App, mode: NewFileLocation, createType: string) {
+  graphActiveFile :any
+  constructor(app: App, mode: NewFileLocation, createType: string , graphActiveFile :any) {
+
     super(app);
     this.app = app;
+    this.graphActiveFile = graphActiveFile 
     this.createType = createType;
     this.mode = mode;
 
@@ -29,9 +32,18 @@ export default class familyModal extends Modal {
     //#region Make modal
     this.modalEl.className = 'prompt';
    
+    // get current active file
+    let getActiveFile;
+    if (this.graphActiveFile == undefined) {
+      // get the active file from current workspace
+      getActiveFile = this.app.workspace.getActiveFile();
+    } else {
+      // pass active file from graph or file tree
+      getActiveFile = this.graphActiveFile;
+    }
+    
+    
     //svg and placeholders
-    let getActiveFile = this.app.workspace.getActiveFile()
-
     if(getActiveFile === null){
  
       this.inputEl.addClasses(["prompt-input","inputDelete"])
@@ -78,7 +90,15 @@ export default class familyModal extends Modal {
       // prevent enter after note creation
       evt.preventDefault();
       // get current active file
-      const getActiveFile = this.app.workspace.getActiveFile();
+      let getActiveFile;
+      if (this.graphActiveFile == undefined) {
+        // get the active file from current workspace
+        getActiveFile = this.app.workspace.getActiveFile();
+      } else {
+        // pass active file from graph or file tree
+        getActiveFile = this.graphActiveFile;
+      }
+
   
       const currentActiveFileName = getActiveFile?.basename;
 
