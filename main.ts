@@ -84,16 +84,6 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
 
     //- Ribbon Icon
-    this.addRibbonIcon("baby", "Create Son to the current active note", (evt) => {
-      this.createClusterFolder();
-      this.checkForAdvancedURI_Plugin();
-      new familyModal(this.app, NewFileLocation.NewTab, "newSon",undefined).open();
-    });
-    this.addRibbonIcon("git-compare", "Create Brother to the current active note", (evt) => {
-      this.createClusterFolder();
-      this.checkForAdvancedURI_Plugin();
-      new familyModal(this.app, NewFileLocation.NewTab, "newBrother",undefined).open();
-    });
     this.addRibbonIcon("folder-git-2", "Create New Cluster", (evt) => {
       this.createClusterFolder();
       this.checkForAdvancedURI_Plugin();
