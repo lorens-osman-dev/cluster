@@ -4,13 +4,38 @@ import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
 import { firstClusterTemplate } from "./src/createFamily/templates";
 
+// FIX fix file-menu when right click on folder
+
 export default class AdvancedNewFilePlugin extends Plugin {
   actions = new Map();
 
   async onload() {
     console.log("loading Cluster plugin");
-    
-
+    // set the curser position 
+    this.registerEvent(this.app.workspace.on("file-open", async (file) => {
+      const getActiveFile = this.app.workspace.getActiveFile()
+      const frontmatterProperties = getActiveFile !== null ? this.app.metadataCache.getFileCache(getActiveFile)?.frontmatter : null;
+      /*
+      2 : frontmatter 2 dashed lines ---
+      2 : control table (new son , new brother ...)
+      1 : empty line between frontmatter and control table
+      */
+      let linesNumber = 2 + 2 + 1
+      // check if generation property exist or Orphan tags exist
+      const orphanTag = frontmatterProperties?.tags?.find((item: string) => item == "Orphan")
+      if (frontmatterProperties && (frontmatterProperties.generation || orphanTag)) {
+        const orphanTag = frontmatterProperties.tags.find((item: string) => item == "Orphan")
+        console.log(orphanTag)
+        const tagsNumber = frontmatterProperties?.tags?.length ?? 0;
+        linesNumber = linesNumber + tagsNumber
+        for (const key in frontmatterProperties) {
+          linesNumber++
+        }
+        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+        view?.editor?.setCursor(linesNumber, 0)
+      }
+    }));
+       
     //-Check For Advanced URI _Plugin
     this.checkForAdvancedURI_Plugin();
     //- Commands

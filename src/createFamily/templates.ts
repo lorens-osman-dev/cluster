@@ -48,8 +48,11 @@ tags:
 parent: "[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]"
 generation: ${generationFromActiveFilePath}
 ---
+
 | [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) |[Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- | ---- | ---- |
+
+
 `
 
             return result
@@ -63,10 +66,9 @@ generation: ${generationFromActiveFilePath}
             const isClusterTagExist = frontmatterProperties?.tags.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)    
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
-           // FIXME TEST AREA
+           // FIX TEST AREA
             const sonFileParentLink2 = `[[${activeFile.parent.path}/${activeFile.basename.toLowerCase()}|${activeFile.basename.toLowerCase()}]]`
-            console.log(sonFileParentLink)
-            console.log(sonFileParentLink2)
+       
 
             
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
@@ -96,8 +98,11 @@ tags:
 parent: "${sonFileParentLink2}"
 generation: ${generationFromActiveFilePath+1}
 ---
+
 | [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) |[Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- | ---- | ---- |
+
+
 `
 
             return result
@@ -109,7 +114,7 @@ generation: ${generationFromActiveFilePath+1}
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '')
             const isClusterTagExist = frontmatterProperties?.tags.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)  
-            // FIXME delete the unused const below  
+            // FIX delete the unused const below  
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length-1 // how many "/" in the path
@@ -137,8 +142,11 @@ tags:
 parent: "${activeFileParentLink}"
 generation: ${generationFromActiveFilePath}
 ---
+
 | [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- | ---- | ---- |
+
+
 `
 
             return result
@@ -162,8 +170,11 @@ export const orphanTemplate =
 tags:
   - Orphan
 ---
+
 | [Create Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- |---- |
+
+
 
 `;
 //#endregion
@@ -177,8 +188,11 @@ tags:
   - Cluster
 generation: 0
 ---
+
 | [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
 | ---- | ---- |
+
+
 `
 
     return clusterTemplate
