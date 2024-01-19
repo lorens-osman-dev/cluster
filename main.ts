@@ -6,7 +6,7 @@ import { firstClusterTemplate } from "./src/createFamily/templates";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
-export default class AdvancedNewFilePlugin extends Plugin {
+export default class clusterPlugin extends Plugin {
   actions = new Map();
 
   async onload() {
