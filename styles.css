@@ -153,6 +153,18 @@ justify-self: center;
 .menu-item.selected:has(.menu-item-icon .lucide-git-compare ) {
   background-color:hsl(210deg 50% 30% / 80%)   !important;
 }
+.menu-item:has(.menu-item-icon .lucide-git-commit-vertical ) {
+  background-color: hsl(303deg 50% 30%/ 40%)   !important;
+}
+.menu-item.selected:has(.menu-item-icon .lucide-git-commit-vertical ) {
+  background-color:hsl(303deg 50% 30%/ 80%)   !important;
+}
+.menu-item:has(.menu-item-icon .lucide-folder-git-2 ) {
+  background-color: hsl(154.99deg 50% 30%/ 40%)   !important;
+}
+.menu-item.selected:has(.menu-item-icon .lucide-folder-git-2 ) {
+  background-color:hsl(154.99deg 50% 30%/ 80%)   !important;
+}
 
 /* - PHONE FAMILY MODAL STYLES-------------------*/
 

@@ -1,10 +1,8 @@
-import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder } from "obsidian";
+import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder, TFile } from "obsidian";
 import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
 import { firstClusterTemplate } from "./src/createFamily/templates";
-
-// FIX fix file-menu when right click on folder
 
 export default class AdvancedNewFilePlugin extends Plugin {
   actions = new Map();
@@ -103,42 +101,80 @@ export default class AdvancedNewFilePlugin extends Plugin {
     });
     //- file-menu
     this.registerEvent(
-      
-			this.app.workspace.on("file-menu", (menu, file) => {
-        menu.addSeparator()
-			})
-		  );
-    this.registerEvent(
-      
-			this.app.workspace.on("file-menu", (menu, file) => {
-			  menu.addItem((item) => {
-				item
-					.setTitle("New son")
-					.setIcon("baby")
-					.onClick(async () => {
-            this.createClusterFolder();
-            this.checkForAdvancedURI_Plugin();
-            const graphActiveFile = file
-            new familyModal(this.app, NewFileLocation.NewTab, "newSon" ,graphActiveFile).open();
-					});
-			  });
-			})
-		  );
-    this.registerEvent(
       this.app.workspace.on("file-menu", (menu, file) => {
-        menu.addItem((item) => {
-        item
-          .setTitle("New brother")
-          .setIcon("git-compare")
-          .onClick(async () => {
-            this.createClusterFolder();
-            this.checkForAdvancedURI_Plugin();
-            const graphActiveFile = file
-            new familyModal(this.app, NewFileLocation.NewTab, "newBrother" ,graphActiveFile).open();
+        //- son menu
+        if (file instanceof TFile && file.path.startsWith("CLUSTERS")) {
+          menu.addSeparator()
+          menu.addItem((item) => {
+            item
+              .setTitle("New son")
+              .setIcon("baby")
+              .onClick(async () => {
+                this.createClusterFolder();
+                this.checkForAdvancedURI_Plugin();
+                const graphActiveFile = file
+                new familyModal(this.app, NewFileLocation.NewTab, "newSon", graphActiveFile).open();
+              });
           });
-        });
+        }
+         //- brother menu
+        if (
+          (file instanceof TFile && file.path.startsWith("CLUSTERS"))
+          &&
+          !(file instanceof TFile && file.parent instanceof TFolder && file.parent.name == "CLUSTERS")
+        ) {
+          menu.addItem((item) => {
+            item
+              .setTitle("New brother")
+              .setIcon("git-compare")
+              .onClick(async () => {
+                this.createClusterFolder();
+                this.checkForAdvancedURI_Plugin();
+                const graphActiveFile = file
+                new familyModal(this.app, NewFileLocation.NewTab, "newBrother", graphActiveFile).open();
+              });
+          });
+        }
+        //- orphan menu
+        if (
+          (file instanceof TFile && file.parent instanceof TFolder && file.parent.name == "ORPHANS")
+          ||
+          (file instanceof TFolder && file.path.startsWith("ORPHANS") && file.path.endsWith("ORPHANS"))
+        ) {
+          menu.addSeparator()
+          menu.addItem((item) => {
+            item
+              .setTitle("New orphan")
+              .setIcon("git-commit-vertical")
+              .onClick(async () => {
+                this.createClusterFolder();
+                this.checkForAdvancedURI_Plugin();
+                const graphActiveFile = file
+                new familyModal(this.app, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
+              });
+          });
+        }
+        //- cluster menu
+        if (
+          (file instanceof TFile && file.parent instanceof TFolder && file.parent.name == "CLUSTERS")
+          ||
+          (file instanceof TFolder && file.path.startsWith("CLUSTERS") && file.path.endsWith("CLUSTERS"))
+        ) {
+          menu.addSeparator()
+          menu.addItem((item) => {
+            item
+              .setTitle("New cluster")
+              .setIcon("folder-git-2")
+              .onClick(async () => {
+                this.createClusterFolder();
+                this.checkForAdvancedURI_Plugin();
+                const graphActiveFile = file
+                new familyModal(this.app, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
+              });
+          });
+        }
       })
-      );
+    );
   }
   //- createClusterFolder
 
