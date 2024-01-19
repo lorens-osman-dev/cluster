@@ -4,7 +4,8 @@ import { path } from '../util/utils';
 import svgElements from "./svg";
 import { templates , clusterTemplate ,  orphanTemplate} from "./templates";
 
-
+const clusters = "CLUSTERS"
+const orphans = "ORPHANS"
 export default class familyModal extends Modal {
   app: App;
   mode: NewFileLocation;
@@ -105,7 +106,7 @@ export default class familyModal extends Modal {
 
       //-make clusterSon to the current active file
        if (this.createType == "newSon") {
-        if(getActiveFile?.path.startsWith("CLUSTERS")){
+        if(getActiveFile?.path.startsWith(clusters)){
           if(getActiveFile.basename.endsWith("-cluster") ){
             if(  (getActiveFile.path.match(/\//g) || []).length == 1  ){
               const result = await templates(getActiveFile,"clusterSon");
@@ -158,7 +159,7 @@ export default class familyModal extends Modal {
       }
       //-make Brother to the current active file
       else if (this.createType == "newBrother") {
-        if(getActiveFile!.path.startsWith("CLUSTERS")){
+        if(getActiveFile!.path.startsWith(clusters)){
         // the next if statement to prevent make brother to a cluster
           if (currentActiveFileName!.endsWith("-cluster")) {
             new Notice(`You cant make Brother to a cluster.\nCreate new cluster instead`);
@@ -179,7 +180,7 @@ export default class familyModal extends Modal {
 
 
         const rootChildren = this.app.vault.getRoot().children;
-        const orphansFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == "ORPHANS");
+        const orphansFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == orphans);
         // @ts-ignore
         this.setFolder(orphansFolder, "");
         const orphanName = this.inputEl.value
@@ -190,7 +191,7 @@ export default class familyModal extends Modal {
 
 
         const rootChildren = this.app.vault.getRoot().children;
-        const clustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == "CLUSTERS");
+        const clustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == clusters);
         // @ts-ignore
         this.setFolder(clustersFolder, "");
         const clusterName = `${this.inputEl.value}-cluster`;
