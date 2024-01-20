@@ -44,7 +44,7 @@ export async function templates(activeFile: any ,type :string) {
             result.clusterSonTemplate =
 `---
 tags:
-  - ${activeFile.basename.slice(0,-8)}-cluster
+  - ${activeFile.basename.slice(0,-8).replace(/ /g, "-")}-cluster
 parent: "[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]"
 generation: ${generationFromActiveFilePath}
 ---
