@@ -135,10 +135,10 @@ export default class familyModal extends Modal {
               const result = await templates(getActiveFile,"normalSon");
               
               if (result.state) {
-                const sonsFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName?.toUpperCase()}`;
+                const sonsFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName}`;
                 await this.createDirectory("", sonsFolderPath);
                 const newCreatedSonsFolder = getActiveFile.parent!.children.find(
-                  (item: any) => item instanceof TFolder && item.name == currentActiveFileName!.toUpperCase()
+                  (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
                 );
                 
                 // @ts-ignore
@@ -195,7 +195,7 @@ export default class familyModal extends Modal {
         // @ts-ignore
         this.setFolder(clustersFolder, "");
         const clusterName = `${this.inputEl.value}-cluster`;
-        this.createNewNote(clusterName, clusterTemplate(clusterName));
+        this.createNewNote(clusterName, clusterTemplate());
       }
 
       this.close();

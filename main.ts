@@ -22,7 +22,7 @@ export default class clusterPlugin extends Plugin {
       let linesNumber = 2 + 2 + 1
       // check if generation property exist or Orphan tags exist
       const orphanTag = frontmatterProperties?.tags?.find((item: string) => item == "Orphan")
-      if (frontmatterProperties && (frontmatterProperties.generation || orphanTag)) {
+      if (frontmatterProperties && (frontmatterProperties.generation !== undefined || orphanTag)) {
         const tagsNumber = frontmatterProperties?.tags?.length ?? 0;
         linesNumber = linesNumber + tagsNumber
         for (const key in frontmatterProperties) {

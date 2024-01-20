@@ -25,7 +25,7 @@ export default class deleteActiveNoteModal extends Modal {
     //-Delete message 
     const theRelatedSonsFolder = getActiveFile?.parent?.children?.find((item : any ) => {
       //normale note
-      if(item instanceof TFolder && item.name == getActiveFile.basename.toUpperCase() ){
+      if(item instanceof TFolder && item.name == getActiveFile.basename){
         return item
       }
       // cluster
@@ -70,7 +70,7 @@ export default class deleteActiveNoteModal extends Modal {
       //Related Sons Folder
       const theRelatedSonsFolder = getActiveFile!.parent!.children.find((item : any ) => {
         // normal note
-        if(item instanceof TFolder && item.name == getActiveFile!.basename.toUpperCase() ){
+        if(item instanceof TFolder && item.name == getActiveFile!.basename ){
           return item
         }
         // cluster
@@ -130,7 +130,7 @@ export default class deleteActiveNoteModal extends Modal {
       deleteMsgContainer.appendChild(delNoteNameMsg2);
 
       const text4 = document.createElement('span');
-      text4.textContent = '] sons in [' + activeFile.basename.toUpperCase() + '] folder';
+      text4.textContent = '] sons in [' + activeFile.basename + '] folder';
       deleteMsgContainer.appendChild(text4);
 
       return deleteMsgContainer
