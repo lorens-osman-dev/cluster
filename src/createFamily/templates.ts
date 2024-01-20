@@ -21,8 +21,8 @@ export async function templates(activeFile: any ,type :string) {
 
         IF.ELSE(() => {
             const frontmatterProperties =  this.app.metadataCache.getFileCache(activeFile).frontmatter;
-            const isClusterTagExist = frontmatterProperties?.tags.find((tag: string) => tag == "Cluster")
-            const selfTagExist = frontmatterProperties?.tags.find((tag: string) => tag == activeFile.basename)
+            const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == "Cluster")
+            const selfTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == activeFile.basename)
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length // how many "/" in the path
             const parentFileLink = frontmatterProperties?.parent
@@ -63,7 +63,7 @@ generation: ${generationFromActiveFilePath}
         IF.ELSE(() => {
             const frontmatterProperties =  this.app.metadataCache.getFileCache(activeFile).frontmatter;
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '')
-            const isClusterTagExist = frontmatterProperties?.tags.find((tag: string) => tag == `${clusterTagName}`)
+            const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)    
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
            // FIX TEST AREA
@@ -82,7 +82,7 @@ generation: ${generationFromActiveFilePath}
                 [ parentFileLink === undefined, "Set the parent property."],
                 [ parentFileLink === null, "The parent property should'nt be empty."],
                 [ parentFileLink === "", "The parent property should'nt be empty."],
-                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
+                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name?.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
                 [ ! (typeof(generationFromActiveFileFrontmatterProperties) === 'number'), "The Cluster's generation property must be Number.\nChange the property type to Number"],
                 [ generationFromActiveFileFrontmatterProperties == 0, "JUST Clusters's generation property must be 0"],
                 [ generationFromActiveFileFrontmatterProperties !== generationFromActiveFilePath, `The generation property must be ${generationFromActiveFilePath}`],
@@ -112,7 +112,7 @@ generation: ${generationFromActiveFilePath+1}
         IF.ELSE(() => {
             const frontmatterProperties =  this.app.metadataCache.getFileCache(activeFile).frontmatter;
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '')
-            const isClusterTagExist = frontmatterProperties?.tags.find((tag: string) => tag == `${clusterTagName}`)
+            const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)  
             // FIX delete the unused const below  
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
@@ -126,7 +126,7 @@ generation: ${generationFromActiveFilePath+1}
                 [ parentFileLink === undefined, "Set the parent property."],
                 [ parentFileLink === null, "The parent property should'nt be empty."],
                 [ parentFileLink === "", "The parent property should'nt be empty."],
-                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
+                [ parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name?.toLowerCase()}' file.\nlike:${activeFileParentLink}`],
                 [ ! (typeof(generationFromActiveFileFrontmatterProperties) === 'number'), "The Cluster's generation property must be Number.\nChange the property type to Number"],
                 [ generationFromActiveFileFrontmatterProperties == 0, "JUST Clusters's generation property must be 0"],
                 [ generationFromActiveFileFrontmatterProperties !== generationFromActiveFilePath, `The generation property must be ${generationFromActiveFilePath}`],
