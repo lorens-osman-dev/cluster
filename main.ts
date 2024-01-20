@@ -13,8 +13,7 @@ export default class clusterPlugin extends Plugin {
     console.log("loading Cluster plugin");
     // set the curser position 
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
-      const getActiveFile = this.app.workspace.getActiveFile()
-      const frontmatterProperties = getActiveFile !== null ? this.app.metadataCache.getFileCache(getActiveFile)?.frontmatter : null;
+      const frontmatterProperties = file !== null ? this.app.metadataCache.getFileCache(file)?.frontmatter : null
       /*
       2 : frontmatter 2 dashed lines ---
       2 : control table (new son , new brother ...)
@@ -24,8 +23,6 @@ export default class clusterPlugin extends Plugin {
       // check if generation property exist or Orphan tags exist
       const orphanTag = frontmatterProperties?.tags?.find((item: string) => item == "Orphan")
       if (frontmatterProperties && (frontmatterProperties.generation || orphanTag)) {
-        const orphanTag = frontmatterProperties.tags.find((item: string) => item == "Orphan")
-        console.log(orphanTag)
         const tagsNumber = frontmatterProperties?.tags?.length ?? 0;
         linesNumber = linesNumber + tagsNumber
         for (const key in frontmatterProperties) {
@@ -170,7 +167,6 @@ export default class clusterPlugin extends Plugin {
     );
   }
   //- Create Cluster and Orphans Folder
-
   async createClustersAndOrphansFolder() {
     try {
       //orphans folder

@@ -13,7 +13,7 @@ export default class familyModal extends Modal {
   newDirectoryPath: string;
   inputEl: HTMLInputElement;
   shouldMakeDir: string | undefined;
-  inputListener: EventListener;
+  inputListener: any;
   createType: string;
   graphActiveFile :any
   constructor(app: App, mode: NewFileLocation, createType: string , graphActiveFile :any) {
@@ -106,7 +106,7 @@ export default class familyModal extends Modal {
 
       //-make clusterSon to the current active file
        if (this.createType == "newSon") {
-        if(getActiveFile?.path.startsWith(clusters)){
+        if(getActiveFile?.path?.startsWith(clusters)){
           if(getActiveFile.basename.endsWith("-cluster") ){
             if(  (getActiveFile.path.match(/\//g) || []).length == 1  ){
               const result = await templates(getActiveFile,"clusterSon");
@@ -114,7 +114,7 @@ export default class familyModal extends Modal {
                
                 const sonsFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
                 await this.createDirectory("", sonsFolderPath);
-                const newCreatedSonsFolder = getActiveFile.parent?.children.find(
+                const newCreatedSonsFolder = getActiveFile.parent?.children?.find(
                   (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
                 );
                 

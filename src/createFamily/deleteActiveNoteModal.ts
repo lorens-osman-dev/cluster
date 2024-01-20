@@ -7,7 +7,7 @@ import svgElements from "./svg";
 export default class deleteActiveNoteModal extends Modal {
   mode: NewFileLocation;
   inputEl: HTMLInputElement;
-  inputListener: EventListener;
+  inputListener: any;
   createType: string;
 
   constructor(app: App, mode: NewFileLocation, createType: string) {
@@ -23,13 +23,13 @@ export default class deleteActiveNoteModal extends Modal {
     this.inputEl.addClasses(["prompt-input","inputDelete"])
     
     //-Delete message 
-    const theRelatedSonsFolder = getActiveFile?.parent?.children.find((item : any ) => {
+    const theRelatedSonsFolder = getActiveFile?.parent?.children?.find((item : any ) => {
       //normale note
       if(item instanceof TFolder && item.name == getActiveFile.basename.toUpperCase() ){
         return item
       }
       // cluster
-      if(item instanceof TFolder && getActiveFile?.basename.endsWith("cluster") && item.name == getActiveFile.basename ){
+      if(item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename ){
         return item
       }
     })
@@ -74,7 +74,7 @@ export default class deleteActiveNoteModal extends Modal {
           return item
         }
         // cluster
-        if(item instanceof TFolder && getActiveFile?.basename.endsWith("cluster") && item.name == getActiveFile.basename ){
+        if(item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename ){
           return item
         }
       })
