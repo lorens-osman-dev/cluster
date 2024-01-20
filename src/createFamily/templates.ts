@@ -62,7 +62,9 @@ generation: ${generationFromActiveFilePath}
 
         IF.ELSE(() => {
             const frontmatterProperties =  this.app.metadataCache.getFileCache(activeFile).frontmatter;
-            const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '')
+            const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '').replace(/ /g, "-")
+            console.log("IF.ELSE ⸦ clusterTagName:", clusterTagName);
+            
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)    
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
@@ -111,7 +113,7 @@ generation: ${generationFromActiveFilePath+1}
 
         IF.ELSE(() => {
             const frontmatterProperties =  this.app.metadataCache.getFileCache(activeFile).frontmatter;
-            const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '')
+            const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '').replace(/ /g, "-")
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = getActiveFileParentLink(activeFile)  
             // FIX delete the unused const below  
