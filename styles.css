@@ -45,7 +45,7 @@
 }
 
 .inputMsgCon {
-  background-color: hsl(340.53deg 50% 30%);
+
   display: grid;
   grid-template-columns: 65px 1fr;
   align-items: center;
@@ -54,13 +54,19 @@
   justify-items: center;
   height: 57px;
 }
+.cluster {
+  background-color: hsl(154.99deg 50% 30%)
+}
+.son {
+  background-color: hsl(340.53deg 50% 30%);
+}
 
 .brother {
   background-color: hsl(210.38deg 50% 30%)
 }
 
-.cluster {
-  background-color: hsl(154.99deg 50% 30%)
+.orphan {
+  background-color: hsl(303deg 50% 30%);
 }
 
 .delete {
@@ -118,6 +124,7 @@
 .inputMsgCon .lucide-git-compare,
 .inputMsgCon .lucide-trash-2,
 .inputMsgCon .lucide-x-circle,
+.inputMsgCon .lucide-git-commit-vertical,
 .inputMsgCon .cluster-svg {
   text-align: center;
   height: 40px !important;
@@ -125,21 +132,36 @@
 
 }
 
-.cluster-svg {
-  fill: #dcddde00 !important;
-}
+
 /* -orphan */
-.inputMsgCon.orphan{
+/* .inputMsgCon.orphan{
   background-color: hsl(303deg 50% 30%);
   display: grid;
   grid-template-columns: 1fr;
 
-}
-.inputMsgCon.orphan .textMsg{
+} */
+/* .inputMsgCon.orphan .textMsg{
 justify-self: center;
 
+} */
+/* - FILE TREE -------------------*/
+
+.clustersFolderTreeElement{
+  color: hsl(155 30% 50% ) !important;
+}
+.clustersFilesTreeElementTitles{
+  color: hsl(155 30% 50% ) !important;
+}
+.orphansFolderTreeElement{
+  color:hsl(303deg 30% 50%)   !important;
 }
 /* - FILE MENU -------------------*/
+.menu-item:has(.menu-item-icon .lucide-folder-git-2 ) {
+  background-color: hsl(154.99deg 50% 30%/ 40%)   !important;
+}
+.menu-item.selected:has(.menu-item-icon .lucide-folder-git-2 ) {
+  background-color:hsl(154.99deg 50% 30%/ 80%)   !important;
+}
 .menu-item:has(.menu-item-icon .lucide-baby ) {
   background-color: hsl(341deg 50% 30% / 40%)  !important;
   margin-bottom: 2px;
@@ -159,17 +181,10 @@ justify-self: center;
 .menu-item.selected:has(.menu-item-icon .lucide-git-commit-vertical ) {
   background-color:hsl(303deg 50% 30%/ 80%)   !important;
 }
-.menu-item:has(.menu-item-icon .lucide-folder-git-2 ) {
-  background-color: hsl(154.99deg 50% 30%/ 40%)   !important;
-}
-.menu-item.selected:has(.menu-item-icon .lucide-folder-git-2 ) {
-  background-color:hsl(154.99deg 50% 30%/ 80%)   !important;
-}
 
 /* - PHONE FAMILY MODAL STYLES-------------------*/
 
 .is-phone .prompt {
-
   display: block !important;
 }
 
@@ -219,6 +234,51 @@ justify-self: center;
   transform: translate(-50%, -50%);
 
 
+}
+
+/* - NEW BUTTONS-------------------*/
+.buttonsLineContainer {
+
+  display: flex;
+  justify-content: center;
+  background-color:hsl(154.99deg 50% 30%/ 30%)   !important;
+
+}
+.buttonsLineContainer:has(.sonBtn) {
+  background-color:hsl(154.99deg 50% 30%/ 30%)   !important;
+}
+.buttonsLineContainer:not(:has(.sonBtn)) {
+  background-color: hsl(303deg 50% 30% / 30%) !important;
+}
+
+.btn{
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 6px;
+}
+.btn:hover {
+  box-shadow: none;
+  opacity: var(--icon-opacity-hover);
+  color: var(--icon-color-hover);
+  background-color: var(--background-modifier-hover);
+}
+.btn svg{
+  color:#DCDDDE
+
+}
+
+.sonBtn:hover svg{
+ 
+}
+.brotherBtn{
+ 
+}
+.orphanBtn{
+ 
+}
+.deleteBtn{
+ 
 }
 
 /* -BUTTONS STYLES-------------------*/

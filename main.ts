@@ -1,8 +1,10 @@
-import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder, TFile } from "obsidian";
+import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder, TFile, WorkspaceWindow } from "obsidian";
 import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
 import { firstClusterTemplate } from "./src/createFamily/templates";
+import { buttonsLine } from "./src/createFamily/buttons";
+import { coloringTreePanel } from "./src/createFamily/coloringTreePanel";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -11,8 +13,23 @@ export default class clusterPlugin extends Plugin {
 
   async onload() {
     console.log("loading Cluster plugin");
-    // set the curser position 
+
+     
+
+
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
+
+      
+      if(file){
+        //- Add Buttons
+        await buttonsLine(this.app , file )
+        
+        //- Coloring Tree Panel
+        coloringTreePanel(this.app , file)
+      }
+ 
+     
+      //-set the curser position 
       const frontmatterProperties = file !== null ? this.app.metadataCache.getFileCache(file)?.frontmatter : null
       /*
       2 : frontmatter 2 dashed lines ---
@@ -164,7 +181,9 @@ export default class clusterPlugin extends Plugin {
         }
 
       })
+      
     );
+
   }
   //- Create Cluster and Orphans Folder
   async createClustersAndOrphansFolder() {

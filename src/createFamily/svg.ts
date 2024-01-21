@@ -94,10 +94,13 @@ export default function svgElements(){
         
             return con;
         },        
-        orphan: function () {
+        orphan:function(){
             // 1 - Container Element
             const con = document.createElement('div');
             con.classList.add("inputMsgCon","orphan");
+
+            // 2 - SVG Element
+            setIcon(con, 'git-commit-vertical');
 
             // 3 - Text Element
             const text = document.createElement('div');
