@@ -2,13 +2,6 @@ import { TFile } from "obsidian";
 
 import IF from "./bigIF";
 
-const commandsNames = {
-    newSon : "New son".replace(/ /g, "%20"),
-    newBrother :"New brother".replace(/ /g, "%20"),
-    newCluster :"New cluster".replace(/ /g, "%20"),
-    newOrphan :"New orphan".replace(/ /g, "%20"),
-    deleteActiveNote :"Delete active note".replace(/ /g, "%20")
-}
 export async function templates(activeFile: any ,type :string) {
     const result = {
         state:false,
@@ -48,11 +41,6 @@ tags:
 parent: "[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]"
 generation: ${generationFromActiveFilePath}
 ---
-
-| [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) |[Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- | ---- | ---- |
-
-
 `
 
             return result
@@ -96,11 +84,6 @@ tags:
 parent: "${sonFileParentLink}"
 generation: ${generationFromActiveFilePath+1}
 ---
-
-| [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) |[Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- | ---- | ---- |
-
-
 `
 
             return result
@@ -138,11 +121,6 @@ tags:
 parent: "${activeFileParentLink}"
 generation: ${generationFromActiveFilePath}
 ---
-
-| [Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Brother](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newBrother}) | [Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- | ---- | ---- |
-
-
 `
 
             return result
@@ -158,12 +136,6 @@ export const orphanTemplate =
 tags:
   - Orphan
 ---
-
-| [Create Orphan](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newOrphan}) |[Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- |---- |
-
-
-
 `;
 //#endregion
 
@@ -175,11 +147,6 @@ tags:
   - Cluster
 generation: 0
 ---
-
-| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- |
-
-
 `
 
     return clusterTemplate
@@ -202,8 +169,6 @@ tags:
   - Cluster
 generation: 0
 ---
-| [Create Son](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.newSon}) | [Delete ](obsidian://advanced-uri?commandname=Cluster:%20${commandsNames.deleteActiveNote}) |
-| ---- | ---- |
 
 ![clusterSvg](${encodedBase64Img.intro})
 
