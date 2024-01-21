@@ -16,7 +16,6 @@ export default class clusterPlugin extends Plugin {
 
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
-      
       if(file){
         //- Add Buttons
         await buttonsLine(this.app , file )
@@ -25,26 +24,6 @@ export default class clusterPlugin extends Plugin {
         coloringTreePanel(this.app , file)
       }
  
-     
-      //-set the curser position 
-      const frontmatterProperties = file !== null ? this.app.metadataCache.getFileCache(file)?.frontmatter : null
-      /*
-      2 : frontmatter 2 dashed lines ---
-      2 : control table (new son , new brother ...)
-      1 : empty line between frontmatter and control table
-      */
-      let linesNumber = 2 + 2 + 1
-      // check if generation property exist or Orphan tags exist
-      const orphanTag = frontmatterProperties?.tags?.find((item: string) => item == "Orphan")
-      if (frontmatterProperties && (frontmatterProperties.generation !== undefined || orphanTag)) {
-        const tagsNumber = frontmatterProperties?.tags?.length ?? 0;
-        linesNumber = linesNumber + tagsNumber
-        for (const key in frontmatterProperties) {
-          linesNumber++
-        }
-        const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-        view?.editor?.setCursor(linesNumber, 0)
-      }
     }));
        
     //- Commands
