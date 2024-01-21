@@ -2,9 +2,9 @@ import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder, TFile, 
 import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
-import { firstClusterTemplate } from "./src/createFamily/templates";
 import { buttonsLine } from "./src/createFamily/buttons";
 import { coloringTreePanel } from "./src/createFamily/coloringTreePanel";
+import { createClustersAndOrphansFolder } from "./src/createFamily/createClustersAndOrphansFolder";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -18,6 +18,7 @@ export default class clusterPlugin extends Plugin {
 
       if(file){
         //- Add Buttons
+        
         await buttonsLine(this.app , file )
 
         //- Coloring Tree Panel
@@ -31,7 +32,7 @@ export default class clusterPlugin extends Plugin {
       id: "New-Cluster",
       name: "new cluster",
       callback: () => {
-        this.createClustersAndOrphansFolder();
+        createClustersAndOrphansFolder(this.app);
         new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
       },
     });
@@ -39,7 +40,7 @@ export default class clusterPlugin extends Plugin {
       id: "New-Son",
       name: "New son",
       callback: () => {
-        this.createClustersAndOrphansFolder();
+        createClustersAndOrphansFolder(this.app);
         new familyModal(this.app, NewFileLocation.NewTab, "newSon" ,undefined).open();
       },
     });
@@ -47,7 +48,7 @@ export default class clusterPlugin extends Plugin {
       id: "New-Brother",
       name: "New brother",
       callback: () => {
-        this.createClustersAndOrphansFolder();
+        createClustersAndOrphansFolder(this.app);
         new familyModal(this.app, NewFileLocation.NewTab, "newBrother" ,undefined).open();
       },
     });
@@ -55,7 +56,7 @@ export default class clusterPlugin extends Plugin {
       id: "New-Orphan",
       name: "New orphan",
       callback: () => {
-        this.createClustersAndOrphansFolder();
+        createClustersAndOrphansFolder(this.app);
         new familyModal(this.app, NewFileLocation.NewTab, "newOrphan",undefined ).open();
       },
     });
@@ -63,14 +64,14 @@ export default class clusterPlugin extends Plugin {
       id: "Delete-Active-Note",
       name: "Delete active note",
       callback: () => {
-        this.createClustersAndOrphansFolder();
+        createClustersAndOrphansFolder(this.app);
         new deleteActiveNoteModal(this.app, NewFileLocation.NewTab, "deleteNote").open();
       },
     });
 
     //- Ribbon Icon
     this.addRibbonIcon("folder-git-2", "Create New Cluster", (evt) => {
-      this.createClustersAndOrphansFolder();
+      createClustersAndOrphansFolder(this.app);
       new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
     });
     //- file-menu
@@ -88,7 +89,7 @@ export default class clusterPlugin extends Plugin {
                 .setTitle("New cluster")
                 .setIcon("folder-git-2")
                 .onClick(async () => {
-                  this.createClustersAndOrphansFolder();
+                  createClustersAndOrphansFolder(this.app);
                   const graphActiveFile = file
                   new familyModal(this.app, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
                 });
@@ -102,7 +103,7 @@ export default class clusterPlugin extends Plugin {
               .setTitle("New son")
               .setIcon("baby")
               .onClick(async () => {
-                this.createClustersAndOrphansFolder();
+                createClustersAndOrphansFolder(this.app);
                 const graphActiveFile = file
                 new familyModal(this.app, NewFileLocation.NewTab, "newSon", graphActiveFile).open();
               });
@@ -119,7 +120,7 @@ export default class clusterPlugin extends Plugin {
               .setTitle("New brother")
               .setIcon("git-compare")
               .onClick(async () => {
-                this.createClustersAndOrphansFolder();
+                createClustersAndOrphansFolder(this.app);
                 const graphActiveFile = file
                 new familyModal(this.app, NewFileLocation.NewTab, "newBrother", graphActiveFile).open();
               });
@@ -137,7 +138,7 @@ export default class clusterPlugin extends Plugin {
               .setTitle("New orphan")
               .setIcon("git-commit-vertical")
               .onClick(async () => {
-                this.createClustersAndOrphansFolder();
+                createClustersAndOrphansFolder(this.app);
                 const graphActiveFile = file
                 new familyModal(this.app, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
               });
@@ -149,28 +150,7 @@ export default class clusterPlugin extends Plugin {
     );
 
   }
-  //- Create Cluster and Orphans Folder
-  async createClustersAndOrphansFolder() {
-    try {
-      //orphans folder
-      const orphansFolderExists = await this.app.vault.adapter.exists(`/${orphans}`);
-      if (!orphansFolderExists) await this.app.vault.createFolder(`/${orphans}`);
-      //cluster folder
-      const clusterFolderExists = await this.app.vault.adapter.exists(`/${clusters}`);
-      if (!clusterFolderExists) {
-        await this.app.vault.createFolder(`/${clusters}`);
-      }
-      //@ts-ignore
-      const isOtherClusters = this.app.vault.getRoot().children?.find((item : any) => item instanceof TFolder && item.name ==clusters).children.length
-      if(isOtherClusters == 0){
-        const fileExists = await this.app.vault.adapter.exists(`/${clusters}/First-cluster.md`);
-        if (!fileExists) await this.app.vault.create(`/${clusters}/First-cluster.md`, firstClusterTemplate);
-      }
-     
-    } catch (error) {
-      console.log(error);
-    }
-  }
+
   onunload() {
     console.log("unloading Cluster plugin");
   }

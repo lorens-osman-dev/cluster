@@ -2,10 +2,11 @@ import { App, TFile , setTooltip , setIcon, addIcon} from "obsidian";
 import familyModal from "./familyModal";
 import { NewFileLocation } from '../util/enums';
 import deleteActiveNoteModal from "./deleteActiveNoteModal";
+import { createClustersAndOrphansFolder } from "./createClustersAndOrphansFolder";
+
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 
-// FIX add  this.createClustersAndOrphansFolder(); to every button
 export async function buttonsLine(app: App, file: TFile) {
     this.app = app
     const obsidianContainer = await this.app.workspace.activeEditor?.containerEl
@@ -14,7 +15,7 @@ export async function buttonsLine(app: App, file: TFile) {
 
     // check if buttonsLineContainer exist in the DOM or not
     const isButtonsLineContainer :any= obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer") )
-
+    
     // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
     if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
         obsidianContainer.removeChild(isButtonsLineContainer)
@@ -76,18 +77,23 @@ function makeButton(type: string, className: string , tooltipMsg :string) {
     button.addClasses(["btn",className])
     button.addEventListener('click', () => {
         if (type == "Cluster") {
+            createClustersAndOrphansFolder(this.app);
             new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
         }
         else if (type == "Son") {
+            createClustersAndOrphansFolder(this.app);
             new familyModal(this.app, NewFileLocation.NewTab, "newSon", undefined).open()
         }
         else if (type == "Brother") {
+            createClustersAndOrphansFolder(this.app);
             new familyModal(this.app, NewFileLocation.NewTab, "newBrother", undefined).open();
         }
         else if (type == "Orphan") {
+            createClustersAndOrphansFolder(this.app);
             new familyModal(this.app, NewFileLocation.NewTab, "newOrphan",undefined ).open();
         }
         else if (type == "Delete") {
+            createClustersAndOrphansFolder(this.app);
             new deleteActiveNoteModal(this.app, NewFileLocation.NewTab, "deleteNote").open();
         }
 
