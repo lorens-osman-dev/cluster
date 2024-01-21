@@ -5,7 +5,7 @@ import deleteActiveNoteModal from "./deleteActiveNoteModal";
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 
-// FIX add  this.createClustersAndOrphansFolder(); to everey button
+// FIX add  this.createClustersAndOrphansFolder(); to every button
 export async function buttonsLine(app: App, file: TFile) {
     this.app = app
     const obsidianContainer = await this.app.workspace.activeEditor?.containerEl

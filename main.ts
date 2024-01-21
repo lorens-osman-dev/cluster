@@ -14,16 +14,13 @@ export default class clusterPlugin extends Plugin {
   async onload() {
     console.log("loading Cluster plugin");
 
-     
-
-
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
       
       if(file){
         //- Add Buttons
         await buttonsLine(this.app , file )
-        
+
         //- Coloring Tree Panel
         coloringTreePanel(this.app , file)
       }
@@ -50,15 +47,12 @@ export default class clusterPlugin extends Plugin {
       }
     }));
        
-    //-Check For Advanced URI _Plugin
-    this.checkForAdvancedURI_Plugin();
     //- Commands
     this.addCommand({
       id: "New-Cluster",
       name: "new cluster",
       callback: () => {
         this.createClustersAndOrphansFolder();
-        this.checkForAdvancedURI_Plugin();
         new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
       },
     });
@@ -67,7 +61,6 @@ export default class clusterPlugin extends Plugin {
       name: "New son",
       callback: () => {
         this.createClustersAndOrphansFolder();
-        this.checkForAdvancedURI_Plugin();
         new familyModal(this.app, NewFileLocation.NewTab, "newSon" ,undefined).open();
       },
     });
@@ -76,7 +69,6 @@ export default class clusterPlugin extends Plugin {
       name: "New brother",
       callback: () => {
         this.createClustersAndOrphansFolder();
-        this.checkForAdvancedURI_Plugin();
         new familyModal(this.app, NewFileLocation.NewTab, "newBrother" ,undefined).open();
       },
     });
@@ -85,7 +77,6 @@ export default class clusterPlugin extends Plugin {
       name: "New orphan",
       callback: () => {
         this.createClustersAndOrphansFolder();
-        this.checkForAdvancedURI_Plugin();
         new familyModal(this.app, NewFileLocation.NewTab, "newOrphan",undefined ).open();
       },
     });
@@ -94,7 +85,6 @@ export default class clusterPlugin extends Plugin {
       name: "Delete active note",
       callback: () => {
         this.createClustersAndOrphansFolder();
-        this.checkForAdvancedURI_Plugin();
         new deleteActiveNoteModal(this.app, NewFileLocation.NewTab, "deleteNote").open();
       },
     });
@@ -102,7 +92,6 @@ export default class clusterPlugin extends Plugin {
     //- Ribbon Icon
     this.addRibbonIcon("folder-git-2", "Create New Cluster", (evt) => {
       this.createClustersAndOrphansFolder();
-      this.checkForAdvancedURI_Plugin();
       new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
     });
     //- file-menu
@@ -121,7 +110,6 @@ export default class clusterPlugin extends Plugin {
                 .setIcon("folder-git-2")
                 .onClick(async () => {
                   this.createClustersAndOrphansFolder();
-                  this.checkForAdvancedURI_Plugin();
                   const graphActiveFile = file
                   new familyModal(this.app, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
                 });
@@ -136,7 +124,6 @@ export default class clusterPlugin extends Plugin {
               .setIcon("baby")
               .onClick(async () => {
                 this.createClustersAndOrphansFolder();
-                this.checkForAdvancedURI_Plugin();
                 const graphActiveFile = file
                 new familyModal(this.app, NewFileLocation.NewTab, "newSon", graphActiveFile).open();
               });
@@ -154,7 +141,6 @@ export default class clusterPlugin extends Plugin {
               .setIcon("git-compare")
               .onClick(async () => {
                 this.createClustersAndOrphansFolder();
-                this.checkForAdvancedURI_Plugin();
                 const graphActiveFile = file
                 new familyModal(this.app, NewFileLocation.NewTab, "newBrother", graphActiveFile).open();
               });
@@ -173,7 +159,6 @@ export default class clusterPlugin extends Plugin {
               .setIcon("git-commit-vertical")
               .onClick(async () => {
                 this.createClustersAndOrphansFolder();
-                this.checkForAdvancedURI_Plugin();
                 const graphActiveFile = file
                 new familyModal(this.app, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
               });
@@ -207,22 +192,6 @@ export default class clusterPlugin extends Plugin {
       console.log(error);
     }
   }
-
-  //- checkForAdvancedURI_Plugin
-  checkForAdvancedURI_Plugin() {
-    //@ts-ignore
-    if (!this.app.plugins.enabledPlugins.has("obsidian-advanced-uri")) {
-      new Notice(
-`------------------------------------------
-(!) INFO (!) 
-Install and enable Advanced URI plugin for:
-Create Son, Create Brother links to work
-------------------------------------------`,
-        3e3
-      );
-    }
-  }
-
   onunload() {
     console.log("unloading Cluster plugin");
   }
