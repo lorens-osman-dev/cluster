@@ -223,6 +223,9 @@ export default class familyModal extends Modal {
       const clustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == clusters);
       // @ts-ignore
       this.setFolder(clustersFolder, "");
+      if(this.inputEl.value ==""){
+        this.inputEl.value = "Untitled"
+      }
       const clusterName = `${this.inputEl.value}-cluster`;
       this.createNewNote(clusterName, clusterTemplate());
     }
