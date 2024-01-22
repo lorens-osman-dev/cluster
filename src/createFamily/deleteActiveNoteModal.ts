@@ -1,4 +1,4 @@
-import { App, Notice, Modal, TFolder, TFile } from "obsidian";
+import { App, Notice, Modal, TFolder, TFile, setIcon } from "obsidian";
 import { NewFileLocation } from "../util/enums";
 import svgElements from "./svg";
 
@@ -51,51 +51,79 @@ export default class deleteActiveNoteModal extends Modal {
     this.modalEl.appendChild(text);
     this.modalEl.appendChild(this.inputEl);
 
+    //#region Buttons
+    // ok button ✓
+    const okBtn = document.createElement('div');
+    setIcon(okBtn , "check")
+    okBtn.classList.add("btn","ok");
+    okBtn.addEventListener("click",()=>{
+      this.doWork()
+      this.close();
+
+    })
+
+    this.modalEl.appendChild(okBtn);
+
+
+    // escape button  ❌
+    const noBtn = document.createElement('div');
+    setIcon(noBtn , "x")
+    noBtn.classList.add("btn","no");
+    noBtn.addEventListener("click",()=>{
+      this.close();
+
+    })
+    this.modalEl.appendChild(noBtn);
+    //#endregion
+    
     this.inputListener = this.listenInput.bind(this);
   }
 
-  //! This deleteActiveNoteModal enter point
+  async doWork(){
+
+    // get current active file
+    const getActiveFile = this.app.workspace.getActiveFile();
+    
+    
+    //parent folder info 
+    const theContainingFolder = getActiveFile!.parent!.children.length
+    const theContainingFolderPath = getActiveFile!.parent!.path
+    //Related Sons Folder
+    const theRelatedSonsFolder = getActiveFile!.parent!.children.find((item : any ) => {
+      // normal note
+      if(item instanceof TFolder && item.name == getActiveFile!.basename ){
+        return item
+      }
+      // cluster
+      if(item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename ){
+        return item
+      }
+    })
+    
+    if(theRelatedSonsFolder){
+      //delete current active file + delete its Sons
+      await this.app.vault.adapter.remove(getActiveFile!.path)
+      await this.app.vault.adapter.rmdir(theRelatedSonsFolder.path , true)
+      if(theContainingFolder == 2){
+        await this.app.vault.adapter.rmdir(theContainingFolderPath , true)
+      }
+    }else{
+      //delete current active file
+      await this.app.vault.adapter.remove(getActiveFile!.path)
+
+    }
+  
+    //delete parent folder of active file if it is empty
+    if(theContainingFolder == 1 ){
+      await this.app.vault.adapter.rmdir(theContainingFolderPath , true)
+    }
+  }
+
   async listenInput(evt: KeyboardEvent) {
     if (evt.key === "Enter") {
       // prevent enter after note creation
       evt.preventDefault();
-
-      // get current active file
-      const getActiveFile = this.app.workspace.getActiveFile();
-      
-      
-      //parent folder info 
-      const theContainingFolder = getActiveFile!.parent!.children.length
-      const theContainingFolderPath = getActiveFile!.parent!.path
-      //Related Sons Folder
-      const theRelatedSonsFolder = getActiveFile!.parent!.children.find((item : any ) => {
-        // normal note
-        if(item instanceof TFolder && item.name == getActiveFile!.basename ){
-          return item
-        }
-        // cluster
-        if(item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename ){
-          return item
-        }
-      })
-      
-      if(theRelatedSonsFolder){
-        //delete current active file + delete its Sons
-        await this.app.vault.adapter.remove(getActiveFile!.path)
-        await this.app.vault.adapter.rmdir(theRelatedSonsFolder.path , true)
-        if(theContainingFolder == 2){
-          await this.app.vault.adapter.rmdir(theContainingFolderPath , true)
-        }
-      }else{
-        //delete current active file
-        await this.app.vault.adapter.remove(getActiveFile!.path)
-
-      }
-   
-      //delete parent folder of active file if it is empty
-      if(theContainingFolder == 1 ){
-        await this.app.vault.adapter.rmdir(theContainingFolderPath , true)
-      }
+      await this.doWork()
       this.close();
     }
   }
@@ -105,7 +133,7 @@ export default class deleteActiveNoteModal extends Modal {
 
       // Create and append child elements
       const text1 = document.createElement('span');
-      text1.textContent = 'Press enter ↵ to delete current ';
+      text1.textContent = 'Delete ';
       deleteMsgContainer.appendChild(text1);
 
       const delNoteNameMsg1 = document.createElement('span');
@@ -121,7 +149,7 @@ export default class deleteActiveNoteModal extends Modal {
       deleteMsgContainer.appendChild(lineBreak);
 
       const text3 = document.createElement('span');
-      text3.textContent = 'with its related[';
+      text3.textContent = 'along with its [';
       deleteMsgContainer.appendChild(text3);
 
       const delNoteNameMsg2 = document.createElement('span');
@@ -130,7 +158,7 @@ export default class deleteActiveNoteModal extends Modal {
       deleteMsgContainer.appendChild(delNoteNameMsg2);
 
       const text4 = document.createElement('span');
-      text4.textContent = '] sons in [' + activeFile.basename + '] folder';
+      text4.textContent = '] direct Sons in [' + activeFile.basename + '] folder';
       deleteMsgContainer.appendChild(text4);
 
       return deleteMsgContainer
@@ -142,7 +170,7 @@ export default class deleteActiveNoteModal extends Modal {
 
     // Create and append child elements
     const text1 = document.createElement('span');
-    text1.textContent = 'Press enter ↵ to delete current ';
+    text1.textContent = 'Delete current ';
     deleteMsgContainer.appendChild(text1);
 
     const delNoteNameMsg1 = document.createElement('span');

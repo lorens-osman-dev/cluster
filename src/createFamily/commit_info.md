@@ -1,11 +1,14 @@
 ## Did
-- [*] add this.createClustersAndOrphansFolder() to every button
-- [*] delete old buttons styles from style.css
+- [*] Add button ✓ and x to every modal
+- [*] fix delete modal style
+
 
 
 
 ## ToDo
-- [ ] fix delete modal
-- [ ] Add button like Enter to every modal
+- [ ] fix Buttons on phone
 - [ ] fix README.md after the changes
 - [ ] fix First-cluster.md after the changes
+- [ ] remove event listener on unload
+- [ ] check if any input of any modal is empty , example new cluster and in input dont enter name value
+- [ ] fix if no active file the nothingModal will show to every command except cluster

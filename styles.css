@@ -4,13 +4,13 @@
 .prompt:has(.son),
 .prompt:has(.cluster),
 .prompt:has(.orphan),
-.prompt:has(.delete) ,
+.prompt:has(.delete),
 .prompt:has(.noThing) {
 
 
   display: grid !important;
   align-items: center !important;
-  grid-template-columns: 30% 70%;
+  grid-template-columns: 30% 1fr 25px 25px;
   box-shadow: none !important;
   border-radius: 0;
   top: 30% !important;
@@ -36,10 +36,7 @@
 .prompt:has(.noThing) .modal-close-button {
 
 
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 1000;
-
+  display: none
 }
 
 .prompt-input {
@@ -56,9 +53,11 @@
   justify-items: center;
   height: 57px;
 }
+
 .inputMsgCon.cluster {
   background-color: hsl(154.99deg 50% 30%)
 }
+
 .inputMsgCon.son {
   background-color: hsl(340.53deg 50% 30%);
 }
@@ -72,19 +71,44 @@
 }
 
 .inputMsgCon.delete {
-  background-color: hsl(5, 83%, 42%)
+  background-color: hsl(5, 83%, 42%);
+  grid-area: delete;
 }
 
 .inputMsgCon.noThing {
   grid-template-columns: none;
 }
 
-.inputDelete {
-  opacity: 0.0;
-  position: absolute;
+.prompt:has(.noThing) .btn.ok,
+.prompt:has(.noThing) .btn.no{
+  display: none;
+}
+/* -delete modal */
+.prompt:has(.delete) {
+  grid-template-columns:1fr 25px 25px;
+  grid-template-rows: 57px 1fr;
+  grid-template-areas: 
+  "delete ok no"
+  "delMsg delMsg delMsg";
+  height: 157px
+
+}
+.prompt:has(.delete) .btn.ok{
+  grid-area: ok;
+}
+.prompt:has(.delete) .btn.no{
+  grid-area: no;
 }
 
+.inputDelete {
+  height: 97px !important;
+  background-color: red !important;
+  opacity: 0.0;
+  position: absolute;
+  bottom: 0;
+}
 .delMsg {
+  grid-area: delMsg;
   color: var(--text-faint);
   padding-left: var(--size-4-6);
 }
@@ -95,9 +119,6 @@
 
 }
 
-.prompt:has(.delMsg) {
-  height: 85px;
-}
 
 
 .textMsg {
@@ -125,40 +146,50 @@
 
 /* - FILE TREE -------------------*/
 
-.clustersFolderTreeElement{
-  color: hsl(155 30% 50% ) !important;
+.clustersFolderTreeElement {
+  color: hsl(155 30% 50%) !important;
 }
-.clustersFilesTreeElementTitles{
-  color: hsl(155 30% 50% ) !important;
+
+.clustersFilesTreeElementTitles {
+  color: hsl(155 30% 50%) !important;
 }
-.orphansFolderTreeElement{
-  color:hsl(303deg 30% 50%)   !important;
+
+.orphansFolderTreeElement {
+  color: hsl(303deg 30% 50%) !important;
 }
+
 /* - FILE MENU -------------------*/
-.menu-item:has(.menu-item-icon .lucide-folder-git-2 ) {
-  background-color: hsl(154.99deg 50% 30%/ 40%)   !important;
+.menu-item:has(.menu-item-icon .lucide-folder-git-2) {
+  background-color: hsl(154.99deg 50% 30%/ 40%) !important;
 }
-.menu-item.selected:has(.menu-item-icon .lucide-folder-git-2 ) {
-  background-color:hsl(154.99deg 50% 30%/ 80%)   !important;
+
+.menu-item.selected:has(.menu-item-icon .lucide-folder-git-2) {
+  background-color: hsl(154.99deg 50% 30%/ 80%) !important;
 }
-.menu-item:has(.menu-item-icon .lucide-baby ) {
-  background-color: hsl(341deg 50% 30% / 40%)  !important;
+
+.menu-item:has(.menu-item-icon .lucide-baby) {
+  background-color: hsl(341deg 50% 30% / 40%) !important;
   margin-bottom: 2px;
 }
-.menu-item.selected:has(.menu-item-icon .lucide-baby ) {
-  background-color:hsl(341deg 50% 30% / 80%)  !important;
+
+.menu-item.selected:has(.menu-item-icon .lucide-baby) {
+  background-color: hsl(341deg 50% 30% / 80%) !important;
 }
-.menu-item:has(.menu-item-icon .lucide-git-compare ) {
-  background-color: hsl(210deg 50% 30% / 40%)   !important;
+
+.menu-item:has(.menu-item-icon .lucide-git-compare) {
+  background-color: hsl(210deg 50% 30% / 40%) !important;
 }
-.menu-item.selected:has(.menu-item-icon .lucide-git-compare ) {
-  background-color:hsl(210deg 50% 30% / 80%)   !important;
+
+.menu-item.selected:has(.menu-item-icon .lucide-git-compare) {
+  background-color: hsl(210deg 50% 30% / 80%) !important;
 }
-.menu-item:has(.menu-item-icon .lucide-git-commit-vertical ) {
-  background-color: hsl(303deg 50% 30%/ 40%)   !important;
+
+.menu-item:has(.menu-item-icon .lucide-git-commit-vertical) {
+  background-color: hsl(303deg 50% 30%/ 40%) !important;
 }
-.menu-item.selected:has(.menu-item-icon .lucide-git-commit-vertical ) {
-  background-color:hsl(303deg 50% 30%/ 80%)   !important;
+
+.menu-item.selected:has(.menu-item-icon .lucide-git-commit-vertical) {
+  background-color: hsl(303deg 50% 30%/ 80%) !important;
 }
 
 /* - PHONE FAMILY MODAL STYLES-------------------*/
@@ -220,30 +251,56 @@
 
   display: flex;
   justify-content: center;
-  background-color:hsl(154.99deg 50% 30%/ 30%)   !important;
+  background-color: hsl(154.99deg 50% 30%/ 30%) !important;
 
 }
+
 .buttonsLineContainer:has(.sonBtn) {
-  background-color:hsl(154.99deg 50% 30%/ 30%)   !important;
+  background-color: hsl(154.99deg 50% 30%/ 30%) !important;
 }
+
 .buttonsLineContainer:not(:has(.sonBtn)) {
   background-color: hsl(303deg 50% 30% / 30%) !important;
 }
 
-.btn{
+.btn {
   display: grid;
   justify-content: center;
   align-items: center;
   padding: 4px 6px;
 }
+
 .btn:hover {
   box-shadow: none;
   opacity: var(--icon-opacity-hover);
   color: var(--icon-color-hover);
   background-color: var(--background-modifier-hover);
 }
-.btn svg{
-  color:#DCDDDE
+
+.btn svg {
+  color: #DCDDDE
+}
+
+.btn.ok {
+  background-color: hsl(157, 26%, 17%);
+  height: 57px;
+}
+
+.btn.ok:hover {
+  background-color: hsl(157, 26%, 27%);
+  cursor: pointer;
+}
+
+.btn.no {
+  background-color: hsl(0deg 26% 17%);
+  height: 57px;
+  z-index: 100;
+}
+
+.btn.no:hover {
+  background-color: hsl(0deg 26% 27%);
+  cursor: pointer;
+  z-index: 100;
 
 }
 
@@ -256,11 +313,11 @@
   animation: jello-vertical 0.9s both;
 }
 
-.prompt:has(.delete):hover svg {
+/* .prompt:has(.delete):hover svg {
 
   -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
   animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-}
+} */
 
 
 @-webkit-keyframes jello-vertical {
