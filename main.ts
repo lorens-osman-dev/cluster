@@ -1,4 +1,4 @@
-import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder, TFile, WorkspaceWindow } from "obsidian";
+import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder, TFile, WorkspaceWindow, WorkspaceLeaf } from "obsidian";
 import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
@@ -17,12 +17,13 @@ export default class clusterPlugin extends Plugin {
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
       if(file){
-        //- Add Buttons
         
+        //- Add Buttons
         await buttonsLine(this.app , file )
 
         //- Coloring Tree Panel
         coloringTreePanel(this.app , file)
+        
       }
  
     }));

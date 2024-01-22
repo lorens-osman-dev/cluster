@@ -1,12 +1,8 @@
 ## Did
-- [*] Add button ✓ and x to every modal
-- [*] fix delete modal style
-
-
+- [*] fix Buttons on phone
 
 
 ## ToDo
-- [ ] fix Buttons on phone
 - [ ] fix README.md after the changes
 - [ ] fix First-cluster.md after the changes
 - [ ] remove event listener on unload
