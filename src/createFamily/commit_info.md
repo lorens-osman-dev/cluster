@@ -1,9 +1,8 @@
 ## Did
-- [*] fix if no active file:the nothingModal will show to every command except cluster and orphan
+- [*] fix commands modal style  on phone because we changed .prompt-input style
 
 
 ## ToDo
-- [ ] fix commands modal style because we changed .prompt-input style
 - [ ] fix README.md after the changes
 - [ ] fix First-cluster.md after the changes
 - [ ] remove event listener on unload

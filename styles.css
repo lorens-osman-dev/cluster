@@ -253,7 +253,7 @@
 
 /* - PHONE FAMILY MODAL STYLES-------------------*/
 
-.is-phone .prompt {
+.is-phone .prompt:has(.btn) {
   display: grid !important;
   grid-template-columns:1fr 40px 40px;
   grid-template-rows: 57px 1fr;
@@ -266,7 +266,7 @@
 .is-phone .inputMsgCon{
   grid-area: inputMsgCon;
 }
-.is-phone .prompt-input{
+.is-phone .prompt:has(.btn) .prompt-input{
   grid-area: prompt-input;
   align-self: start;
 
