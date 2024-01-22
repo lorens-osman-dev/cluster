@@ -1,101 +1,128 @@
 .theme-dark {
+  //-prompt colors
   --background-prompt-son: hsl(340.53deg 50% 30%);
   --background-prompt-cluster: hsl(154.99deg 50% 30%);
   --background-prompt-brother: hsl(210.38deg 50% 30%);
   --background-prompt-orphan: hsl(303deg 50% 30%);
   --background-prompt-delete: hsl(5, 83%, 42%);
+  //-tree colors
   --color-tree-Clusters: hsl(155 30% 50%) ;
   --color-tree-Orphans: hsl(303deg 30% 50%) ;
-  --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
-  --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
-  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
-  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
-  --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
-  --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
-  --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
-  --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
-  --background-button-container-clusters: hsl(154.99deg 50% 30%/ 30%) ;
-  --background-button-container-orphans: hsl(303deg 50% 30%/ 30%) ;
-  --background-button-ok: hsl(157, 26%, 17%);
-  --background-button-ok-hover: hsl(157, 26%, 27%);
-  --background-button-no: hsl(0deg 26% 17%);
-  --background-button-no-hover: hsl(0deg 26% 27%);
+  //-menu colors
+  --background-menu-cluster : hsl(154.99deg 50% 30%/ 40%) !important;
+  --background-menu-cluster-selected : hsl(154.99deg 50% 30%/ 80%) !important;
+  --background-menu-son : hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-son-selected :  hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-brother : hsl(210deg 50% 30% / 40%) !important;
+  --background-menu-brother-selected :   hsl(210deg 50% 30% / 80%) !important;
+  --background-menu-orphan : hsl(303deg 50% 30%/ 40%) !important;
+  --background-menu-orphan-selected :   hsl(303deg 50% 30%/ 80%) !important;
+  //- buttons container colors
+  --background-button-container-clusters :  hsl(154.99deg 50% 30%/ 30%) ;
+  --background-button-container-orphans : hsl(303deg 50% 30%/ 30%)  ;
+  //- buttons colors
+  --background-button-ok : hsl(157, 26%, 17%);
+  --background-button-ok-hover : hsl(157, 26%, 27%);
+  --background-button-no :  hsl(0deg 26% 17%);
+  --background-button-no-hover :  hsl(0deg 26% 27%);
 }
 
 .theme-light {
+  //-prompt colors
   --background-prompt-son: hsl(340.53deg 50% 30%);
   --background-prompt-cluster: hsl(154.99deg 50% 30%);
   --background-prompt-brother: hsl(210.38deg 50% 30%);
   --background-prompt-orphan: hsl(303deg 50% 30%);
   --background-prompt-delete: hsl(5, 83%, 42%);
+  //-tree colors
   --color-tree-Clusters: hsl(154.99deg 70% 30%) ;
-  --color-tree-Orphans: hsl(303deg 70% 30%) ;
-  --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
-  --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
-  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
-  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
-  --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
-  --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
-  --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
-  --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
-  --background-button-container-clusters: hsl(155 30% 50%);
-  --background-button-container-orphans: hsl(303deg 30% 50%) ;
-  --background-button-ok: hsl(157, 26%, 17%);
-  --background-button-ok-hover: hsl(157, 26%, 27%);
-  --background-button-no: hsl(0deg 26% 17%);
-  --background-button-no-hover: hsl(0deg 26% 27%);
+  --color-tree-Orphans: hsl(303deg 70% 30%)  ;
+  //-menu colors
+  --background-menu-cluster : hsl(154.99deg 50% 30%/ 40%) !important;
+  --background-menu-cluster-selected : hsl(154.99deg 50% 30%/ 80%) !important;
+  --background-menu-son : hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-son-selected :  hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-brother : hsl(210deg 50% 30% / 40%) !important;
+  --background-menu-brother-selected :   hsl(210deg 50% 30% / 80%) !important;
+  --background-menu-orphan : hsl(303deg 50% 30%/ 40%) !important;
+  --background-menu-orphan-selected :   hsl(303deg 50% 30%/ 80%) !important;
+  //- buttons container colors
+  --background-button-container-clusters :  hsl(155 30% 50%);
+  --background-button-container-orphans : hsl(303deg 30% 50%) ;
+  //- buttons colors
+  --background-button-ok : hsl(157, 26%, 17%);
+  --background-button-ok-hover : hsl(157, 26%, 27%);
+  --background-button-no :  hsl(0deg 26% 17%);
+  --background-button-no-hover :  hsl(0deg 26% 27%);
+
+
 }
 
+//- PC FAMILY MODAL STYLES-------------------*/
 .prompt {
   background-color: var(--background-primary);
+  &:has(.brother),
+  &:has(.son),
+  &:has(.cluster),
+  &:has(.delete),
+  &:has(.orphan),
+  &:has(.noThing) {
+    display: grid !important;
+    align-items: center !important;
+    grid-template-columns: 30% 1fr 25px 25px;
+    border-radius: 0;
+    top: 30% !important;
+
+
+    .modal-content,
+    .modal-close-button {
+      display: none;
+    }
+  }
+
+  .prompt-input {
+    border: none !important;
+  }
+
+  //-input Msg Container
+  .inputMsgCon {
+    display: grid;
+    grid-template-columns: 65px 1fr;
+    align-items: center;
+    font-size: var(--font-ui-medium);
+    font-weight: bold;
+    justify-items: center;
+    height: 57px;
+
+    &.cluster {
+      background-color: var(--background-prompt-cluster)
+    }
+
+    &.son {
+      background-color: var(--background-prompt-son)
+    }
+
+    &.brother {
+      background-color: var(--background-prompt-brother)
+    }
+
+    &.orphan {
+      background-color: var(--background-prompt-orphan);
+    }
+
+    &.delete {
+      background-color: var(--background-prompt-delete);
+      grid-area: delete;
+    }
+
+    &.noThing {
+      grid-template-columns: none;
+    }
+
+  }
+
 }
-.prompt:has(.brother), .prompt:has(.son), .prompt:has(.cluster), .prompt:has(.delete), .prompt:has(.orphan), .prompt:has(.noThing) {
-  display: grid !important;
-  align-items: center !important;
-  grid-template-columns: 30% 1fr 25px 25px;
-  border-radius: 0;
-  top: 30% !important;
-}
-.prompt:has(.brother) .modal-content,
-.prompt:has(.brother) .modal-close-button, .prompt:has(.son) .modal-content,
-.prompt:has(.son) .modal-close-button, .prompt:has(.cluster) .modal-content,
-.prompt:has(.cluster) .modal-close-button, .prompt:has(.delete) .modal-content,
-.prompt:has(.delete) .modal-close-button, .prompt:has(.orphan) .modal-content,
-.prompt:has(.orphan) .modal-close-button, .prompt:has(.noThing) .modal-content,
-.prompt:has(.noThing) .modal-close-button {
-  display: none;
-}
-.prompt .prompt-input {
-  border: none !important;
-}
-.prompt .inputMsgCon {
-  display: grid;
-  grid-template-columns: 65px 1fr;
-  align-items: center;
-  font-size: var(--font-ui-medium);
-  font-weight: bold;
-  justify-items: center;
-  height: 57px;
-}
-.prompt .inputMsgCon.cluster {
-  background-color: var(--background-prompt-cluster);
-}
-.prompt .inputMsgCon.son {
-  background-color: var(--background-prompt-son);
-}
-.prompt .inputMsgCon.brother {
-  background-color: var(--background-prompt-brother);
-}
-.prompt .inputMsgCon.orphan {
-  background-color: var(--background-prompt-orphan);
-}
-.prompt .inputMsgCon.delete {
-  background-color: var(--background-prompt-delete);
-  grid-area: delete;
-}
-.prompt .inputMsgCon.noThing {
-  grid-template-columns: none;
-}
+
 
 .prompt:has(.noThing) .btn.ok,
 .prompt:has(.noThing) .btn.no {
@@ -106,8 +133,10 @@
 .prompt:has(.delete) {
   grid-template-columns: 1fr 25px 25px;
   grid-template-rows: 57px 1fr;
-  grid-template-areas: "delete ok no" "delMsg delMsg delMsg";
-  height: 157px;
+  grid-template-areas:
+    "delete ok no"
+    "delMsg delMsg delMsg";
+  height: 157px
 }
 
 .prompt:has(.delete) .btn.ok {
@@ -120,7 +149,7 @@
 
 .inputDelete {
   height: 97px !important;
-  opacity: 0;
+  opacity: 0.0;
   position: absolute;
   bottom: 0;
 }
@@ -134,7 +163,10 @@
 .delMsg .delNoteNameMsg {
   color: var(--background-prompt-delete);
   text-decoration: underline;
+
 }
+
+
 
 .textMsg {
   justify-self: left;
@@ -155,9 +187,12 @@
   text-align: center;
   height: 40px !important;
   width: 40px !important;
+
 }
 
+
 /* - FILE TREE -------------------*/
+
 .clustersFolderTreeElement {
   color: var(--color-tree-Clusters);
 }
@@ -167,12 +202,12 @@
 }
 
 .orphansFolderTreeElement {
-  color: var(--color-tree-Orphans);
+  color: var(--color-tree-Orphans)
 }
 
 /* - FILE MENU -------------------*/
 .menu-item:has(.menu-item-icon .lucide-folder-git-2) {
-  background-color: var(--background-menu-cluster);
+  background-color:var(--background-menu-cluster);
 }
 
 .menu-item.selected:has(.menu-item-icon .lucide-folder-git-2) {
@@ -204,58 +239,80 @@
   background-color: var(--background-menu-orphan-selected);
 }
 
+
+//-BUTTONS-------------------*/
 .buttonsLineContainer {
   display: flex;
   justify-content: center;
+
+  &:has(.sonBtn) {
+    background-color: var(--background-button-container-clusters);
+  }
+
+  &:not(:has(.sonBtn)) {
+    background-color:var(--background-button-container-orphans);
+  }
 }
-.buttonsLineContainer:has(.sonBtn) {
-  background-color: var(--background-button-container-clusters);
-}
-.buttonsLineContainer:not(:has(.sonBtn)) {
-  background-color: var(--background-button-container-orphans);
-}
+
 
 .btn {
   display: grid;
   justify-content: center;
   align-items: center;
   padding: 4px 6px;
-}
-.btn:hover {
-  box-shadow: none;
-  background-color: var(--background-modifier-hover);
-  cursor: pointer;
-}
-.btn.ok {
-  background-color: var(--background-button-ok);
-  height: 57px;
-}
-.btn.ok:hover {
-  background-color: var(--background-button-ok-hover);
-}
-.btn.no {
-  background-color: var(--background-button-no);
-  height: 57px;
-}
-.btn.no:hover {
-  background-color: var(--background-button-no-hover);
-}
-.btn svg {
-  color: var(--icon-color);
-}
-.btn .cluster-svg {
-  fill: var(--icon-color) !important;
+  
+
+  &:hover {
+    box-shadow: none;
+    background-color: var(--background-modifier-hover);
+    cursor: pointer;
+  }
+
+  &.ok {
+    background-color: var(--background-button-ok);
+    height: 57px;
+
+    &:hover {
+      background-color:var(--background-button-ok-hover);
+    }
+
+  }
+
+  &.no {
+    background-color: var(--background-button-no);
+    height: 57px;
+
+    &:hover {
+      background-color: var(--background-button-no-hover);
+    }
+
+  }
+
+  svg{
+    color: var(--icon-color)
+    
+  }
+  .cluster-svg {
+    fill: var(--icon-color) !important
+
+  }
+
 }
 
 .cluster-svg {
-  fill: var(--icon-color) !important;
+  fill: var(--icon-color) !important
+
 }
+
+//-PHONE FAMILY MODAL STYLES-------------------*/
 
 .is-phone .prompt:has(.btn) {
   display: grid !important;
   grid-template-columns: 1fr 40px 40px;
   grid-template-rows: 57px 1fr;
-  grid-template-areas: "inputMsgCon ok no" "prompt-input prompt-input prompt-input";
+  grid-template-areas:
+    "inputMsgCon ok no"
+    "prompt-input prompt-input prompt-input";
   top: 20% !important;
 }
 
@@ -266,12 +323,14 @@
 .is-phone .prompt:has(.btn) .prompt-input {
   grid-area: prompt-input;
   align-self: start;
+
 }
 
 .is-phone .delMsg {
   grid-area: prompt-input;
   align-self: start;
   padding: var(--size-4-4);
+
 }
 
 .is-phone .btn.ok {
@@ -287,42 +346,58 @@
 }
 
 .is-phone .prompt:has(.delete) {
+
   height: calc(var(--mobile-height) - var(--prompt-top) - var(--prompt-bottom));
 }
 
-.theme-light .prompt .inputMsgCon {
-  color: var(--background-primary);
-}
-.theme-light .prompt .inputMsgCon .cluster-svg {
-  fill: var(--background-primary);
-}
-.theme-light .btn.ok {
-  background-color: hsl(157, 50%, 30%);
-}
-.theme-light .btn.ok:hover {
-  background-color: hsl(157, 50%, 40%);
-}
-.theme-light .btn.no {
-  background-color: hsl(0, 50%, 30%);
-}
-.theme-light .btn.no:hover {
-  background-color: hsl(0, 50%, 40%);
-}
-.theme-light .btn svg {
-  color: var(--background-primary);
-}
-.theme-light .btn .cluster-svg {
-  fill: var(--background-primary) !important;
-}
-.theme-light .delMsg {
-  color: var(--text-normal);
-}
-.theme-light .cluster-svg {
-  fill: var(--background-primary) !important;
+
+
+//- LIGHT THEME
+
+.theme-light{
+  .prompt {
+    .inputMsgCon {
+      color: var(--background-primary);
+      .cluster-svg{
+        fill: var(--background-primary);
+      }
+    }
+  }
+  .btn {
+    &.ok{
+      background-color: hsl(157 50% 30% );
+      &:hover{
+        background-color: hsl(157 50% 40% );
+      }
+    }
+    &.no {
+      background-color:hsl(0deg 50% 30%);
+      &:hover {
+        background-color: hsl(0deg 50% 40%);
+      }
+    }
+    svg{ 
+      color: var(--background-primary);
+    }
+    .cluster-svg {
+      fill: var(--background-primary) !important;
+  
+    }
+  }
+  .delMsg{
+    color:var(--text-normal);
+  }
+  .cluster-svg {
+    fill: var(--background-primary) !important;
+
+  }
 }
 
+
 /*- animation */
+
 .inputMsgCon.son:hover svg {
+
   -webkit-animation: jello-vertical 0.9s both;
   animation: jello-vertical 0.9s both;
 }
@@ -332,109 +407,148 @@
   -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
   animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
 } */
+
+
 @-webkit-keyframes jello-vertical {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
+
   30% {
     -webkit-transform: scale3d(0.75, 1.25, 1);
     transform: scale3d(0.75, 1.25, 1);
   }
+
   40% {
     -webkit-transform: scale3d(1.25, 0.75, 1);
     transform: scale3d(1.25, 0.75, 1);
   }
+
   50% {
     -webkit-transform: scale3d(0.85, 1.15, 1);
     transform: scale3d(0.85, 1.15, 1);
   }
+
   65% {
     -webkit-transform: scale3d(1.05, 0.95, 1);
     transform: scale3d(1.05, 0.95, 1);
   }
+
   75% {
     -webkit-transform: scale3d(0.95, 1.05, 1);
     transform: scale3d(0.95, 1.05, 1);
   }
+
   100% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 }
+
 @keyframes jello-vertical {
   0% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
+
   30% {
     -webkit-transform: scale3d(0.75, 1.25, 1);
     transform: scale3d(0.75, 1.25, 1);
   }
+
   40% {
     -webkit-transform: scale3d(1.25, 0.75, 1);
     transform: scale3d(1.25, 0.75, 1);
   }
+
   50% {
     -webkit-transform: scale3d(0.85, 1.15, 1);
     transform: scale3d(0.85, 1.15, 1);
   }
+
   65% {
     -webkit-transform: scale3d(1.05, 0.95, 1);
     transform: scale3d(1.05, 0.95, 1);
   }
+
   75% {
     -webkit-transform: scale3d(0.95, 1.05, 1);
     transform: scale3d(0.95, 1.05, 1);
   }
+
   100% {
     -webkit-transform: scale3d(1, 1, 1);
     transform: scale3d(1, 1, 1);
   }
 }
+
+
+
 @-webkit-keyframes shake-horizontal {
-  0%, 100% {
+
+  0%,
+  100% {
     -webkit-transform: translateX(0);
     transform: translateX(0);
   }
-  10%, 30%, 50%, 70% {
+
+  10%,
+  30%,
+  50%,
+  70% {
     -webkit-transform: translateX(-10px);
     transform: translateX(-10px);
   }
-  20%, 40%, 60% {
+
+  20%,
+  40%,
+  60% {
     -webkit-transform: translateX(10px);
     transform: translateX(10px);
   }
+
   80% {
     -webkit-transform: translateX(8px);
     transform: translateX(8px);
   }
-  90% {
-    -webkit-transform: translateX(-8px);
-    transform: translateX(-8px);
-  }
-}
-@keyframes shake-horizontal {
-  0%, 100% {
-    -webkit-transform: translateX(0);
-    transform: translateX(0);
-  }
-  10%, 30%, 50%, 70% {
-    -webkit-transform: translateX(-10px);
-    transform: translateX(-10px);
-  }
-  20%, 40%, 60% {
-    -webkit-transform: translateX(10px);
-    transform: translateX(10px);
-  }
-  80% {
-    -webkit-transform: translateX(8px);
-    transform: translateX(8px);
-  }
+
   90% {
     -webkit-transform: translateX(-8px);
     transform: translateX(-8px);
   }
 }
 
-/*# sourceMappingURL=styles.css.map */
+@keyframes shake-horizontal {
+
+  0%,
+  100% {
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
+  }
+
+  10%,
+  30%,
+  50%,
+  70% {
+    -webkit-transform: translateX(-10px);
+    transform: translateX(-10px);
+  }
+
+  20%,
+  40%,
+  60% {
+    -webkit-transform: translateX(10px);
+    transform: translateX(10px);
+  }
+
+  80% {
+    -webkit-transform: translateX(8px);
+    transform: translateX(8px);
+  }
+
+  90% {
+    -webkit-transform: translateX(-8px);
+    transform: translateX(-8px);
+  }
+}

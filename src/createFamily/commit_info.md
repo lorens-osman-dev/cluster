@@ -1,9 +1,12 @@
 ## Did
-- [*] fix if the name's input of cluster modal is empty
+- [*] make dark and light css colors
+- [*] fix cluster svg color 
+- [*] use scss instead of css 
 
 
 
 ## ToDo
-- [ ] fix README.md after the changes
 - [ ] fix First-cluster.md after the changes
-- [ ] remove event listener on unload
+- [ ] fix README.md after the changes
+- [ ] fix nothing Modal style on phone
+

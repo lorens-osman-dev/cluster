@@ -53,10 +53,7 @@ generation: ${generationFromActiveFilePath}
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '').replace(/ /g, "-")            
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
             const activeFileParentLink = `[[${activeFile?.parent?.path}|${activeFile?.parent?.name}]]`  
-            // FIX TEST AREA
-            const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
-           // const sonFileParentLink2 = `[[${activeFile.parent.path}/${activeFile.basename.toLowerCase()}|${activeFile.basename.toLowerCase()}]]`
-       
+            const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`       
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length-1 // how many "/" in the path
             const parentFileLink =  frontmatterProperties?.parent

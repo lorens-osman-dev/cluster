@@ -12,7 +12,7 @@ export default class clusterPlugin extends Plugin {
   actions = new Map();
 
   async onload() {
-    console.log("loading Cluster plugin");
+    console.log("loading ccCluster plugin");
 
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
