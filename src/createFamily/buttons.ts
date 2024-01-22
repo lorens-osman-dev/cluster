@@ -23,7 +23,7 @@ export async function buttonsLine(app: App, file: TFile) {
         //@ts-ignore
         const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
 
-        
+
         appendOrRemoveChild(file ,obsidianContainer , obsidianContainerElements ,obsidianHeaderEl)
     
     }
@@ -64,7 +64,7 @@ function appendOrRemoveChild(file :TFile , obsidianContainer :any , obsidianCont
         setIcon(brotherBtn ,"git-compare")
 
         const orphanBtn = makeButton("Orphan" ,"orphanBtn" ,`Create New Orphan note in [ORPHANS] folder`)
-        setIcon(orphanBtn ,"git-commit-vertical")
+        setIcon(orphanBtn ,"disc")
 
         const deleteBtn = makeButton("Delete" ,"deleteBtn",`Delete the current [${file.basename}] note along with its associated son notes if they exist`)
         setIcon(deleteBtn ,"trash-2")

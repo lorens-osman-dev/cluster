@@ -184,11 +184,11 @@
   background-color: hsl(210deg 50% 30% / 80%) !important;
 }
 
-.menu-item:has(.menu-item-icon .lucide-git-commit-vertical) {
+.menu-item:has(.menu-item-icon .lucide-disc) {
   background-color: hsl(303deg 50% 30%/ 40%) !important;
 }
 
-.menu-item.selected:has(.menu-item-icon .lucide-git-commit-vertical) {
+.menu-item.selected:has(.menu-item-icon .lucide-disc) {
   background-color: hsl(303deg 50% 30%/ 80%) !important;
 }
 

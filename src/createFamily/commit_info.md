@@ -1,5 +1,5 @@
 ## Did
-- [*] fix the styles for phone
+- [*] fix the styles of orphans's svg icon for phone
 
 
 ## ToDo

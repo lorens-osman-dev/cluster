@@ -23,7 +23,7 @@ export default class clusterPlugin extends Plugin {
 
         //- Coloring Tree Panel
         coloringTreePanel(this.app , file)
-        
+
       }
  
     }));
@@ -137,7 +137,7 @@ export default class clusterPlugin extends Plugin {
           menu.addItem((item) => {
             item
               .setTitle("New orphan")
-              .setIcon("git-commit-vertical")
+              .setIcon("disc")
               .onClick(async () => {
                 createClustersAndOrphansFolder(this.app);
                 const graphActiveFile = file

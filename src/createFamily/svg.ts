@@ -72,7 +72,7 @@ export default function svgElements(){
             con.classList.add("inputMsgCon","orphan");
 
             // 2 - SVG Element
-            setIcon(con, 'git-commit-vertical');
+            setIcon(con, 'disc');
 
             // 3 - Text Element
             const text = document.createElement('div');
