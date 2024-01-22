@@ -1,5 +1,5 @@
 ## Did
-- [*] fix Buttons on phone
+- [*] fix the styles for phone
 
 
 ## ToDo

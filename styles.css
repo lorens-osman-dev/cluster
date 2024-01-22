@@ -192,61 +192,8 @@
   background-color: hsl(303deg 50% 30%/ 80%) !important;
 }
 
-/* - PHONE FAMILY MODAL STYLES-------------------*/
 
-.is-phone .prompt {
-  display: block !important;
-}
-
-.is-phone .prompt:has(.delMsg) {
-  height: inherit;
-}
-
-.is-phone .delMsg {
-  padding: var(--size-4-4);
-}
-
-.is-phone .textMsg {
-  margin-left: -70px;
-  justify-self: center;
-  font-size: var(--size-4-5);
-}
-
-.is-phone .prompt:has(.son) .modal-close-button,
-.is-phone .prompt:has(.cluster) .modal-close-button,
-.is-phone .prompt:has(.brother) .modal-close-button,
-.is-phone .prompt:has(.delete) .modal-close-button,
-.is-phone .prompt:has(.orphan) .modal-close-button,
-.is-phone .prompt:has(.noThing) .modal-close-button {
-
-
-  top: 0;
-  right: 0;
-  color: var(--text-normal);
-  background-color: hsl(0deg 0% 55.12% / 36%);
-  height: 57px;
-  width: 57px;
-  transform: translateY(0%);
-
-
-}
-
-.is-phone .prompt:has(.son) .modal-close-button::before,
-.is-phone .prompt:has(.cluster) .modal-close-button::before,
-.is-phone .prompt:has(.brother) .modal-close-button::before,
-.is-phone .prompt:has(.delete) .modal-close-button::before,
-.is-phone .prompt:has(.orphan) .modal-close-button::before,
-.is-phone .prompt:has(.noThing) .modal-close-button::before {
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-
-}
-
-/* - NEW BUTTONS-------------------*/
+/* - BUTTONS-------------------*/
 .buttonsLineContainer {
 
   display: flex;
@@ -303,6 +250,52 @@
   z-index: 100;
 
 }
+
+/* - PHONE FAMILY MODAL STYLES-------------------*/
+
+.is-phone .prompt {
+  display: grid !important;
+  grid-template-columns:1fr 40px 40px;
+  grid-template-rows: 57px 1fr;
+  grid-template-areas: 
+  "inputMsgCon ok no"
+  "prompt-input prompt-input prompt-input";
+  top: 20% !important;
+}
+
+.is-phone .inputMsgCon{
+  grid-area: inputMsgCon;
+}
+.is-phone .prompt-input{
+  grid-area: prompt-input;
+  align-self: start;
+
+}
+.is-phone .delMsg{
+  grid-area: prompt-input;
+  align-self: start;
+  padding: var(--size-4-4);
+
+}
+.is-phone .btn.ok {
+  grid-area: ok;
+}
+.is-phone .btn.no {
+  grid-area: no;
+}
+
+.is-phone .btn{
+  padding: 10px 15px;
+}
+
+.is-phone .prompt:has(.delete) {
+
+  height: calc(var(--mobile-height) - var(--prompt-top) - var(--prompt-bottom));
+}
+
+
+
+
 
 
 /*- animation */
