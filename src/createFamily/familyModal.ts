@@ -46,24 +46,32 @@ export default class familyModal extends Modal {
     
     //svg and placeholders
     if(getActiveFile === null){
+      if (this.createType == "newCluster") {
+        this.inputEl.placeholder = `Type the new Cluster name`;
+        this.modalEl.appendChild(svgElements().cluster());
+      }else if (this.createType == "newOrphan") {
+        this.inputEl.placeholder = `Type the new Orphan name`;
+        this.modalEl.appendChild(svgElements().orphan());
+      }else{
+        this.inputEl.addClasses(["prompt-input","inputDelete"])
+        this.modalEl.appendChild(svgElements().noThing());
+        const text = document.createElement('div');
+        text.innerText = `No active file in the work space, Press ESC`
+        text.addClass("nothingMsg")
+  
+        this.modalEl.appendChild(text);
+      }
  
-      this.inputEl.addClasses(["prompt-input","inputDelete"])
-      this.modalEl.appendChild(svgElements().noThing());
-      const text = document.createElement('div');
-      text.innerText = `No active file in the work space, Press ESC`
-      text.addClass("nothingMsg")
 
-
-    this.modalEl.appendChild(text);
-    }else if (this.createType == "newSon") {
+    }else if (this.createType == "newCluster") {
+      this.inputEl.placeholder = `Type the new Cluster name`;
+      this.modalEl.appendChild(svgElements().cluster());
+      }else if (this.createType == "newSon") {
         this.inputEl.placeholder = `Type the son name of [${getActiveFile.basename}] note`;
         this.modalEl.appendChild(svgElements().son());
       } else if (this.createType == "newBrother") {
         this.inputEl.placeholder = `Type the brother name of [${getActiveFile.basename}] note`;
         this.modalEl.appendChild(svgElements().brother());
-      } else if (this.createType == "newCluster") {
-        this.inputEl.placeholder = `Type the new Cluster name`;
-        this.modalEl.appendChild(svgElements().cluster());
       }else if (this.createType == "newOrphan") {
         this.inputEl.placeholder = `Type the new Orphan name`;
         this.modalEl.appendChild(svgElements().orphan());
