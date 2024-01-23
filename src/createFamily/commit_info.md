@@ -1,5 +1,5 @@
 ## Did
-- [*] UN-SORTED hidden feature
+- [*] trim the inputs
 
 
 

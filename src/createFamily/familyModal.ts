@@ -149,7 +149,7 @@ export default class familyModal extends Modal {
               
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(this.inputEl.value , result.clusterSonTemplate);
+              await this.createNewNote(this.inputEl.value.trim() , result.clusterSonTemplate);
             }
 
           }else{
@@ -172,7 +172,7 @@ export default class familyModal extends Modal {
               
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(this.inputEl.value , result.normalSonTemplate);
+              await this.createNewNote(this.inputEl.value.trim() , result.normalSonTemplate);
             }
             
           }else{
@@ -197,7 +197,7 @@ export default class familyModal extends Modal {
 
           if (result.state == true) {
             this.setFolder( getActiveFile!.parent!, "");
-            this.createNewNote(this.inputEl.value, result.brotherTemplate);
+            this.createNewNote(this.inputEl.value.trim(), result.brotherTemplate);
           }
         }
       }else{
@@ -212,7 +212,7 @@ export default class familyModal extends Modal {
       const orphansFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == orphans);
       // @ts-ignore
       this.setFolder(orphansFolder, "");
-      const orphanName = this.inputEl.value
+      const orphanName = this.inputEl.value.trim()
       this.createNewNote(orphanName, orphanTemplate);
     }
     //-make newCluster to the current active file
@@ -226,8 +226,8 @@ export default class familyModal extends Modal {
       if(this.inputEl.value ==""){
         this.inputEl.value = "Untitled"
       }
-      const clusterName = `${this.inputEl.value}-cluster`;
-      this.createNewNote(clusterName, clusterTemplate());
+      const clusterName = `${(this.inputEl.value).trim()}-cluster`;
+      this.createNewNote(clusterName.trim(), clusterTemplate());
     }
 
   }
