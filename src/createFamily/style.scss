@@ -112,7 +112,7 @@
 
     &.delete {
       background-color: var(--background-prompt-delete);
-      grid-area: delete;
+      
     }
 
     &.noThing {
@@ -306,51 +306,55 @@
 
 //-PHONE FAMILY MODAL STYLES-------------------*/
 
-.is-phone .prompt:has(.btn) {
-  display: grid !important;
-  grid-template-columns: 1fr 40px 40px;
-  grid-template-rows: 57px 1fr;
-  grid-template-areas:
-    "inputMsgCon ok no"
-    "prompt-input prompt-input prompt-input";
-  top: 20% !important;
+.is-phone {
+  .prompt {
+    &:has(.btn) {
+      display: grid !important;
+      grid-template-columns: 1fr 40px 40px;
+      grid-template-rows: 57px 1fr;
+      grid-template-areas:
+        "inputMsgCon ok no"
+        "prompt-input prompt-input prompt-input";
+      top: 20% !important;
+
+      .prompt-input {
+        grid-area: prompt-input;
+        align-self: start;
+      }
+    }
+
+    &:has(.noThing) {
+      grid-template-columns: none;
+    }
+
+    &:has(.delete) {
+      height: calc(var(--mobile-height) - var(--prompt-top) - var(--prompt-bottom));
+    }
+  }
+
+  .inputMsgCon {
+    grid-area: inputMsgCon;
+  }
+
+  .delMsg {
+    grid-area: prompt-input;
+    align-self: start;
+    padding: var(--size-4-4);
+  
+  }
+
+  .btn {
+    padding: 10px 15px;
+
+    &.ok {
+      grid-area: ok;
+    }
+
+    &.no {
+      grid-area: no;
+    }
+  }
 }
-
-.is-phone .inputMsgCon {
-  grid-area: inputMsgCon;
-}
-
-.is-phone .prompt:has(.btn) .prompt-input {
-  grid-area: prompt-input;
-  align-self: start;
-
-}
-
-.is-phone .delMsg {
-  grid-area: prompt-input;
-  align-self: start;
-  padding: var(--size-4-4);
-
-}
-
-.is-phone .btn.ok {
-  grid-area: ok;
-}
-
-.is-phone .btn.no {
-  grid-area: no;
-}
-
-.is-phone .btn {
-  padding: 10px 15px;
-}
-
-.is-phone .prompt:has(.delete) {
-
-  height: calc(var(--mobile-height) - var(--prompt-top) - var(--prompt-bottom));
-}
-
-
 
 //- LIGHT THEME
 

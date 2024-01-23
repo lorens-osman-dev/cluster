@@ -91,7 +91,6 @@
 }
 .prompt .inputMsgCon.delete {
   background-color: var(--background-prompt-delete);
-  grid-area: delete;
 }
 .prompt .inputMsgCon.noThing {
   grid-template-columns: none;
@@ -258,36 +257,32 @@
   grid-template-areas: "inputMsgCon ok no" "prompt-input prompt-input prompt-input";
   top: 20% !important;
 }
-
-.is-phone .inputMsgCon {
-  grid-area: inputMsgCon;
-}
-
 .is-phone .prompt:has(.btn) .prompt-input {
   grid-area: prompt-input;
   align-self: start;
 }
-
+.is-phone .prompt:has(.noThing) {
+  grid-template-columns: none;
+}
+.is-phone .prompt:has(.delete) {
+  height: calc(var(--mobile-height) - var(--prompt-top) - var(--prompt-bottom));
+}
+.is-phone .inputMsgCon {
+  grid-area: inputMsgCon;
+}
 .is-phone .delMsg {
   grid-area: prompt-input;
   align-self: start;
   padding: var(--size-4-4);
 }
-
-.is-phone .btn.ok {
-  grid-area: ok;
-}
-
-.is-phone .btn.no {
-  grid-area: no;
-}
-
 .is-phone .btn {
   padding: 10px 15px;
 }
-
-.is-phone .prompt:has(.delete) {
-  height: calc(var(--mobile-height) - var(--prompt-top) - var(--prompt-bottom));
+.is-phone .btn.ok {
+  grid-area: ok;
+}
+.is-phone .btn.no {
+  grid-area: no;
 }
 
 .theme-light .prompt .inputMsgCon {

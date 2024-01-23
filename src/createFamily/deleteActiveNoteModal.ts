@@ -158,7 +158,7 @@ export default class deleteActiveNoteModal extends Modal {
       deleteMsgContainer.appendChild(delNoteNameMsg2);
 
       const text4 = document.createElement('span');
-      text4.textContent = '] direct Sons in [' + activeFile.basename + '] folder';
+      text4.textContent = '] direct sons in [' + activeFile.basename + '] folder';
       deleteMsgContainer.appendChild(text4);
 
       return deleteMsgContainer

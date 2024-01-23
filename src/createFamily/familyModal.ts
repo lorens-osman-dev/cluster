@@ -56,7 +56,7 @@ export default class familyModal extends Modal {
         this.inputEl.addClasses(["prompt-input","inputDelete"])
         this.modalEl.appendChild(svgElements().noThing());
         const text = document.createElement('div');
-        text.innerText = `No active file in the work space, Press ESC`
+        text.innerText = `Son ?! Brother ?! of what??\nNo active file in the work space, Press ESC`
         text.addClass("nothingMsg")
   
         this.modalEl.appendChild(text);
