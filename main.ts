@@ -3,7 +3,7 @@ import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
 import { buttonsLine } from "./src/createFamily/buttons";
-import { coloringTreePanel } from "./src/createFamily/coloringTreePanel";
+import { coloringTreePanel ,coloringUnsortedFolder } from "./src/createFamily/coloringTreePanel";
 import { createClustersAndOrphansFolder } from "./src/createFamily/createClustersAndOrphansFolder";
 import { fileMenu } from "src/createFamily/fileMenu";
 
@@ -14,6 +14,9 @@ export default class clusterPlugin extends Plugin {
 
   async onload() {
     console.log("loading ccCluster plugin");
+
+    //- UN-SORTED Folder Styling
+    coloringUnsortedFolder(this.app)
 
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
@@ -27,6 +30,11 @@ export default class clusterPlugin extends Plugin {
 
       }
  
+    }));
+
+    this.registerEvent(this.app.workspace.on("active-leaf-change", async () => {
+        //- UN-SORTED Folder Styling
+        coloringUnsortedFolder(this.app)
     }));
        
     //- Commands

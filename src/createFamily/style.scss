@@ -204,6 +204,17 @@
 .orphansFolderTreeElement {
   color: var(--color-tree-Orphans)
 }
+.unSortedFolderTreeElement{
+  position: relative;
+  overflow:visible ;
+
+  .FilesNumber{
+    position: absolute;
+    right: -30px;
+    top: 0;
+    color:red
+  }
+}
 
 /* - FILE MENU -------------------*/
 .menu-item:has(.menu-item-icon .lucide-folder-git-2) {

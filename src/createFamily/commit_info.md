@@ -1,11 +1,10 @@
 ## Did
-- [*] extract file-menu script from main.ts to stand alone file
+- [*] UN-SORTED hidden feature
 
 
 
 
 ## ToDo
-- [ ] UN-SORTED hidden feature
 - [ ] fix First-cluster.md after the changes
 - [ ] fix README.md after the changes
 

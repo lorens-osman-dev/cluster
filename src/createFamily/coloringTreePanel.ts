@@ -18,11 +18,11 @@ export async function coloringTreePanel(app: App ,file : TFile) {
     folderTree.push(...xNavFolder, ...xInner);
     folderTree.forEach((element: HTMLElement) => {
 
-        //clusters Folder
+        //c lusters Folder
         if (element.textContent == clusters) {
             clustersFolderTreeElement = element
         }
-        //orphans Folder
+        // orphans Folder
         if (element.textContent == orphans) {
             orphansFolderTreeElement = element
         }
@@ -32,7 +32,7 @@ export async function coloringTreePanel(app: App ,file : TFile) {
      //! coloring clusters files titles
     const clustersFilesTreeTitles = filesTreeTitles.filter((element: HTMLElement) => element.textContent?.endsWith("-cluster"))
 
-    // COLORING
+    // COLORING 
     if (file instanceof TFile) {
 
         //Coloring clusters tree items
@@ -60,4 +60,50 @@ export async function coloringTreePanel(app: App ,file : TFile) {
         //clustersFilesTreeTitles.forEach((element: HTMLElement)=> element?.classList?.remove("clustersFilesTreeElementTitles")) 
         //console.log("clusterPlugin ⸦ this.registerEvent ⸦ clustersFilesTreeTitles:", clustersFilesTreeTitles);
     }
+}
+
+export async function coloringUnsortedFolder(app: App ) {
+    this.app = app
+
+    let unSortedFolderTreeElement: HTMLElement | null = null
+
+    //folders
+    const folderTree: Element[] = [];
+    const xNavFolder = Array.from(this.app.workspace.containerEl.querySelectorAll(".tree-item.nav-folder"));
+    const xInner = Array.from(this.app.workspace.containerEl.querySelectorAll(".tree-item-inner"));
+    //@ts-ignore
+    folderTree.push(...xNavFolder, ...xInner);
+    folderTree.forEach((element: HTMLElement) => {
+        //console.log(element.textContent)
+        // UN-SORTED Folder
+        if (element.textContent?.startsWith("UN-SORTED") ) {
+            unSortedFolderTreeElement = element
+        }
+    })
+    
+    if(unSortedFolderTreeElement){
+        (unSortedFolderTreeElement as HTMLElement)?.addClass("unSortedFolderTreeElement");
+
+        let unSortedFilesNumber = 0 ;
+        this.app.vault.getMarkdownFiles().forEach((item: TFile) =>  {
+            if(item.path.startsWith("UN-SORTED")){
+                unSortedFilesNumber++
+            }
+        })
+
+        const filesNumberElement = document.createElement('div');
+        filesNumberElement.classList.add("FilesNumber");
+        filesNumberElement.innerText = `${unSortedFilesNumber}`;
+  
+        if( (unSortedFolderTreeElement as HTMLElement)?.children?.length == 0){
+            (unSortedFolderTreeElement as HTMLElement)?.appendChild(filesNumberElement);
+        }else{
+            const firstChild = (unSortedFolderTreeElement as HTMLElement)?.children[0];
+
+            (unSortedFolderTreeElement as HTMLElement)?.removeChild(firstChild);
+            (unSortedFolderTreeElement as HTMLElement)?.appendChild(filesNumberElement);
+        }
+        
+    }
+       
 }
