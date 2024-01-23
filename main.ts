@@ -5,6 +5,7 @@ import { NewFileLocation } from "./src/util/enums";
 import { buttonsLine } from "./src/createFamily/buttons";
 import { coloringTreePanel } from "./src/createFamily/coloringTreePanel";
 import { createClustersAndOrphansFolder } from "./src/createFamily/createClustersAndOrphansFolder";
+import { fileMenu } from "src/createFamily/fileMenu";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -75,80 +76,8 @@ export default class clusterPlugin extends Plugin {
       createClustersAndOrphansFolder(this.app);
       new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
     });
-    //- file-menu
-    this.registerEvent(
-      this.app.workspace.on("file-menu", (menu, file) => {
-          //- cluster menu
-          if (
-            (file instanceof TFile && file.parent instanceof TFolder && file.parent.name == clusters)
-            ||
-            (file instanceof TFolder && file.path.startsWith(clusters) && file.path.endsWith(clusters))
-          ) {
-            menu.addSeparator()
-            menu.addItem((item) => {
-              item
-                .setTitle("New cluster")
-                .setIcon("folder-git-2")
-                .onClick(async () => {
-                  createClustersAndOrphansFolder(this.app);
-                  const graphActiveFile = file
-                  new familyModal(this.app, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
-                });
-            });
-          }
-        //- son menu
-        if (file instanceof TFile && file.path.startsWith(clusters)) {
-          menu.addSeparator()
-          menu.addItem((item) => {
-            item
-              .setTitle("New son")
-              .setIcon("baby")
-              .onClick(async () => {
-                createClustersAndOrphansFolder(this.app);
-                const graphActiveFile = file
-                new familyModal(this.app, NewFileLocation.NewTab, "newSon", graphActiveFile).open();
-              });
-          });
-        }
-         //- brother menu
-        if (
-          (file instanceof TFile && file.path.startsWith(clusters))
-          &&
-          !(file instanceof TFile && file.parent instanceof TFolder && file.parent.name == clusters)
-        ) {
-          menu.addItem((item) => {
-            item
-              .setTitle("New brother")
-              .setIcon("git-compare")
-              .onClick(async () => {
-                createClustersAndOrphansFolder(this.app);
-                const graphActiveFile = file
-                new familyModal(this.app, NewFileLocation.NewTab, "newBrother", graphActiveFile).open();
-              });
-          });
-        }
-        //- orphan menu
-        if (
-          (file instanceof TFile && file.parent instanceof TFolder && file.parent.name == orphans)
-          ||
-          (file instanceof TFolder && file.path.startsWith(orphans) && file.path.endsWith(orphans))
-        ) {
-          menu.addSeparator()
-          menu.addItem((item) => {
-            item
-              .setTitle("New orphan")
-              .setIcon("disc")
-              .onClick(async () => {
-                createClustersAndOrphansFolder(this.app);
-                const graphActiveFile = file
-                new familyModal(this.app, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
-              });
-          });
-        }
-
-      })
-      
-    );
+    //- File Menu
+    fileMenu(this)
 
   }
 
