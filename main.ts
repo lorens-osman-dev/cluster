@@ -3,7 +3,7 @@ import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
 import { buttonsLine } from "./src/createFamily/buttons";
-import { coloringTreePanel ,coloringUnsortedFolder } from "./src/createFamily/coloringTreePanel";
+import { coloringTreePanel, addUnsortedFilesCounter, unSortedObserver } from "./src/createFamily/coloringTreePanel";
 import { createClustersAndOrphansFolder } from "./src/createFamily/createClustersAndOrphansFolder";
 import { fileMenu } from "src/createFamily/fileMenu";
 
@@ -13,37 +13,37 @@ export default class clusterPlugin extends Plugin {
   actions = new Map();
 
   async onload() {
-    console.log("loading ccCluster plugin");
+    console.log("loading Cluster plugin");
 
     //- UN-SORTED Folder Styling
-    coloringUnsortedFolder(this.app)
+    setTimeout(async () => {
+      await addUnsortedFilesCounter(this.app)
+      await unSortedObserver()
+    }, 1000);
+
+
 
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
-      if(file){
-        
+      if (file) {
+
         //- Add Buttons
-        await buttonsLine(this.app , file )
+        await buttonsLine(this.app, file)
 
         //- Coloring Tree Panel
-        coloringTreePanel(this.app , file)
+        await coloringTreePanel(this.app, file)
 
       }
- 
+
     }));
 
-    this.registerEvent(this.app.workspace.on("active-leaf-change", async () => {
-        //- UN-SORTED Folder Styling
-        coloringUnsortedFolder(this.app)
-    }));
-       
     //- Commands
     this.addCommand({
       id: "New-Cluster",
       name: "new cluster",
       callback: () => {
         createClustersAndOrphansFolder(this.app);
-        new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newCluster", undefined).open();
       },
     });
     this.addCommand({
@@ -51,7 +51,7 @@ export default class clusterPlugin extends Plugin {
       name: "New son",
       callback: () => {
         createClustersAndOrphansFolder(this.app);
-        new familyModal(this.app, NewFileLocation.NewTab, "newSon" ,undefined).open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newSon", undefined).open();
       },
     });
     this.addCommand({
@@ -59,7 +59,7 @@ export default class clusterPlugin extends Plugin {
       name: "New brother",
       callback: () => {
         createClustersAndOrphansFolder(this.app);
-        new familyModal(this.app, NewFileLocation.NewTab, "newBrother" ,undefined).open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newBrother", undefined).open();
       },
     });
     this.addCommand({
@@ -67,7 +67,7 @@ export default class clusterPlugin extends Plugin {
       name: "New orphan",
       callback: () => {
         createClustersAndOrphansFolder(this.app);
-        new familyModal(this.app, NewFileLocation.NewTab, "newOrphan",undefined ).open();
+        new familyModal(this.app, NewFileLocation.NewTab, "newOrphan", undefined).open();
       },
     });
     this.addCommand({
@@ -82,7 +82,7 @@ export default class clusterPlugin extends Plugin {
     //- Ribbon Icon
     this.addRibbonIcon("folder-git-2", "Create New Cluster", (evt) => {
       createClustersAndOrphansFolder(this.app);
-      new familyModal(this.app, NewFileLocation.NewTab, "newCluster",undefined).open();
+      new familyModal(this.app, NewFileLocation.NewTab, "newCluster", undefined).open();
     });
     //- File Menu
     fileMenu(this)
@@ -90,6 +90,7 @@ export default class clusterPlugin extends Plugin {
   }
 
   onunload() {
+    unSortedObserver(false)
     console.log("unloading Cluster plugin");
   }
 }

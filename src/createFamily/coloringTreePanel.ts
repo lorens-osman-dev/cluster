@@ -4,7 +4,7 @@ const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 
 
-export async function coloringTreePanel(app: App ,file : TFile) {
+export async function coloringTreePanel(app: App, file: TFile) {
     this.app = app
     //- Coloring Tree panel
     let clustersFolderTreeElement: any = ""
@@ -29,7 +29,7 @@ export async function coloringTreePanel(app: App ,file : TFile) {
     })
     //files 
     const filesTreeTitles: Element[] = Array.from(this.app.workspace.containerEl.querySelectorAll(".nav-file-title-content"));
-     //! coloring clusters files titles
+    //! coloring clusters files titles
     const clustersFilesTreeTitles = filesTreeTitles.filter((element: HTMLElement) => element.textContent?.endsWith("-cluster"))
 
     // COLORING 
@@ -43,7 +43,7 @@ export async function coloringTreePanel(app: App ,file : TFile) {
 
         } else {
             clustersFolderTreeElement?.classList?.remove("clustersFolderTreeElement");
-             //! coloring clusters files titles
+            //! coloring clusters files titles
             //clustersFilesTreeTitles.forEach((element: HTMLElement)=> element?.classList?.remove("clustersFilesTreeElementTitles")) 
         }
         //Coloring orphans tree items
@@ -62,7 +62,7 @@ export async function coloringTreePanel(app: App ,file : TFile) {
     }
 }
 
-export async function coloringUnsortedFolder(app: App ) {
+export async function addUnsortedFilesCounter(app: App) {
     this.app = app
 
     let unSortedFolderTreeElement: HTMLElement | null = null
@@ -76,17 +76,17 @@ export async function coloringUnsortedFolder(app: App ) {
     folderTree.forEach((element: HTMLElement) => {
         //console.log(element.textContent)
         // UN-SORTED Folder
-        if (element.textContent?.startsWith("UN-SORTED") ) {
+        if (element.textContent?.startsWith("UN-SORTED")) {
             unSortedFolderTreeElement = element
         }
     })
-    
-    if(unSortedFolderTreeElement){
+
+    if (unSortedFolderTreeElement) {
         (unSortedFolderTreeElement as HTMLElement)?.addClass("unSortedFolderTreeElement");
 
-        let unSortedFilesNumber = 0 ;
-        this.app.vault.getMarkdownFiles().forEach((item: TFile) =>  {
-            if(item.path.startsWith("UN-SORTED")){
+        let unSortedFilesNumber = 0;
+        this.app.vault.getMarkdownFiles().forEach((item: TFile) => {
+            if (item.path.startsWith("UN-SORTED")) {
                 unSortedFilesNumber++
             }
         })
@@ -94,16 +94,42 @@ export async function coloringUnsortedFolder(app: App ) {
         const filesNumberElement = document.createElement('div');
         filesNumberElement.classList.add("FilesNumber");
         filesNumberElement.innerText = `${unSortedFilesNumber}`;
-  
-        if( (unSortedFolderTreeElement as HTMLElement)?.children?.length == 0){
+
+        if ((unSortedFolderTreeElement as HTMLElement)?.children?.length == 0) {
             (unSortedFolderTreeElement as HTMLElement)?.appendChild(filesNumberElement);
-        }else{
+        } else {
             const firstChild = (unSortedFolderTreeElement as HTMLElement)?.children[0];
 
             (unSortedFolderTreeElement as HTMLElement)?.removeChild(firstChild);
             (unSortedFolderTreeElement as HTMLElement)?.appendChild(filesNumberElement);
         }
-        
+
     }
-       
+
+}
+export async function unSortedObserver(continuaObserving?: boolean) {
+    let unSortedFolderTreeElement: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]')?.nextElementSibling;
+
+    if (unSortedFolderTreeElement && unSortedFolderTreeElement.className.contains("tree-item-children")) {
+        // Create a new MutationObserver with a callback function
+        const observer = new MutationObserver((mutations) => {
+            // Check if the number of child nodes has changed
+            if (mutations[0].type === 'childList') {
+                addUnsortedFilesCounter(this.app)
+            }
+        });
+
+        // Define the type of mutations to observe
+        const config = { childList: true };
+
+        // Start observing the target element
+        observer.observe(unSortedFolderTreeElement, config);
+
+        if (continuaObserving === false) {
+            // stop observing the target element
+            observer.disconnect();
+        }
+    }
+
+
 }
