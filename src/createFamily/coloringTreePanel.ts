@@ -64,25 +64,11 @@ export async function coloringTreePanel(app: App, file: TFile) {
 
 export async function addUnsortedFilesCounter(app: App) {
     this.app = app
-
-    let unSortedFolderTreeElement: HTMLElement | null = null
-
-    //folders
-    const folderTree: Element[] = [];
-    const xNavFolder = Array.from(this.app.workspace.containerEl.querySelectorAll(".tree-item.nav-folder"));
-    const xInner = Array.from(this.app.workspace.containerEl.querySelectorAll(".tree-item-inner"));
-    //@ts-ignore
-    folderTree.push(...xNavFolder, ...xInner);
-    folderTree.forEach((element: HTMLElement) => {
-        //console.log(element.textContent)
-        // UN-SORTED Folder
-        if (element.textContent?.startsWith("UN-SORTED")) {
-            unSortedFolderTreeElement = element
-        }
-    })
+    const father: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]');
+    const unSortedFolderTreeElement = father.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
 
     if (unSortedFolderTreeElement) {
-        (unSortedFolderTreeElement as HTMLElement)?.addClass("unSortedFolderTreeElement");
+        unSortedFolderTreeElement?.addClass("unSortedFolderTreeElement");
 
         let unSortedFilesNumber = 0;
         this.app.vault.getMarkdownFiles().forEach((item: TFile) => {
@@ -92,23 +78,23 @@ export async function addUnsortedFilesCounter(app: App) {
         })
 
         const filesNumberElement = document.createElement('div');
-        filesNumberElement.classList.add("FilesNumber");
+        filesNumberElement.classList.add("unSortedFilesNumber");
         filesNumberElement.innerText = `${unSortedFilesNumber}`;
 
-        if ((unSortedFolderTreeElement as HTMLElement)?.children?.length == 0) {
-            (unSortedFolderTreeElement as HTMLElement)?.appendChild(filesNumberElement);
+        if (unSortedFolderTreeElement?.children?.length == 0) {
+            unSortedFolderTreeElement?.appendChild(filesNumberElement);
         } else {
-            const firstChild = (unSortedFolderTreeElement as HTMLElement)?.children[0];
+            const firstChild = unSortedFolderTreeElement?.children[0];
 
-            (unSortedFolderTreeElement as HTMLElement)?.removeChild(firstChild);
-            (unSortedFolderTreeElement as HTMLElement)?.appendChild(filesNumberElement);
+            unSortedFolderTreeElement?.removeChild(firstChild);
+            unSortedFolderTreeElement?.appendChild(filesNumberElement);
         }
 
     }
 
 }
 export async function unSortedObserver(continuaObserving?: boolean) {
-    let unSortedFolderTreeElement: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]')?.nextElementSibling;
+    const unSortedFolderTreeElement: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]')?.nextElementSibling;
 
     if (unSortedFolderTreeElement && unSortedFolderTreeElement.className.contains("tree-item-children")) {
         // Create a new MutationObserver with a callback function

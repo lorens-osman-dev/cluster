@@ -1,4 +1,4 @@
-import { App, Plugin, Menu, Notice, Editor, MarkdownView, View, TFolder, TFile, WorkspaceWindow, WorkspaceLeaf } from "obsidian";
+import { App, Plugin } from "obsidian";
 import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
@@ -20,8 +20,6 @@ export default class clusterPlugin extends Plugin {
       await addUnsortedFilesCounter(this.app)
       await unSortedObserver()
     }, 1000);
-
-
 
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
