@@ -16,6 +16,8 @@
   --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
   --background-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
   --background-button-container-orphans: hsl(303deg 50% 30%/ 30%);
+  --background-extra-button-container-clusters: hsl(157, 26%, 17%);
+  --background-extra-button-container-orphans: hsl(303, 26%, 17%);
   --background-button-ok: hsl(157, 26%, 17%);
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
@@ -40,6 +42,8 @@
   --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
   --background-button-container-clusters: hsl(155 30% 50%);
   --background-button-container-orphans: hsl(303deg 30% 50%);
+  --background-extra-button-container-clusters: hsl(155, 30%, 50%);
+  --background-extra-button-container-orphans: hsl(303, 30%, 50%);
   --background-button-ok: hsl(157, 26%, 17%);
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
@@ -215,14 +219,34 @@
 }
 
 .buttonsLineContainer {
+  position: relative;
   display: flex;
   justify-content: center;
+  z-index: 60;
+  height: 26px;
 }
 .buttonsLineContainer:has(.sonBtn) {
   background-color: var(--background-button-container-clusters);
 }
 .buttonsLineContainer:not(:has(.sonBtn)) {
   background-color: var(--background-button-container-orphans);
+}
+.buttonsLineContainer .extraButtonsContainer {
+  position: absolute;
+  overflow: hidden;
+  height: 0;
+  width: 26px;
+  top: 26px;
+  right: 0;
+  transition: height 0.4s;
+}
+.buttonsLineContainer .extraButtonsContainer.showOnClusters {
+  background-color: var(--background-extra-button-container-clusters);
+  height: 78px;
+}
+.buttonsLineContainer .extraButtonsContainer.showOnOrphans {
+  background-color: var(--background-extra-button-container-orphans);
+  height: 78px;
 }
 
 .btn {
@@ -249,6 +273,16 @@
 }
 .btn.no:hover {
   background-color: var(--background-button-no-hover);
+}
+.btn.extraBtn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 26px;
+  transition: transform 0.5s;
+}
+.btn.extraBtn.rotate-90-cw {
+  transform: rotate(-90deg);
 }
 .btn svg {
   color: var(--icon-color);

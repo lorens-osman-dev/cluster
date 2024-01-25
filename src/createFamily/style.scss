@@ -20,6 +20,9 @@
   //- buttons container colors
   --background-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
   --background-button-container-orphans: hsl(303deg 50% 30%/ 30%);
+  //- extra buttons container colors
+  --background-extra-button-container-clusters: hsl(157, 26%, 17%);
+  --background-extra-button-container-orphans: hsl(303, 26%, 17%);
   //- buttons colors
   --background-button-ok: hsl(157, 26%, 17%);
   --background-button-ok-hover: hsl(157, 26%, 27%);
@@ -49,6 +52,9 @@
   //- buttons container colors
   --background-button-container-clusters: hsl(155 30% 50%);
   --background-button-container-orphans: hsl(303deg 30% 50%);
+  //- extra buttons container colors
+  --background-extra-button-container-clusters: hsl(155, 30%, 50%);
+  --background-extra-button-container-orphans: hsl(303, 30%, 50%);
   //- buttons colors
   --background-button-ok: hsl(157, 26%, 17%);
   --background-button-ok-hover: hsl(157, 26%, 27%);
@@ -255,8 +261,11 @@
 
 //-BUTTONS-------------------*/
 .buttonsLineContainer {
+  position: relative;
   display: flex;
   justify-content: center;
+  z-index: 60;
+  height: 26px;
 
   &:has(.sonBtn) {
     background-color: var(--background-button-container-clusters);
@@ -264,6 +273,26 @@
 
   &:not(:has(.sonBtn)) {
     background-color: var(--background-button-container-orphans);
+  }
+
+  .extraButtonsContainer {
+    position: absolute;
+    overflow: hidden;
+    height: 0;
+    width: 26px;
+    top: 26px;
+    right: 0;
+    transition: height 0.4s;
+
+    &.showOnClusters {
+      background-color: var(--background-extra-button-container-clusters);
+      height: 78px;
+    }
+
+    &.showOnOrphans {
+      background-color: var(--background-extra-button-container-orphans);
+      height: 78px;
+    }
   }
 }
 
@@ -299,6 +328,18 @@
       background-color: var(--background-button-no-hover);
     }
 
+  }
+
+  &.extraBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 26px;
+    transition: transform 0.5s;
+
+    &.rotate-90-cw {
+      transform: rotate(-90deg);
+    }
   }
 
   svg {
