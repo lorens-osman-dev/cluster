@@ -78,7 +78,7 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
 
         const deleteLineBtn = makeButton("deleteLineBtn", "deleteLineBtn", `Delete the current line`)
         setIcon(deleteLineBtn, "arrow-left-from-line")
-        const coffeeBtn = makeButton("coffeeBtn", "coffeeBtn", `coffee tooltip message `)
+        const coffeeBtn = makeButton("coffeeBtn", "coffeeBtn", `coffee`)
         setIcon(coffeeBtn, "coffee")
         const puzzleBtn = makeButton("puzzleBtn", "puzzleBtn", `puzzle tooltip message `)
         setIcon(puzzleBtn, "puzzle")
@@ -153,7 +153,8 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
             deleteLineFunction()
         }
         else if (type == "coffeeBtn") {
-            console.log("coffeeBtn")
+            const coffeeLink = "https://www.buymeacoffee.com/lorens";
+            window.location.href = coffeeLink;
         }
         else if (type == "puzzleBtn") {
             console.log("puzzleBtn")
