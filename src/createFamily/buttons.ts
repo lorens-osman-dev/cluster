@@ -1,4 +1,4 @@
-import { App, TFile, setTooltip, setIcon, addIcon, WorkspaceLeaf } from "obsidian";
+import { App, TFile, setTooltip, setIcon, addIcon, WorkspaceLeaf, MarkdownView, Editor } from "obsidian";
 import familyModal from "./familyModal";
 import { NewFileLocation } from '../util/enums';
 import deleteActiveNoteModal from "./deleteActiveNoteModal";
@@ -73,10 +73,10 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
         setIcon(deleteBtn, "trash-2")
 
         // Making Extra Buttons
-        const extraBtn = makeButton("extraBtn", "extraBtn", `tooltip message`, extraButtonsContainer, file)
+        const extraBtn = makeButton("extraBtn", "extraBtn", `Show / Hide extra buttons`, extraButtonsContainer, file)
         setIcon(extraBtn, "arrow-left-square")
 
-        const deleteLineBtn = makeButton("deleteLineBtn", "deleteLineBtn", `delete tooltip message`)
+        const deleteLineBtn = makeButton("deleteLineBtn", "deleteLineBtn", `Delete the current line`)
         setIcon(deleteLineBtn, "arrow-left-from-line")
         const coffeeBtn = makeButton("coffeeBtn", "coffeeBtn", `coffee tooltip message `)
         setIcon(coffeeBtn, "coffee")
@@ -150,7 +150,7 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
             }
         }
         else if (type == "deleteLineBtn") {
-            console.log("deleteLineBtn")
+            deleteLineFunction()
         }
         else if (type == "coffeeBtn") {
             console.log("coffeeBtn")
@@ -177,5 +177,16 @@ function setClusterIcon(con: any) {
     </defs>`);
 
     setIcon(con, "cluster-svg")
+}
+function deleteLineFunction() {
+    const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+    const editor = view?.editor as Editor
+    const cursorPos = editor.getCursor()
+    const firstCurserPosition = { line: cursorPos.line, ch: 0 }
+    const secondCurserPosition = { line: cursorPos.line + 1, ch: 0 }
+    const thirdCurserPosition = { line: cursorPos.line - 1, ch: 0 }
+    editor.replaceRange("", firstCurserPosition, secondCurserPosition)
+    editor.setCursor(thirdCurserPosition)
+    editor.focus()
 }
 
