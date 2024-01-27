@@ -34,6 +34,26 @@ export async function coloringTreePanel(app: App, file: TFile) {
         orphansFolderTreeElement?.classList?.remove("orphansFolderTreeElement");
     }
 }
+
+//- Fold Properties element
+export async function foldPropertiesElement(app: App, file: TFile) {
+    if (file.path.startsWith(clusters) || file.path.startsWith(orphans)) {
+
+        this.app = app
+        const propertiesElement: HTMLElement = this.app.workspace.activeEditor.containerEl.querySelector('.metadata-container');
+        const metaDataContentElement = propertiesElement.querySelector('.collapse-indicator') as HTMLElement;
+        if (propertiesElement) {
+            propertiesElement.classList.add("collapse-from-cluster")
+            metaDataContentElement.classList.add("is-collapsed")
+            metaDataContentElement.addEventListener("click", () => {
+                propertiesElement.classList.remove("collapse-from-cluster")
+            })
+        }
+
+    }
+
+
+}
 //- Append Unsorted Files Counter Element Function
 export async function addUnsortedFilesCounter(app: App) {
     this.app = app

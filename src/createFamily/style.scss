@@ -136,7 +136,7 @@
   display: none;
 }
 
-/* -delete modal */
+//-delete modal
 .prompt:has(.delete) {
   grid-template-columns: 1fr 25px 25px;
   grid-template-rows: 57px 1fr;
@@ -198,7 +198,7 @@
 }
 
 
-/* - FILE TREE -------------------*/
+//- FILE TREE -------------------*/
 
 .clustersFolderTreeElement {
   color: var(--color-tree-Clusters);
@@ -224,7 +224,7 @@
   }
 }
 
-/* - FILE MENU -------------------*/
+//-FILE MENU -------------------*/
 .menu-item:has(.menu-item-icon .lucide-folder-git-2) {
   background-color: var(--background-menu-cluster);
 }
@@ -296,6 +296,7 @@
   }
 }
 
+//-BUTTONS STYLES-------------------*/
 
 .btn {
   display: grid;
@@ -408,7 +409,7 @@
   }
 }
 
-//- LIGHT THEME
+//- LIGHT THEME-------------------*/
 
 .theme-light {
   .prompt {
@@ -458,6 +459,13 @@
   }
 }
 
+//- FOLD PROPERTIES-------------------*/
+.collapse-from-cluster {
+  .metadata-content {
+    display: none;
+    background-color: red;
+  }
+}
 
 /*- animation */
 
@@ -466,12 +474,6 @@
   -webkit-animation: jello-vertical 0.9s both;
   animation: jello-vertical 0.9s both;
 }
-
-/* .prompt:has(.delete):hover svg {
-
-  -webkit-animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-  animation: shake-horizontal 0.8s cubic-bezier(0.455, 0.030, 0.515, 0.955) both;
-} */
 
 
 @-webkit-keyframes jello-vertical {

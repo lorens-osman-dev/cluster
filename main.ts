@@ -3,7 +3,7 @@ import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
 import { buttonsLine } from "./src/createFamily/buttons";
-import { coloringTreePanel, addUnsortedFilesCounter, unSortedObserver } from "./src/createFamily/coloringTreePanel";
+import { coloringTreePanel, addUnsortedFilesCounter, unSortedObserver, foldPropertiesElement } from "./src/createFamily/coloringTreePanel";
 import { createClustersAndOrphansFolder } from "./src/createFamily/createClustersAndOrphansFolder";
 import { fileMenu } from "src/createFamily/fileMenu";
 
@@ -30,6 +30,8 @@ export default class clusterPlugin extends Plugin {
 
         //- Coloring Tree Panel
         await coloringTreePanel(this.app, file)
+        //- Fold Properties Element
+        await foldPropertiesElement(this.app, file)
 
       }
 
