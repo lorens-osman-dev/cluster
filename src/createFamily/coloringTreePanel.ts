@@ -42,9 +42,11 @@ export async function foldPropertiesElement(app: App, file: TFile) {
         this.app = app
         const propertiesElement: HTMLElement = this.app.workspace.activeEditor.containerEl.querySelector('.metadata-container');
         const metaDataContentElement = propertiesElement.querySelector('.collapse-indicator') as HTMLElement;
+        const collapseIndicatorElement = propertiesElement.querySelector('.metadata-properties-heading') as HTMLElement;
         if (propertiesElement) {
             propertiesElement.classList.add("collapse-from-cluster")
             metaDataContentElement.classList.add("is-collapsed")
+            collapseIndicatorElement.classList.add("is-collapsed")
             metaDataContentElement.addEventListener("click", () => {
                 propertiesElement.classList.remove("collapse-from-cluster")
             })

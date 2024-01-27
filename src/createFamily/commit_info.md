@@ -1,6 +1,6 @@
 ## Did
 
--   [*] make Properties is folded
+-   [*] enhance Properties is folded
 
 ## ToDo
 
