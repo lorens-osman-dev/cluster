@@ -104,7 +104,7 @@ export async function unSortedObserver(continuaObserving?: boolean) {
             }
         });
         // Define the type of mutations to observe
-        const config = { childList: true };
+        const config = { childList: true, subtree: true };
 
         // Start observing the target element
         observer.observe(unSortedFolderTreeElement, config);
