@@ -50,6 +50,9 @@ export async function foldPropertiesElement(app: App, file: TFile) {
             metaDataContentElement.addEventListener("click", () => {
                 propertiesElement.classList.remove("collapse-from-cluster")
             })
+            propertiesElement.addEventListener("click", () => {
+                propertiesElement.classList.remove("collapse-from-cluster")
+            })
         }
 
     }

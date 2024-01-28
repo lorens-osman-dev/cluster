@@ -6,14 +6,37 @@ import { buttonsLine } from "./src/createFamily/buttons";
 import { coloringTreePanel, addUnsortedFilesCounter, unSortedObserver, foldPropertiesElement } from "./src/createFamily/coloringTreePanel";
 import { createClustersAndOrphansFolder } from "./src/createFamily/createClustersAndOrphansFolder";
 import { fileMenu } from "src/createFamily/fileMenu";
+import { settingTab } from "./src/createFamily/settings";
+
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
+
+
+
+interface clusterPluginSettings {
+  dateFormat: string;
+  foldOption: boolean;
+}
+
+const DEFAULT_SETTINGS: Partial<clusterPluginSettings> = {
+  dateFormat: "YYYY-MM-DD",
+  foldOption: true
+
+};
+
+
+
 export default class clusterPlugin extends Plugin {
-  actions = new Map();
+  actions = new Map();// ! whats this 
+  settings: clusterPluginSettings;
 
   async onload() {
     console.log("loading Cluster plugin");
+
+    await this.loadSettings();
+
+    this.addSettingTab(new settingTab(this.app, this));
 
     //- UN-SORTED Folder Styling
     setTimeout(async () => {
@@ -31,7 +54,9 @@ export default class clusterPlugin extends Plugin {
         //- Coloring Tree Panel
         await coloringTreePanel(this.app, file)
         //- Fold Properties Element
-        await foldPropertiesElement(this.app, file)
+        if (this.settings.foldOption) {
+          await foldPropertiesElement(this.app, file)
+        }
 
       }
 
@@ -87,6 +112,14 @@ export default class clusterPlugin extends Plugin {
     //- File Menu
     fileMenu(this)
 
+  }
+
+  async loadSettings() {
+    this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
+  }
+
+  async saveSettings() {
+    await this.saveData(this.settings);
   }
 
   onunload() {

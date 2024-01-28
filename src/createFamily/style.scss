@@ -21,13 +21,15 @@
   --background-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
   --background-button-container-orphans: hsl(303deg 50% 30%/ 30%);
   //- extra buttons container colors
-  --background-extra-button-container-clusters: hsl(157, 26%, 17%);
-  --background-extra-button-container-orphans: hsl(303, 26%, 17%);
+  --background-extra-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
+  --background-extra-button-container-orphans: hsl(303deg 50% 30%/ 30%);
   //- buttons colors
   --background-button-ok: hsl(157, 26%, 17%);
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
+  //- CLUSTER SETTING PAGE
+  --settings-background-opacity: 0.3;
 }
 
 .theme-light {
@@ -53,13 +55,15 @@
   --background-button-container-clusters: hsl(155 30% 50%);
   --background-button-container-orphans: hsl(303deg 30% 50%);
   //- extra buttons container colors
-  --background-extra-button-container-clusters: hsl(155, 30%, 50%);
-  --background-extra-button-container-orphans: hsl(303, 30%, 50%);
+  --background-extra-button-container-clusters: hsl(155 30% 50%);
+  --background-extra-button-container-orphans: hsl(303deg 30% 50%);
   //- buttons colors
   --background-button-ok: hsl(157, 26%, 17%);
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
+  //- CLUSTER SETTING PAGE
+  --settings-background-opacity: 0.7;
 
 
 }
@@ -464,6 +468,51 @@
   .metadata-content {
     display: none;
     background-color: red;
+  }
+}
+
+//- CLUSTER SETTING PAGE-------------------*/
+.clusterSettingPage {
+  position: relative;
+  overflow: hidden;
+
+  .setting-item {
+    position: relative;
+    z-index: 10;
+  }
+
+  .setting-item.settingsBackground {
+    width: 80%;
+    height: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 5;
+    filter: blur(50px);
+    opacity: var(--settings-background-opacity);
+    background-image: linear-gradient(#4ddc9e, #5b37eb, #f1307e);
+    animation: rotate 10s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+    border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+  }
+
+  .coffeeSettingBtn {
+    color: #292222;
+    background-color: #ffdd00;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
 
