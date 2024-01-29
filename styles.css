@@ -52,6 +52,14 @@
   --settings-background-opacity: 0.7;
 }
 
+.hide {
+  display: none;
+}
+
+.show {
+  display: block;
+}
+
 .prompt {
   background-color: var(--background-primary);
 }
@@ -373,6 +381,37 @@
   position: relative;
   z-index: 10;
 }
+.clusterSettingPage .setting-item.color_input {
+  flex-direction: row;
+}
+.clusterSettingPage .setting-item.color_input .setting-item-control {
+  flex-direction: column;
+  align-items: start;
+  row-gap: 20px;
+}
+.clusterSettingPage .setting-item.color_input .setting-item-control input {
+  width: 80%;
+  max-width: 300px;
+}
+.clusterSettingPage .setting-item.color_input .setting-item-control.inputDisable input {
+  pointer-events: none;
+  color: var(--text-faint);
+  cursor: default;
+}
+.clusterSettingPage .setting-item.color_input .setting-item-control.inputEnable input {
+  color: var(--text-normal);
+  cursor: text;
+}
+.clusterSettingPage .setting-item.color_input .setting-item-control.inputDisable, .clusterSettingPage .setting-item.color_input .setting-item-control.inputEnable {
+  position: relative;
+}
+.clusterSettingPage .setting-item.color_input .setting-item-control.inputDisable .inputExtraText, .clusterSettingPage .setting-item.color_input .setting-item-control.inputEnable .inputExtraText {
+  position: absolute;
+  top: -20px;
+  text-align: start;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
 .clusterSettingPage .setting-item.settingsBackground {
   width: 80%;
   height: 50%;
@@ -384,14 +423,27 @@
   filter: blur(50px);
   opacity: var(--settings-background-opacity);
   background-image: linear-gradient(#4ddc9e, #5b37eb, #f1307e);
-  animation: rotate 10s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
   border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
 }
-.clusterSettingPage .coffeeSettingBtn {
+.clusterSettingPage .setting-item .customToggle {
+  color: red;
+  position: relative;
+}
+.clusterSettingPage .setting-item .customToggle .toggleExtraText {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  left: 50px;
+  width: 200px;
+  text-align: start;
+  color: var(--text-muted);
+  font-size: var(--font-ui-smaller);
+}
+.clusterSettingPage .setting-item .coffeeSettingBtn {
   color: #292222;
   background-color: #ffdd00;
 }
-.clusterSettingPage .coffeeSettingBtn:hover {
+.clusterSettingPage .setting-item .coffeeSettingBtn:hover {
   cursor: pointer;
 }
 

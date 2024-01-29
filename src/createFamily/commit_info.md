@@ -1,6 +1,6 @@
 ## Did
 
--   [ ] unSortedObserver config to {childList: true, subtree: true}
+-   [*] WOW make settings for Buttons background colors
 
 ## ToDo
 

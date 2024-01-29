@@ -15,13 +15,23 @@ const orphans = "ORPHANS"
 
 
 interface clusterPluginSettings {
-  dateFormat: string;
-  foldOption: boolean;
+  foldProperties: boolean;
+
+  restBgClusters: boolean;
+  newBG_clusters: string,
+  newBG_orphans: string,
+  restBgOrphans: boolean;
+  buttonsLineContainerBG_clusters: string,
+  buttonsLineContainerBG_orphans: string
 }
 
 const DEFAULT_SETTINGS: Partial<clusterPluginSettings> = {
-  dateFormat: "YYYY-MM-DD",
-  foldOption: true
+  foldProperties: true,
+
+  restBgClusters: true,
+  restBgOrphans: true,
+  buttonsLineContainerBG_clusters: "var(--background-button-container-clusters)",
+  buttonsLineContainerBG_orphans: "var(--background-button-container-orphans)"
 
 };
 
@@ -49,12 +59,12 @@ export default class clusterPlugin extends Plugin {
       if (file) {
 
         //- Add Buttons
-        await buttonsLine(this.app, file)
+        await buttonsLine(this.app, file, this.settings)
 
         //- Coloring Tree Panel
         await coloringTreePanel(this.app, file)
         //- Fold Properties Element
-        if (this.settings.foldOption) {
+        if (this.settings.foldProperties) {
           await foldPropertiesElement(this.app, file)
         }
 

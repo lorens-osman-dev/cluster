@@ -6,10 +6,11 @@ import { createClustersAndOrphansFolder } from "./createClustersAndOrphansFolder
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
-
-export async function buttonsLine(app: App, file: TFile) {
+let Vars = {}
+export async function buttonsLine(app: App, file: TFile, settings?: any) {
     this.app = app
-
+    console.log(settings)
+    Vars = settings
     let LEAF: WorkspaceLeaf | null = null;
     this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
         if (leaf.getViewState().type == "markdown") {
@@ -52,9 +53,13 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
         // Create a buttons Containers 
         const buttonsLineContainer = document.createElement('div');
         buttonsLineContainer.addClasses(["buttonsLineContainer"])
+        //@ts-ignore
+        buttonsLineContainer.style.backgroundColor = Vars.buttonsLineContainerBG_clusters
 
         const extraButtonsContainer = document.createElement('div');
         extraButtonsContainer.addClasses(["extraButtonsContainer"])
+        //@ts-ignore
+        extraButtonsContainer.style.backgroundColor = Vars.buttonsLineContainerBG_clusters
 
         // Making Buttons
         const clusterBtn = makeButton("Cluster", "clusterBtn", "Create New Cluster in [CLUSTERS] folder")
@@ -101,6 +106,10 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
         buttonsLineContainer?.appendChild(extraButtonsContainer)
 
         if (file?.path?.startsWith(orphans)) {
+            //@ts-ignore
+            buttonsLineContainer.style.backgroundColor = Vars.buttonsLineContainerBG_orphans
+            //@ts-ignore
+            extraButtonsContainer.style.backgroundColor = Vars.buttonsLineContainerBG_orphans
             buttonsLineContainer?.removeChild(sonBtn)
             buttonsLineContainer?.removeChild(brotherBtn)
         }
