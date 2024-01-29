@@ -22,6 +22,7 @@
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
+  --background-first-page-clusters: hsl(155deg 50% 30% / 10%);
   --settings-background-opacity: 0.3;
 }
 
@@ -49,6 +50,7 @@
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
+  --background-first-page-clusters: hsl(155 30% 50% / 10%);
   --settings-background-opacity: 0.7;
 }
 
@@ -370,7 +372,10 @@
 
 .collapse-from-cluster .metadata-content {
   display: none;
-  background-color: red;
+}
+
+.viewContentElementBG {
+  background-color: var(--background-first-page-clusters) !important;
 }
 
 .clusterSettingPage {
