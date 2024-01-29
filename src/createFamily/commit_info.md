@@ -1,6 +1,6 @@
 ## Did
 
--   [*] add settings to background color for clusters first pages
+-   [*] fix ribbon cluster svg
 
 ## ToDo
 
