@@ -17,16 +17,20 @@ const orphans = "ORPHANS"
 interface clusterPluginSettings {
   foldProperties: boolean;
 
+  firstPageClusters: boolean;
+
   restBgClusters: boolean;
-  newBG_clusters: string,
-  newBG_orphans: string,
+  newBG_clusters: string;
+  newBG_orphans: string;
   restBgOrphans: boolean;
-  buttonsLineContainerBG_clusters: string,
-  buttonsLineContainerBG_orphans: string
+  buttonsLineContainerBG_clusters: string;
+  buttonsLineContainerBG_orphans: string;
 }
 
 const DEFAULT_SETTINGS: Partial<clusterPluginSettings> = {
   foldProperties: true,
+
+  firstPageClusters: true,
 
   restBgClusters: true,
   restBgOrphans: true,

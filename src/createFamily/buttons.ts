@@ -204,8 +204,11 @@ function deleteLineFunction() {
 
 //- First Page Of Clusters FUNCTION
 function firstPageOfClusters(file: TFile, obsidianContainerElements: any) {
+
+
     const viewContentElement = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("view-content")) as HTMLElement
-    if (file instanceof TFile && file.path.startsWith(clusters) && file.basename.endsWith("-cluster")) {
+    //@ts-ignore
+    if (file instanceof TFile && file.path.startsWith(clusters) && file.basename.endsWith("-cluster") && Vars.firstPageClusters) {
         if (viewContentElement) {
             viewContentElement.classList.add("viewContentElementBG")
         }
@@ -214,4 +217,5 @@ function firstPageOfClusters(file: TFile, obsidianContainerElements: any) {
             viewContentElement.classList.remove("viewContentElementBG")
         }
     }
+
 }

@@ -1,6 +1,6 @@
 ## Did
 
--   [*] make background color for clusters first pages
+-   [*] add settings to background color for clusters first pages
 
 ## ToDo
 

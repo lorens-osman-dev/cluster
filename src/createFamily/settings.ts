@@ -29,16 +29,21 @@ export class settingTab extends PluginSettingTab {
             });
         });
 
+        //- First Page Of Clusters
+        const firstPOC = new Setting(containerEl)
+        firstPOC.setName("Main Notes Background color");
+        firstPOC.setDesc("Highlight the main note of each cluster whose name ends with '-cluster' by adding a background color.")
+        firstPOC.addToggle((toggle: ToggleComponent) => {
+            toggle.setValue(this.plugin.settings.firstPageClusters);
+            toggle.onChange(async (value) => {
+                this.plugin.settings.firstPageClusters = value;
+                await this.plugin.saveSettings();
+            });
+        });
 
-        // //-Colors
-        const x = new Setting(containerEl)
-        x.setName("Buttons Background Color")
-        // x.setDesc("Report Issues or Ideas, see the Source Code and Contribute.")
-        // x.descEl.createEl("div", { text: "ddddd1111111" })
-        // x.descEl.createEl("div", { text: "ddddd22222" })
-        // x.descEl.createEl("div", { text: "ddddd3333333" })
 
-
+        //-Colors
+        new Setting(containerEl).setName("Buttons Background Color")
 
         //-clusters buttons background color 
         this.clusterFun(new Setting(containerEl))
