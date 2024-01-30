@@ -1,8 +1,6 @@
 ## Did
 
--   [*] fix ribbon cluster command name
--   [*] fix First-cluster.md after the changes
--   [*] fix README.md after the changes
+-   [*] release the v2.0.0
 
 ## ToDo
 

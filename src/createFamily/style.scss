@@ -549,7 +549,7 @@
       filter: blur(50px);
       opacity: var(--settings-background-opacity);
       background-image: linear-gradient(#4ddc9e, #5b37eb, #f1307e);
-      // animation: rotate 10s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+      animation: rotate 10s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
       border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
     }
 
