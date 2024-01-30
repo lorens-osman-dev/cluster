@@ -127,7 +127,7 @@ export default class clusterPlugin extends Plugin {
     <rect width="100" height="100" fill="white"/>
     </clipPath>
     </defs>`);
-    this.addRibbonIcon("cluster-svg", "Create New Cluster", (evt) => {
+    this.addRibbonIcon("cluster-svg", "Create new cluster", (evt) => {
       createClustersAndOrphansFolder(this.app);
       new familyModal(this.app, NewFileLocation.NewTab, "newCluster", undefined).open();
     });
