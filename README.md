@@ -101,7 +101,9 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 -   Set `Ctrl+Shift+C` hotkey to New cluster command.
 -   Set `Ctrl+Shift+D` hotkey to Delete active note command.
 
----
+If you like this plugin, feel free to support the development by buying a coffee:
+
+## <a href="https://www.buymeacoffee.com/lorens" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
 
 ### Credits
 
