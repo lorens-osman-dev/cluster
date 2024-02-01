@@ -39,11 +39,11 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 
 #### CLUSTERS Buttons
 
-![clusters buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/clusters-buttons.png)
+![clusters buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/clusters-buttons.png?raw=true)
 
 #### ORPHANS Buttons
 
-![ORPHANS Buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/orphans-buttons.png)
+![ORPHANS Buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/orphans-buttons.png?raw=true)
 
 ![cluster](https://github.com/lorens-osman-dev/cluster/blob/assets/cluster.svg)
 
@@ -77,11 +77,11 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 -   If the current note has sons the sons will be deleted along with their own folders.
 -   If the current note is `cluster` all the cluster's files and folders will be deleted.
 
-![extra buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/arrow-left-square.svg)
+![extra buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/arrow-left-square.svg?raw=true)
 
 -   Toggle extra buttons.
 
-![deletes the current line](https://github.com/lorens-osman-dev/cluster/blob/assets/arrow-left-from-line.svg)
+![deletes the current line](https://github.com/lorens-osman-dev/cluster/blob/assets/arrow-left-from-line.svg?raw=true)
 
 -   This button deletes the current line.
 -   Very useful for phones users.
