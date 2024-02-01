@@ -1,6 +1,6 @@
 ![clusterSvg](https://raw.githubusercontent.com/lorens-osman-dev/cluster/16c7f97a3f24322de18d9540fa7170817b80a7cc/cluster-plugin-lorens-osman.svg)
 
-## Cluster plugin mainly designed to simplify the process of note clustering for ![Obsidian](https://obsidian.md/) on mobile devices and work well on PCs ether.
+## Cluster plugin mainly designed to simplify the process of note clustering for [Obsidian](https://obsidian.md/) on mobile devices and work well on PCs ether.
 
 ### Note Clustering
 
@@ -31,11 +31,13 @@ I know this explanation might sound a bit technical and might make things sound 
 
 ### Before clustering your notes with `Cluster` plugin
 
-You'll need two folders `CLUSTERS` and `ORPHANS`. The `CLUSTERS` folder will contain all linked notes, while the `ORPHANS` folder will contain notes that aren’t linked. You can create these folders manually, or they will be created automatically if you click the `Create new cluster` button on the ribbon, This button will check if the `CLUSTERS` and `ORPHANS` folders exist. If these folders do not exist, it will create them before creating a new cluster inside the `CLUSTERS` folder.
+You'll need two folders `CLUSTERS` and `ORPHANS`. The `CLUSTERS` folder will contain all linked notes, while the `ORPHANS` folder will contain notes that aren’t linked.
+
+You can create these folders manually, or they will be created automatically if you click the `Create new cluster` button on the ribbon, this button will check if the `CLUSTERS` and `ORPHANS` folders exist, if these folders do not exist, it will create them before creating a new cluster inside the `CLUSTERS` folder.
 
 ### Buttons
 
-When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster` plugin displays two sets of buttons. One set is specifically for notes in the `CLUSTERS` folder, while the other set is for notes in the `ORPHANS`folder.
+When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster` plugin displays two sets of buttons, One set is specifically for notes in the `CLUSTERS` folder, while the other set is for notes in the `ORPHANS` folder.
 
 #### CLUSTERS Buttons
 
@@ -57,7 +59,7 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 -   This button creates a new note linked to the current note, we call it `son` note.
 -   `son` note means the new created note will contains link to the current note and tag with cluster's name.
 -   The generation property of the `son` note will be the current note's generation +1
--   A new folder with the same name of current note will be created or all `son` notes of the current note.
+-   A new folder with the same name of current note will be created for all `son` notes of the current note.
 
 ![brother](https://github.com/lorens-osman-dev/cluster/blob/assets/git-compare.svg)
 
