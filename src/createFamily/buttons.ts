@@ -1,8 +1,9 @@
-import { App, TFile, setTooltip, setIcon, addIcon, WorkspaceLeaf, MarkdownView, Editor } from "obsidian";
+import { App, TFile, setTooltip, setIcon, addIcon, WorkspaceLeaf, MarkdownView, Editor, Platform } from "obsidian";
 import familyModal from "./familyModal";
 import { NewFileLocation } from '../util/enums';
 import deleteActiveNoteModal from "./deleteActiveNoteModal";
 import { createClustersAndOrphansFolder } from "./createClustersAndOrphansFolder";
+import { puzzleTemplate } from "./templates";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -10,33 +11,81 @@ let Vars = {}
 export async function buttonsLine(app: App, file: TFile, settings?: any) {
     this.app = app
     Vars = settings
-    let LEAF: WorkspaceLeaf | null = null;
-    this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
-        if (leaf.getViewState().type == "markdown") {
-            LEAF = leaf
+    //! Android 
+    console.log("buttonsLine ⸦ Platform:", Platform);
+    if (Platform.isMobile) {
+        let LEAF: WorkspaceLeaf | null = null;
+        this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
+            if (leaf.getViewState().type == "markdown") {
+                LEAF = leaf
+            }
+        })
+
+        if (LEAF !== null) {
+            const obsidianContainer = (LEAF as WorkspaceLeaf).view.containerEl
+
+            const obsidianContainerElements = Array?.from(obsidianContainer?.children)
+            //@ts-ignore
+            const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
+
+
+            appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+            firstPageOfClusters(file, obsidianContainerElements)
+
         }
-    })
-
-    if (LEAF !== null) {
-        const obsidianContainer = (LEAF as WorkspaceLeaf).view.containerEl
-
-        const obsidianContainerElements = Array?.from(obsidianContainer?.children)
-        //@ts-ignore
-        const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
-
-
-        appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
-        firstPageOfClusters(file, obsidianContainerElements)
 
     }
+    //! PC 
+    else {
+        const e = this.app.workspace.activeLeaf.view.file.path
+        if (e.startsWith(clusters) || e.startsWith(orphans)) {
+            const LEAF = this.app.workspace.activeLeaf
+            const obsidianContainer = (LEAF as WorkspaceLeaf).view.containerEl
 
+
+            const obsidianContainerElements = Array?.from(obsidianContainer?.children)
+
+            //@ts-ignore
+            const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
+
+
+
+            appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+            firstPageOfClusters(file, obsidianContainerElements)
+        } else {
+            const LEAF2 = this.app.workspace.activeLeaf
+            const obsidianContainer2 = (LEAF2! as WorkspaceLeaf)?.view?.containerEl
+
+            const obsidianContainerElements2 = Array?.from(obsidianContainer2?.children)
+
+            //@ts-ignore
+            const obsidianHeaderEl2 = (LEAF2! as WorkspaceLeaf)?.view?.headerEl
+
+            RemoveChild(file, obsidianContainer2, obsidianContainerElements2, obsidianHeaderEl2)
+            firstPageOfClusters(file, obsidianContainerElements2)
+
+        }
+    }
+
+
+
+
+
+
+}
+function RemoveChild(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
+    const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
+
+    if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
+        obsidianContainer.removeChild(isButtonsLineContainer)
+    }
 }
 //- Append Or Remove Child FUNCTION
 function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
     // check if buttonsLineContainer exist in the DOM or not
     const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
 
-    // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
+    // // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
     if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
         obsidianContainer.removeChild(isButtonsLineContainer)
     }
@@ -129,7 +178,7 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
     button.textContent = type;
     setTooltip(button, tooltipMsg, { delay: 10 })
     button.addClasses(["btn", className])
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
         if (type == "Cluster") {
             createClustersAndOrphansFolder(this.app);
             new familyModal(this.app, NewFileLocation.NewTab, "newCluster", undefined).open();
@@ -168,7 +217,13 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
             window.location.href = coffeeLink;
         }
         else if (type == "puzzleBtn") {
-            console.log("puzzleBtn")
+            const puzzleFileExists = await this.app.vault.adapter.exists("/ORPHANS/puzzle.md")
+            console.log(puzzleFileExists)
+            if (!puzzleFileExists) {
+
+                const puzzleFile = await this.app.vault.create("/ORPHANS/puzzle.md", puzzleTemplate)
+                this.app.workspace.getLeaf(true).openFile(puzzleFile);
+            }
         }
 
 
