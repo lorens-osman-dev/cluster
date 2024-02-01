@@ -22,7 +22,7 @@
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
-  --background-first-page-clusters: hsl(155deg 50% 30% / 10%);
+  --background-first-page-clusters: hsl(155deg 50% 30% / 20%);
   --settings-background-opacity: 0.3;
 }
 
@@ -50,7 +50,7 @@
   --background-button-ok-hover: hsl(157, 26%, 27%);
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
-  --background-first-page-clusters: hsl(155 30% 50% / 10%);
+  --background-first-page-clusters: hsl(155 30% 50% / 20%);
   --settings-background-opacity: 0.7;
 }
 
@@ -251,17 +251,19 @@
 }
 .buttonsLineContainer .extraButtonsContainer.showOnClusters {
   background-color: var(--background-extra-button-container-clusters);
-  height: 78px;
+  height: 84px;
 }
 .buttonsLineContainer .extraButtonsContainer.showOnOrphans {
   background-color: var(--background-extra-button-container-orphans);
-  height: 78px;
+  height: 84px;
 }
 
 .btn {
   display: grid;
   justify-content: center;
   align-items: center;
+  align-content: center;
+
   padding: 4px 6px;
 }
 .btn:hover {
@@ -287,10 +289,13 @@
   position: absolute;
   top: 0;
   right: 0;
+  height: 26px;
   width: 26px;
+}
+.btn.extraBtn svg {
   transition: transform 0.5s;
 }
-.btn.extraBtn.rotate-90-cw {
+.btn.extraBtn.rotate-90-cw svg {
   transform: rotate(-90deg);
 }
 .btn svg {
@@ -329,6 +334,19 @@
   align-self: start;
   padding: var(--size-4-4);
 }
+.is-phone .buttonsLineContainer {
+  height: 36px;
+}
+.is-phone .buttonsLineContainer .extraButtonsContainer {
+  width: 36px;
+  top: 36px;
+}
+.is-phone .buttonsLineContainer .extraButtonsContainer.showOnClusters {
+  height: 120px;
+}
+.is-phone .buttonsLineContainer .extraButtonsContainer.showOnOrphans {
+  height: 120px;
+}
 .is-phone .btn {
   padding: 10px 15px;
 }
@@ -337,6 +355,13 @@
 }
 .is-phone .btn.no {
   grid-area: no;
+}
+.is-phone .btn.extraBtn {
+  height: 36px;
+  width: 36px;
+}
+.is-phone .clusterSettingPage .setting-item.color_input {
+  margin-top: 0;
 }
 
 .theme-light .prompt .inputMsgCon {
@@ -380,7 +405,7 @@
 
 .clusterSettingPage {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 }
 .clusterSettingPage .setting-item {
   position: relative;

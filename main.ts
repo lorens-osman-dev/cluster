@@ -71,6 +71,8 @@ export default class clusterPlugin extends Plugin {
         if (this.settings.foldProperties) {
           await foldPropertiesElement(this.app, file)
         }
+        await addUnsortedFilesCounter(this.app)
+        await unSortedObserver()
 
       }
 

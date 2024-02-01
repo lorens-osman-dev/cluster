@@ -29,7 +29,7 @@
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
   //- FIRST PAGE OF ANY CLUSTER BACKGROUND COLOR
-  --background-first-page-clusters: hsl(155deg 50% 30% / 10%);
+  --background-first-page-clusters: hsl(155deg 50% 30% / 20%);
   //- CLUSTER SETTING PAGE
   --settings-background-opacity: 0.3;
 }
@@ -65,7 +65,7 @@
   --background-button-no: hsl(0deg 26% 17%);
   --background-button-no-hover: hsl(0deg 26% 27%);
   //- FIRST PAGE OF ANY CLUSTER BACKGROUND COLOR
-  --background-first-page-clusters: hsl(155 30% 50% / 10%);
+  --background-first-page-clusters: hsl(155 30% 50% / 20%);
   //- CLUSTER SETTING PAGE
   --settings-background-opacity: 0.7;
 
@@ -302,12 +302,12 @@
 
     &.showOnClusters {
       background-color: var(--background-extra-button-container-clusters);
-      height: 78px;
+      height: 84px;
     }
 
     &.showOnOrphans {
       background-color: var(--background-extra-button-container-orphans);
-      height: 78px;
+      height: 84px;
     }
   }
 }
@@ -351,10 +351,17 @@
     position: absolute;
     top: 0;
     right: 0;
+    height: 26px;
     width: 26px;
-    transition: transform 0.5s;
 
-    &.rotate-90-cw {
+
+
+    svg {
+      transition: transform 0.5s;
+
+    }
+
+    &.rotate-90-cw svg {
       transform: rotate(-90deg);
     }
   }
@@ -412,6 +419,29 @@
 
   }
 
+  //Buttons Line Container phone
+  .buttonsLineContainer {
+    height: 36px;
+
+    .extraButtonsContainer {
+
+      width: 36px;
+      top: 36px;
+
+
+      &.showOnClusters {
+
+        height: 120px;
+      }
+
+      &.showOnOrphans {
+
+        height: 120px;
+      }
+    }
+  }
+
+  //Buttons phone
   .btn {
     padding: 10px 15px;
 
@@ -421,6 +451,21 @@
 
     &.no {
       grid-area: no;
+    }
+
+    &.extraBtn {
+      height: 36px;
+      width: 36px;
+
+    }
+  }
+
+  //settings page phone
+  .clusterSettingPage {
+    .setting-item {
+      &.color_input {
+        margin-top: 0;
+      }
     }
   }
 }
@@ -490,7 +535,7 @@
 //- CLUSTER SETTING PAGE-------------------*/
 .clusterSettingPage {
   position: relative;
-  overflow: hidden;
+  overflow-x: hidden;
 
   .setting-item {
     position: relative;
@@ -498,6 +543,7 @@
 
     &.color_input {
       flex-direction: row;
+
 
       .setting-item-control {
         flex-direction: column;

@@ -14,24 +14,27 @@ export class settingTab extends PluginSettingTab {
 
         containerEl.empty();
         containerEl.classList.add("clusterSettingPage")
-
-        new Setting(containerEl).setName("Cluster Plugin Settings")
+        //- HEADER
+        new Setting(containerEl)
+            .setName("Cluster Plugin Settings")
+            .setDesc("Changes apply after app reload or opening a different note.")
+        //- Background element
         new Setting(containerEl).setClass("settingsBackground")
-        //-Fold Properties
-        const t = new Setting(containerEl)
-        t.setName("Fold Properties");
-        t.setDesc("Automatically fold the 'Properties' section upon opening files, and you'll observe the effect when a new file is opened.ONLY work inside [CLUSTERS] and [ORPHANS] folders .")
-        t.addToggle((toggle: ToggleComponent) => {
-            toggle.setValue(this.plugin.settings.foldProperties);
-            toggle.onChange(async (value) => {
-                this.plugin.settings.foldProperties = value;
-                await this.plugin.saveSettings();
+        //- Fold Properties 
+        new Setting(containerEl)
+            .setName("Fold Properties")
+            .setDesc("Automatically fold the 'Properties' section upon opening notes, This feature Only work inside 'CLUSTERS' and 'ORPHANS' folders.")
+            .addToggle((toggle: ToggleComponent) => {
+                toggle.setValue(this.plugin.settings.foldProperties);
+                toggle.onChange(async (value) => {
+                    this.plugin.settings.foldProperties = value;
+                    await this.plugin.saveSettings();
+                });
             });
-        });
 
-        //- First Page Of Clusters
+        //- Main Notes (Clusters) Background color
         const firstPOC = new Setting(containerEl)
-        firstPOC.setName("Main Notes Background color");
+        firstPOC.setName("Main Notes (Clusters) Background color");
         firstPOC.setDesc("Highlight the main note of each cluster whose name ends with '-cluster' by adding a background color.")
         firstPOC.addToggle((toggle: ToggleComponent) => {
             toggle.setValue(this.plugin.settings.firstPageClusters);
@@ -42,14 +45,12 @@ export class settingTab extends PluginSettingTab {
         });
 
 
-        //-Colors
+        //- Buttons Background Color
         new Setting(containerEl).setName("Buttons Background Color")
 
-        //-clusters buttons background color 
+        // clusters buttons background color 
         this.clusterFun(new Setting(containerEl))
-
-
-        //- buttons background color 
+        // Orphans buttons background color 
         this.orphanFun(new Setting(containerEl))
 
 
@@ -61,9 +62,11 @@ export class settingTab extends PluginSettingTab {
                 button.setIcon("github")
                 button.onClick(() => window.location.href = "https://github.com/lorens-osman-dev/cluster")
             });
+
+
         //-Donation
         new Setting(containerEl)
-            .setName("Make First Dream True")
+            .setName("Make First Dream true")
             .setDesc("If you like this Plugin, Consider making first dream true.")
             .addButton(button => {
                 button.setIcon("coffee")
