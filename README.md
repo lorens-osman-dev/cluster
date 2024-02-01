@@ -1,10 +1,10 @@
 ![clusterSvg](https://raw.githubusercontent.com/lorens-osman-dev/cluster/16c7f97a3f24322de18d9540fa7170817b80a7cc/cluster-plugin-lorens-osman.svg)
 
-## Cluster plugin mainly designed to simplify the process of note clustering on mobile devices and work well on PCs ether.
+## Cluster plugin mainly designed to simplify the process of note clustering for ![Obsidian](https://obsidian.md/) on mobile devices and work well on PCs ether.
 
 ### Note Clustering
 
-Note clustering is a way to create a hierarchy or structure among your notes, making it easier to navigate and understand the relationships between them.
+Note clustering is a way to create a hierarchy or structure among your notes, making it easier to navigate, search and understand the relationships between them.
 
 ### Cluster Plugin
 
@@ -55,20 +55,19 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 ![baby](https://github.com/lorens-osman-dev/cluster/blob/assets/babdc.svg)
 
 -   This button creates a new note linked to the current note, we call it `son` note.
--   `son note` means the new created note will contains link to the current note and tag with cluster's name.
--   The generation property of the `son note` will be the current note's generation +1
--   A new folder with the same name as the current note is will be created for all `son` notes.
+-   `son` note means the new created note will contains link to the current note and tag with cluster's name.
+-   The generation property of the `son` note will be the current note's generation +1
+-   A new folder with the same name of current note will be created or all `son` notes of the current note.
 
 ![brother](https://github.com/lorens-osman-dev/cluster/blob/assets/git-compare.svg)
 
 -   This button creates a new note beside the current note, we call it `brother` note.
--   `brother note` means the new created note will copy the parent link, the cluster's tag and the generation property from current note.
+-   `brother` note means the new created note will copy the parent link, the cluster's tag and the generation property from current note.
 
 ![orphan](https://github.com/lorens-osman-dev/cluster/blob/assets/disc.svg)
 
 -   This button creates a new note inside `ORPHANS` folder.
--   All the notes inside `ORPHANS` contains `Orphan`.
--   No parent links, No hierarchy.
+-   `orphan` note has no parent link and no hierarchy.
 
 ![delete](https://github.com/lorens-osman-dev/cluster/blob/assets/trash-2.svg)
 
@@ -84,12 +83,12 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 ![deletes the current line](https://github.com/lorens-osman-dev/cluster/blob/assets/arrow-left-from-line.svg?raw=true)
 
 -   This button deletes the current line.
--   Very useful for phones users.
--   Very useful to delete images and links on phones.
+-   Very useful for phone users.
+-   Very useful to delete images and links when using phone device.
 
 ### 🤩🪄 Plugin Features
 
--   Easy note clustering on phones and PCs.
+-   Easy note clustering on phone devices and PCs.
 -   Intuitive folders: Group related notes into folders for maintain a clear hierarchy folder structure.
 -   Automatically generate useful note properties that's helps with search, graph view and maintain note clustering process.
 
