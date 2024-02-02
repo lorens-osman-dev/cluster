@@ -27,7 +27,6 @@ export async function buttonsLine(app: App, file: TFile, settings?: any) {
             //@ts-ignore
             const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
 
-
             appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
             firstPageOfClusters(file, obsidianContainerElements)
 
@@ -36,45 +35,35 @@ export async function buttonsLine(app: App, file: TFile, settings?: any) {
     }
     //! PC 
     else {
-        const e = this.app.workspace.activeLeaf.view.file.path
-        if (e.startsWith(clusters) || e.startsWith(orphans)) {
-            const LEAF = this.app.workspace.activeLeaf
-            const obsidianContainer = (LEAF as WorkspaceLeaf).view.containerEl
-
-
+        const activeLeave = this.app.workspace.activeLeaf
+        const activeLeavePath = activeLeave.view.file.path
+        if (activeLeavePath.startsWith(clusters) || activeLeavePath.startsWith(orphans)) {
+            const obsidianContainer = (activeLeave as WorkspaceLeaf).view.containerEl
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
-
             //@ts-ignore
-            const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
+            const obsidianHeaderEl = (activeLeave as WorkspaceLeaf).view.headerEl
 
-
-
+            // append buttonsLineContainer to DOM if the file  in clusters folder or in orphans folder
             appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
             firstPageOfClusters(file, obsidianContainerElements)
         } else {
-            const LEAF2 = this.app.workspace.activeLeaf
-            const obsidianContainer2 = (LEAF2! as WorkspaceLeaf)?.view?.containerEl
-
+            const obsidianContainer2 = (activeLeave as WorkspaceLeaf)?.view?.containerEl
             const obsidianContainerElements2 = Array?.from(obsidianContainer2?.children)
-
             //@ts-ignore
-            const obsidianHeaderEl2 = (LEAF2! as WorkspaceLeaf)?.view?.headerEl
-
+            const obsidianHeaderEl2 = (activeLeave as WorkspaceLeaf)?.view?.headerEl
+            // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
             RemoveChild(file, obsidianContainer2, obsidianContainerElements2, obsidianHeaderEl2)
             firstPageOfClusters(file, obsidianContainerElements2)
 
         }
     }
 
-
-
-
-
-
 }
 function RemoveChild(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
+    // check if buttonsLineContainer exist in the DOM or not
     const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
 
+    // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
     if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
         obsidianContainer.removeChild(isButtonsLineContainer)
     }
@@ -83,14 +72,12 @@ function RemoveChild(file: TFile, obsidianContainer: any, obsidianContainerEleme
 function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
     // check if buttonsLineContainer exist in the DOM or not
     const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
-
-    // // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
+    // this duplicate to RemoveChild() but its necessary for mobile users
+    // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
     if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
         obsidianContainer.removeChild(isButtonsLineContainer)
     }
     // add buttonsLineContainer to DOM if the file in clusters folder or in orphans folder
-
-
     if ((file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
         // If we are within either the CLUSTERS or ORPHANS folder and navigate through the files,
         //   it will generate of multiple buttonsLineContainer element on top of each other. 
