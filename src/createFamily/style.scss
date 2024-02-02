@@ -302,12 +302,12 @@
 
     &.showOnClusters {
       background-color: var(--background-extra-button-container-clusters);
-      height: 84px;
+      height: 104px;
     }
 
     &.showOnOrphans {
       background-color: var(--background-extra-button-container-orphans);
-      height: 84px;
+      height: 104px;
     }
   }
 }
@@ -431,12 +431,12 @@
 
       &.showOnClusters {
 
-        height: 120px;
+        height: 160px;
       }
 
       &.showOnOrphans {
 
-        height: 120px;
+        height: 160px;
       }
     }
   }

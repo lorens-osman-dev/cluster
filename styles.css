@@ -251,19 +251,17 @@
 }
 .buttonsLineContainer .extraButtonsContainer.showOnClusters {
   background-color: var(--background-extra-button-container-clusters);
-  height: 84px;
+  height: 104px;
 }
 .buttonsLineContainer .extraButtonsContainer.showOnOrphans {
   background-color: var(--background-extra-button-container-orphans);
-  height: 84px;
+  height: 104px;
 }
 
 .btn {
   display: grid;
   justify-content: center;
   align-items: center;
-  align-content: center;
-
   padding: 4px 6px;
 }
 .btn:hover {
@@ -342,10 +340,10 @@
   top: 36px;
 }
 .is-phone .buttonsLineContainer .extraButtonsContainer.showOnClusters {
-  height: 120px;
+  height: 160px;
 }
 .is-phone .buttonsLineContainer .extraButtonsContainer.showOnOrphans {
-  height: 120px;
+  height: 160px;
 }
 .is-phone .btn {
   padding: 10px 15px;

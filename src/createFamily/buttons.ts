@@ -12,7 +12,6 @@ export async function buttonsLine(app: App, file: TFile, settings?: any) {
     this.app = app
     Vars = settings
     //! Android 
-    console.log("buttonsLine ⸦ Platform:", Platform);
     if (Platform.isMobile) {
         let LEAF: WorkspaceLeaf | null = null;
         this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
@@ -134,6 +133,8 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
 
         const deleteLineBtn = makeButton("deleteLineBtn", "deleteLineBtn", `Delete the current line`)
         setIcon(deleteLineBtn, "chevrons-left")
+        const undoBtn = makeButton("undoBtn", "undoBtn", `Undo the last action`)
+        setIcon(undoBtn, "redo-2")
         const coffeeBtn = makeButton("coffeeBtn", "coffeeBtn", `coffee`)
         setIcon(coffeeBtn, "coffee")
         const puzzleBtn = makeButton("puzzleBtn", "puzzleBtn", `puzzle tooltip message `)
@@ -150,6 +151,7 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
         // Append Extra Buttons 
         buttonsLineContainer?.appendChild(extraBtn)
 
+        extraButtonsContainer?.appendChild(undoBtn)
         extraButtonsContainer?.appendChild(deleteLineBtn)
         extraButtonsContainer?.appendChild(coffeeBtn)
         extraButtonsContainer?.appendChild(puzzleBtn)
@@ -210,7 +212,16 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
             }
         }
         else if (type == "deleteLineBtn") {
-            deleteLineFunction()
+            const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+            const editor = view?.editor as Editor
+            editor.exec("deleteLine")
+            editor.focus()
+        }
+        else if (type == "undoBtn") {
+            const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+            const editor = view?.editor as Editor
+            editor.undo()
+            editor.focus()
         }
         else if (type == "coffeeBtn") {
             const coffeeLink = "https://www.buymeacoffee.com/lorens";
@@ -218,7 +229,6 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
         }
         else if (type == "puzzleBtn") {
             const puzzleFileExists = await this.app.vault.adapter.exists("/ORPHANS/puzzle.md")
-            console.log(puzzleFileExists)
             if (!puzzleFileExists) {
 
                 const puzzleFile = await this.app.vault.create("/ORPHANS/puzzle.md", puzzleTemplate)
@@ -249,18 +259,6 @@ function setExternalIcon(con: any, type: string) {
         setIcon(con, "cluster-svg")
         return
     }
-}
-//- Delete Line FUNCTION
-function deleteLineFunction() {
-    const view = this.app.workspace.getActiveViewOfType(MarkdownView);
-    const editor = view?.editor as Editor
-    const cursorPos = editor.getCursor()
-    const firstCurserPosition = { line: cursorPos.line, ch: 0 }
-    const secondCurserPosition = { line: cursorPos.line + 1, ch: 0 }
-    const thirdCurserPosition = { line: cursorPos.line - 1, ch: 0 }
-    editor.replaceRange("", firstCurserPosition, secondCurserPosition)
-    editor.setCursor(thirdCurserPosition)
-    editor.focus()
 }
 
 //- First Page Of Clusters FUNCTION

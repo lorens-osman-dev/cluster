@@ -1,6 +1,6 @@
 ## Did
 
--   [*] fix the buttons leaf problem
+-   [*] add undo button to extra buttons
 
 ## ToDo
 

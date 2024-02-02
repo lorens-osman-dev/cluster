@@ -3,9 +3,34 @@ import { App, TFile } from "obsidian";
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 
+//- Fold Properties element
+export async function foldPropertiesElement(app: App, file: TFile) {
+    if (file.path.startsWith(clusters) || file.path.startsWith(orphans)) {
+
+        this.app = app
+        const propertiesElement: HTMLElement = this.app.workspace.activeEditor.containerEl.querySelector('.metadata-container');
+        const metaDataContentElement = propertiesElement.querySelector('.collapse-indicator') as HTMLElement;
+        const collapseIndicatorElement = propertiesElement.querySelector('.metadata-properties-heading') as HTMLElement;
+        if (propertiesElement) {
+            propertiesElement.classList.add("collapse-from-cluster")
+            metaDataContentElement.classList.add("is-collapsed")
+            collapseIndicatorElement.classList.add("is-collapsed")
+            metaDataContentElement.addEventListener("click", () => {
+                propertiesElement.classList.remove("collapse-from-cluster")
+            })
+            propertiesElement.addEventListener("click", () => {
+                propertiesElement.classList.remove("collapse-from-cluster")
+            })
+        }
+
+    }
+
+
+}
 
 //- Coloring Tree Panel Elements
 export async function coloringTreePanel(app: App, file: TFile) {
+    // FIX if the file tree is expanded too much , the errors show from this function even its stops the next functions , for this reason i moved the fold function to top
     this.app = app
     // Coloring clusters tree Element
     const fatherClusters: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="CLUSTERS"]');
@@ -35,30 +60,7 @@ export async function coloringTreePanel(app: App, file: TFile) {
     }
 }
 
-//- Fold Properties element
-export async function foldPropertiesElement(app: App, file: TFile) {
-    if (file.path.startsWith(clusters) || file.path.startsWith(orphans)) {
 
-        this.app = app
-        const propertiesElement: HTMLElement = this.app.workspace.activeEditor.containerEl.querySelector('.metadata-container');
-        const metaDataContentElement = propertiesElement.querySelector('.collapse-indicator') as HTMLElement;
-        const collapseIndicatorElement = propertiesElement.querySelector('.metadata-properties-heading') as HTMLElement;
-        if (propertiesElement) {
-            propertiesElement.classList.add("collapse-from-cluster")
-            metaDataContentElement.classList.add("is-collapsed")
-            collapseIndicatorElement.classList.add("is-collapsed")
-            metaDataContentElement.addEventListener("click", () => {
-                propertiesElement.classList.remove("collapse-from-cluster")
-            })
-            propertiesElement.addEventListener("click", () => {
-                propertiesElement.classList.remove("collapse-from-cluster")
-            })
-        }
-
-    }
-
-
-}
 //- Append Unsorted Files Counter Element Function
 export async function addUnsortedFilesCounter(app: App) {
     this.app = app
