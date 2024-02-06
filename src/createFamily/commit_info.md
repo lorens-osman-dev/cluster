@@ -1,6 +1,6 @@
 ## Did
 
--   [*] FIX you need to remove buttons line when unload
+-   [*] FIX you need to add buttons line when onload if there is an active file
 
 ## ToDo
 

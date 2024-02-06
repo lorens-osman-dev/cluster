@@ -58,6 +58,11 @@ export default class clusterPlugin extends Plugin {
       await unSortedObserver()
     }, 1000);
 
+    const file = this.app.workspace.getActiveFile() as TFile
+    if (file) {
+      await buttonsLine(this.app, file, this.settings)
+    }
+
     this.registerEvent(this.app.workspace.on("file-open", async (file) => {
 
       if (file) {
@@ -147,6 +152,7 @@ export default class clusterPlugin extends Plugin {
   }
 
   async onunload() {
+    //FIX if there more than one file in workspace you need to remove the buttons line from them all  
     // Remove Buttons line
     const file = this.app.workspace.getActiveFile() as TFile
     await buttonsLine(this.app, file, this.settings, true)
