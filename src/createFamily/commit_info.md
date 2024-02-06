@@ -1,7 +1,6 @@
 ## Did
 
--   [*] test the buttons leaf problem in buttons.ts
--   [*] enhance the code buttons leaf problem in buttons.ts
+-   [*] FIX you need to remove buttons line when unload
 
 ## ToDo
 

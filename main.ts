@@ -1,4 +1,4 @@
-import { App, Plugin, addIcon } from "obsidian";
+import { App, Plugin, TFile, addIcon } from "obsidian";
 import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
@@ -146,7 +146,10 @@ export default class clusterPlugin extends Plugin {
     await this.saveData(this.settings);
   }
 
-  onunload() {
+  async onunload() {
+    // Remove Buttons line
+    const file = this.app.workspace.getActiveFile() as TFile
+    await buttonsLine(this.app, file, this.settings, true)
     unSortedObserver(false)
     console.log("unloading Cluster plugin");
   }

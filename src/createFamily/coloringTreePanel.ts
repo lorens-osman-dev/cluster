@@ -6,7 +6,7 @@ const orphans = "ORPHANS"
 //- Fold Properties element
 export async function foldPropertiesElement(app: App, file: TFile) {
     if (file.path.startsWith(clusters) || file.path.startsWith(orphans)) {
-
+        //FIX try to use toggle class instead of add/remove
         this.app = app
         const propertiesElement: HTMLElement = this.app.workspace.activeEditor.containerEl.querySelector('.metadata-container');
         const metaDataContentElement = propertiesElement.querySelector('.collapse-indicator') as HTMLElement;

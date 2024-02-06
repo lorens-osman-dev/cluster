@@ -8,7 +8,7 @@ import { puzzleTemplate } from "./templates";
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 let Vars = {}
-export async function buttonsLine(app: App, file: TFile, settings?: any) {
+export async function buttonsLine(app: App, file: TFile, settings?: any, removeButtons?: boolean) {
     this.app = app
     Vars = settings
     //! Android 
@@ -26,9 +26,12 @@ export async function buttonsLine(app: App, file: TFile, settings?: any) {
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
             //@ts-ignore
             const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
-
-            appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
-            firstPageOfClusters(file, obsidianContainerElements)
+            if (removeButtons) {//remove buttons when on unload
+                RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+            } else {
+                appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+                firstPageOfClusters(file, obsidianContainerElements)
+            }
 
         }
 
@@ -43,9 +46,14 @@ export async function buttonsLine(app: App, file: TFile, settings?: any) {
             //@ts-ignore
             const obsidianHeaderEl = (activeLeave as WorkspaceLeaf).view.headerEl
 
-            // append buttonsLineContainer to DOM if the file  in clusters folder or in orphans folder
-            appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
-            firstPageOfClusters(file, obsidianContainerElements)
+            if (removeButtons) {//remove buttons when on unload
+                RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+            } else {
+                // append buttonsLineContainer to DOM if the file  in clusters folder or in orphans folder
+                appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+                firstPageOfClusters(file, obsidianContainerElements)
+
+            }
         } else {
             const obsidianContainer2 = (activeLeave as WorkspaceLeaf)?.view?.containerEl
             const obsidianContainerElements2 = Array?.from(obsidianContainer2?.children)
@@ -65,6 +73,17 @@ function RemoveChild(file: TFile, obsidianContainer: any, obsidianContainerEleme
 
     // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
     if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
+        obsidianContainer.removeChild(isButtonsLineContainer)
+    }
+}
+// remove buttonsLineContainer on unload
+function RemoveButtonsLine(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
+    // check if buttonsLineContainer exist in the DOM or not
+    const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
+
+    // remove buttonsLineContainer on unload
+    if (isButtonsLineContainer && (file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
+        console.log("RemoveChild ⸦ obsidianContainer:", obsidianContainer);
         obsidianContainer.removeChild(isButtonsLineContainer)
     }
 }
