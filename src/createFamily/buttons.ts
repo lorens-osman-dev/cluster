@@ -8,13 +8,13 @@ import { puzzleTemplate } from "./templates";
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 let Vars = {}
-export async function buttonsLine(app: App, file: TFile, settings?: any, removeButtons?: boolean) {
-    this.app = app
+export async function buttonsLine(appObject: App, file: TFile, settings?: any, removeButtons?: boolean) {
+
     Vars = settings
     //! Android 
     if (Platform.isMobile) {
         let LEAF: WorkspaceLeaf | null = null;
-        this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
+        appObject.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
             if (leaf.getViewState().type == "markdown") {
                 LEAF = leaf
             }
@@ -29,7 +29,7 @@ export async function buttonsLine(app: App, file: TFile, settings?: any, removeB
             if (removeButtons) {//remove buttons when on unload
                 RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
             } else {
-                appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+                appendOrRemoveChild(appObject, file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
                 firstPageOfClusters(file, obsidianContainerElements)
             }
 
@@ -38,8 +38,10 @@ export async function buttonsLine(app: App, file: TFile, settings?: any, removeB
     }
     //! PC 
     else {
-        const activeLeave = this.app.workspace.activeLeaf
-        const activeLeavePath = activeLeave.view.file.path
+        //const activeLeave = this.app.workspace.activeLeaf
+        const activeLeave = appObject.workspace.activeLeaf
+        //@ts-ignore
+        const activeLeavePath = activeLeave?.view?.file?.path
         if (activeLeavePath.startsWith(clusters) || activeLeavePath.startsWith(orphans)) {
             const obsidianContainer = (activeLeave as WorkspaceLeaf).view.containerEl
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
@@ -50,7 +52,7 @@ export async function buttonsLine(app: App, file: TFile, settings?: any, removeB
                 RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
             } else {
                 // append buttonsLineContainer to DOM if the file  in clusters folder or in orphans folder
-                appendOrRemoveChild(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+                appendOrRemoveChild(appObject, file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
                 firstPageOfClusters(file, obsidianContainerElements)
 
             }
@@ -88,7 +90,7 @@ function RemoveButtonsLine(file: TFile, obsidianContainer: any, obsidianContaine
     }
 }
 //- Append Or Remove Child FUNCTION
-function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
+function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
     // check if buttonsLineContainer exist in the DOM or not
     const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
     // this duplicate to RemoveChild() but its necessary for mobile users
@@ -117,33 +119,33 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
         extraButtonsContainer.style.backgroundColor = Vars.buttonsLineContainerBG_clusters
 
         // Making Buttons
-        const clusterBtn = makeButton("Cluster", "clusterBtn", "Create New Cluster in [CLUSTERS] folder")
+        const clusterBtn = makeButton(appObject, "Cluster", "clusterBtn", "Create New Cluster in [CLUSTERS] folder")
         setExternalIcon(clusterBtn, "cluster")
 
-        const sonBtn = makeButton("Son", "sonBtn", `Create Son for current [${file.basename}] note`)
+        const sonBtn = makeButton(appObject, "Son", "sonBtn", `Create Son for current [${file.basename}] note`)
         setIcon(sonBtn, "baby")
 
-        const brotherBtn = makeButton("Brother", "brotherBtn", `Create Brother for current [${file.basename}] note`)
+        const brotherBtn = makeButton(appObject, "Brother", "brotherBtn", `Create Brother for current [${file.basename}] note`)
         setIcon(brotherBtn, "git-compare")
 
-        const orphanBtn = makeButton("Orphan", "orphanBtn", `Create New Orphan note in [ORPHANS] folder`)
+        const orphanBtn = makeButton(appObject, "Orphan", "orphanBtn", `Create New Orphan note in [ORPHANS] folder`)
         setIcon(orphanBtn, "disc")
 
-        const deleteBtn = makeButton("Delete", "deleteBtn", `Delete the current [${file.basename}] note along with its associated son notes if they exist`)
+        const deleteBtn = makeButton(appObject, "Delete", "deleteBtn", `Delete the current [${file.basename}] note along with its associated son notes if they exist`)
         setIcon(deleteBtn, "trash-2")
 
         // Making Extra Buttons
-        const extraBtn = makeButton("extraBtn", "extraBtn", `Show / Hide extra buttons`, extraButtonsContainer, file)
+        const extraBtn = makeButton(appObject, "extraBtn", "extraBtn", `Show / Hide extra buttons`, extraButtonsContainer, file)
         setIcon(extraBtn, "chevron-left-square")
 
 
-        const deleteLineBtn = makeButton("deleteLineBtn", "deleteLineBtn", `Delete the current line`)
+        const deleteLineBtn = makeButton(appObject, "deleteLineBtn", "deleteLineBtn", `Delete the current line`)
         setIcon(deleteLineBtn, "chevrons-left")
-        const undoBtn = makeButton("undoBtn", "undoBtn", `Undo the last action`)
+        const undoBtn = makeButton(appObject, "undoBtn", "undoBtn", `Undo the last action`)
         setIcon(undoBtn, "redo-2")
-        const coffeeBtn = makeButton("coffeeBtn", "coffeeBtn", `coffee`)
+        const coffeeBtn = makeButton(appObject, "coffeeBtn", "coffeeBtn", `coffee`)
         setIcon(coffeeBtn, "coffee")
-        const puzzleBtn = makeButton("puzzleBtn", "puzzleBtn", `puzzle tooltip message `)
+        const puzzleBtn = makeButton(appObject, "puzzleBtn", "puzzleBtn", `puzzle tooltip message `)
         setIcon(puzzleBtn, "puzzle")
 
 
@@ -181,31 +183,31 @@ function appendOrRemoveChild(file: TFile, obsidianContainer: any, obsidianContai
 
 
 //- Make Button FUNCTION
-function makeButton(type: string, className: string, tooltipMsg: string, element?: HTMLElement, file?: TFile) {
+function makeButton(appObject: App, type: string, className: string, tooltipMsg: string, element?: HTMLElement, file?: TFile) {
     const button = document.createElement('div');
     button.textContent = type;
     setTooltip(button, tooltipMsg, { delay: 10 })
     button.addClasses(["btn", className])
     button.addEventListener('click', async () => {
         if (type == "Cluster") {
-            createClustersAndOrphansFolder(this.app);
-            new familyModal(this.app, NewFileLocation.NewTab, "newCluster", undefined).open();
+            createClustersAndOrphansFolder(appObject);
+            new familyModal(appObject, NewFileLocation.NewTab, "newCluster", undefined).open();
         }
         else if (type == "Son") {
-            createClustersAndOrphansFolder(this.app);
-            new familyModal(this.app, NewFileLocation.NewTab, "newSon", undefined).open()
+            createClustersAndOrphansFolder(appObject);
+            new familyModal(appObject, NewFileLocation.NewTab, "newSon", undefined).open()
         }
         else if (type == "Brother") {
-            createClustersAndOrphansFolder(this.app);
-            new familyModal(this.app, NewFileLocation.NewTab, "newBrother", undefined).open();
+            createClustersAndOrphansFolder(appObject);
+            new familyModal(appObject, NewFileLocation.NewTab, "newBrother", undefined).open();
         }
         else if (type == "Orphan") {
-            createClustersAndOrphansFolder(this.app);
-            new familyModal(this.app, NewFileLocation.NewTab, "newOrphan", undefined).open();
+            createClustersAndOrphansFolder(appObject);
+            new familyModal(appObject, NewFileLocation.NewTab, "newOrphan", undefined).open();
         }
         else if (type == "Delete") {
-            createClustersAndOrphansFolder(this.app);
-            new deleteActiveNoteModal(this.app, NewFileLocation.NewTab, "deleteNote").open();
+            createClustersAndOrphansFolder(appObject);
+            new deleteActiveNoteModal(appObject, NewFileLocation.NewTab, "deleteNote").open();
         }
         // Extra Buttons
         else if (type == "extraBtn") {
@@ -218,13 +220,13 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
             }
         }
         else if (type == "deleteLineBtn") {
-            const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+            const view = appObject.workspace.getActiveViewOfType(MarkdownView);
             const editor = view?.editor as Editor
             editor.exec("deleteLine")
             editor.focus()
         }
         else if (type == "undoBtn") {
-            const view = this.app.workspace.getActiveViewOfType(MarkdownView);
+            const view = appObject.workspace.getActiveViewOfType(MarkdownView);
             const editor = view?.editor as Editor
             editor.undo()
             editor.focus()
@@ -234,11 +236,11 @@ function makeButton(type: string, className: string, tooltipMsg: string, element
             window.location.href = coffeeLink;
         }
         else if (type == "puzzleBtn") {
-            const puzzleFileExists = await this.app.vault.adapter.exists("/ORPHANS/puzzle.md")
+            const puzzleFileExists = await appObject.vault.adapter.exists("/ORPHANS/puzzle.md")
             if (!puzzleFileExists) {
 
-                const puzzleFile = await this.app.vault.create("/ORPHANS/puzzle.md", puzzleTemplate)
-                this.app.workspace.getLeaf(true).openFile(puzzleFile);
+                const puzzleFile = await appObject.vault.create("/ORPHANS/puzzle.md", puzzleTemplate)
+                appObject.workspace.getLeaf(true).openFile(puzzleFile);
             }
         }
 
