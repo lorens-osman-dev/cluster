@@ -48,7 +48,7 @@ export async function coloringTreePanel(app: App, file: TFile) {
 
     // Coloring orphans tree Element
     const fatherOrphans: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="ORPHANS"]');
-    const orphansFolderTreeElement = fatherOrphans.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
+    const orphansFolderTreeElement = fatherOrphans?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
     if (file instanceof TFile && fatherOrphans && orphansFolderTreeElement) {
         if (file.path.startsWith(orphans)) {
             orphansFolderTreeElement?.addClass("orphansFolderTreeElement");
@@ -65,7 +65,7 @@ export async function coloringTreePanel(app: App, file: TFile) {
 export async function addUnsortedFilesCounter(app: App) {
     this.app = app
     const father: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]');
-    const unSortedFolderTreeElement = father.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
+    const unSortedFolderTreeElement = father?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
 
     if (unSortedFolderTreeElement) {
         unSortedFolderTreeElement?.addClass("unSortedFolderTreeElement");
