@@ -234,9 +234,8 @@ function makeButton(appObject: App, type: string, className: string, tooltipMsg:
             window.location.href = coffeeLink;
         }
         else if (type == "puzzleBtn") {
-            const puzzleFileExists = await appObject.vault.adapter.exists("/ORPHANS/puzzle.md")
-            if (!puzzleFileExists) {
-
+            const puzzleFileExists = appObject.vault.getAbstractFileByPath("ORPHANS/puzzle.md")
+            if (puzzleFileExists === null) {
                 const puzzleFile = await appObject.vault.create("/ORPHANS/puzzle.md", puzzleTemplate)
                 appObject.workspace.getLeaf(true).openFile(puzzleFile);
             }

@@ -1,8 +1,8 @@
-import { App, normalizePath, Platform, TFolder, Notice, Modal, Instruction, Vault ,MarkdownView, setIcon} from "obsidian";
+import { App, normalizePath, Platform, TFolder, Notice, Modal, Instruction, Vault, MarkdownView, setIcon } from "obsidian";
 import { NewFileLocation } from '../util/enums';
 import { path } from '../util/utils';
 import svgElements from "./svg";
-import { templates , clusterTemplate ,  orphanTemplate} from "./templates";
+import { templates, clusterTemplate, orphanTemplate } from "./templates";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -15,12 +15,12 @@ export default class familyModal extends Modal {
   shouldMakeDir: string | undefined;
   inputListener: any;
   createType: string;
-  graphActiveFile :any
-  constructor(app: App, mode: NewFileLocation, createType: string , graphActiveFile :any) {
+  graphActiveFile: any
+  constructor(app: App, mode: NewFileLocation, createType: string, graphActiveFile: any) {
 
     super(app);
     this.app = app;
-    this.graphActiveFile = graphActiveFile 
+    this.graphActiveFile = graphActiveFile
     this.createType = createType;
     this.mode = mode;
 
@@ -32,7 +32,7 @@ export default class familyModal extends Modal {
 
     //#region Make modal
     this.modalEl.className = 'prompt';
-   
+
     // get current active file
     let getActiveFile;
     if (this.graphActiveFile == undefined) {
@@ -42,74 +42,74 @@ export default class familyModal extends Modal {
       // pass active file from graph or file tree
       getActiveFile = this.graphActiveFile;
     }
-    
-    
+
+
     //svg and placeholders
-    if(getActiveFile === null){
+    if (getActiveFile === null) {
       if (this.createType == "newCluster") {
         this.inputEl.placeholder = `Type the new Cluster name`;
         this.modalEl.appendChild(svgElements().cluster());
-      }else if (this.createType == "newOrphan") {
+      } else if (this.createType == "newOrphan") {
         this.inputEl.placeholder = `Type the new Orphan name`;
         this.modalEl.appendChild(svgElements().orphan());
-      }else{
-        this.inputEl.addClasses(["prompt-input","inputDelete"])
+      } else {
+        this.inputEl.addClasses(["prompt-input", "inputDelete"])
         this.modalEl.appendChild(svgElements().noThing());
         const text = document.createElement('div');
         text.innerText = `Son ?! Brother ?! of what??\nNo active file in the work space, Press ESC`
         text.addClass("nothingMsg")
-  
+
         this.modalEl.appendChild(text);
       }
- 
 
-    }else if (this.createType == "newCluster") {
+
+    } else if (this.createType == "newCluster") {
       this.inputEl.placeholder = `Type the new Cluster name`;
       this.modalEl.appendChild(svgElements().cluster());
-      }else if (this.createType == "newSon") {
-        this.inputEl.placeholder = `Type the son name of [${getActiveFile.basename}] note`;
-        this.modalEl.appendChild(svgElements().son());
-      } else if (this.createType == "newBrother") {
-        this.inputEl.placeholder = `Type the brother name of [${getActiveFile.basename}] note`;
-        this.modalEl.appendChild(svgElements().brother());
-      }else if (this.createType == "newOrphan") {
-        this.inputEl.placeholder = `Type the new Orphan name`;
-        this.modalEl.appendChild(svgElements().orphan());
-      }
-
-  
-      //input
-      this.modalEl.appendChild(this.inputEl);
-  
-      //#endregion
-
-      //#region Buttons
-      // ok button ✓
-      const okBtn = document.createElement('div');
-      setIcon(okBtn , "check")
-      okBtn.classList.add("btn","ok");
-      okBtn.addEventListener("click",()=>{
-        this.doWork()
-        this.close();
-
-      })
-
-      this.modalEl.appendChild(okBtn);
+    } else if (this.createType == "newSon") {
+      this.inputEl.placeholder = `Type the son name of [${getActiveFile.basename}] note`;
+      this.modalEl.appendChild(svgElements().son());
+    } else if (this.createType == "newBrother") {
+      this.inputEl.placeholder = `Type the brother name of [${getActiveFile.basename}] note`;
+      this.modalEl.appendChild(svgElements().brother());
+    } else if (this.createType == "newOrphan") {
+      this.inputEl.placeholder = `Type the new Orphan name`;
+      this.modalEl.appendChild(svgElements().orphan());
+    }
 
 
-      // escape button  ❌
-      const noBtn = document.createElement('div');
-      setIcon(noBtn , "x")
-      noBtn.classList.add("btn","no");
-      noBtn.addEventListener("click",()=>{
-        this.close();
+    //input
+    this.modalEl.appendChild(this.inputEl);
 
-      })
-      this.modalEl.appendChild(noBtn);
-      //#endregion
+    //#endregion
 
-      this.inputListener = this.listenInput.bind(this);
-    
+    //#region Buttons
+    // ok button ✓
+    const okBtn = document.createElement('div');
+    setIcon(okBtn, "check")
+    okBtn.classList.add("btn", "ok");
+    okBtn.addEventListener("click", () => {
+      this.doWork()
+      this.close();
+
+    })
+
+    this.modalEl.appendChild(okBtn);
+
+
+    // escape button  ❌
+    const noBtn = document.createElement('div');
+    setIcon(noBtn, "x")
+    noBtn.classList.add("btn", "no");
+    noBtn.addEventListener("click", () => {
+      this.close();
+
+    })
+    this.modalEl.appendChild(noBtn);
+    //#endregion
+
+    this.inputListener = this.listenInput.bind(this);
+
 
   }
 
@@ -118,7 +118,7 @@ export default class familyModal extends Modal {
     this.newDirectoryPath = newDirectoryPath;
     this.shouldMakeDir = shouldMakeDir;
   }
-  async doWork(){
+  async doWork() {
     // get current active file
     let getActiveFile;
     if (this.graphActiveFile == undefined) {
@@ -134,73 +134,73 @@ export default class familyModal extends Modal {
 
 
     //-make clusterSon to the current active file
-     if (this.createType == "newSon") {
-      if(getActiveFile?.path?.startsWith(clusters)){
-        if(getActiveFile.basename.endsWith("-cluster") ){
-          if(  (getActiveFile.path.match(/\//g) || []).length == 1  ){
-            const result = await templates(getActiveFile,"clusterSon");
+    if (this.createType == "newSon") {
+      if (getActiveFile?.path?.startsWith(clusters)) {
+        if (getActiveFile.basename.endsWith("-cluster")) {
+          if ((getActiveFile.path.match(/\//g) || []).length == 1) {
+            const result = await templates(getActiveFile, "clusterSon");
             if (result.state) {
-             
+
               const sonsFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
               await this.createDirectory("", sonsFolderPath);
               const newCreatedSonsFolder = getActiveFile.parent?.children?.find(
                 (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
               );
-              
+
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(this.inputEl.value.trim() , result.clusterSonTemplate);
+              await this.createNewNote(this.inputEl.value.trim(), result.clusterSonTemplate);
             }
 
-          }else{
-            new Notice("The Cluster should not be in this generation.\nChange the note name. \nOr move it to generation 0",3e3)
+          } else {
+            new Notice("The Cluster should not be in this generation.\nChange the note name. \nOr move it to generation 0", 3e3)
           }
-         
+
         }
         //-make normalSon to the current active file
-        else if(!getActiveFile.basename.endsWith("-cluster")){
-          if(!( (getActiveFile.path.match(/\//g) || []).length == 1 )){
+        else if (!getActiveFile.basename.endsWith("-cluster")) {
+          if (!((getActiveFile.path.match(/\//g) || []).length == 1)) {
 
-            const result = await templates(getActiveFile,"normalSon");
-            
+            const result = await templates(getActiveFile, "normalSon");
+
             if (result.state) {
               const sonsFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName}`;
               await this.createDirectory("", sonsFolderPath);
               const newCreatedSonsFolder = getActiveFile.parent!.children.find(
                 (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
               );
-              
+
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(this.inputEl.value.trim() , result.normalSonTemplate);
+              await this.createNewNote(this.inputEl.value.trim(), result.normalSonTemplate);
             }
-            
-          }else{
-            new Notice("The Cluster's name should ends with '-cluster' word.\nExample:'lorens-cluster' ,You need to change the note name.",3e3)
+
+          } else {
+            new Notice("The Cluster's name should ends with '-cluster' word.\nExample:'lorens-cluster' ,You need to change the note name.", 3e3)
           }
-         
+
         }
 
-      }else{
+      } else {
         new Notice("Create new son should not work outside [CLUSTERS] folder")
       }
 
     }
     //-make Brother to the current active file
     else if (this.createType == "newBrother") {
-      if(getActiveFile!.path.startsWith(clusters)){
-      // the next if statement to prevent make brother to a cluster
+      if (getActiveFile!.path.startsWith(clusters)) {
+        // the next if statement to prevent make brother to a cluster
         if (currentActiveFileName!.endsWith("-cluster")) {
           new Notice(`You cant make Brother to a cluster.\nCreate new cluster instead`);
         } else {
-          const result = await templates(getActiveFile,"brother");
+          const result = await templates(getActiveFile, "brother");
 
           if (result.state == true) {
-            this.setFolder( getActiveFile!.parent!, "");
+            this.setFolder(getActiveFile!.parent!, "");
             this.createNewNote(this.inputEl.value.trim(), result.brotherTemplate);
           }
         }
-      }else{
+      } else {
         new Notice("Create new brother should not work outside [CLUSTERS] folder")
       }
     }
@@ -223,7 +223,7 @@ export default class familyModal extends Modal {
       const clustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == clusters);
       // @ts-ignore
       this.setFolder(clustersFolder, "");
-      if(this.inputEl.value ==""){
+      if (this.inputEl.value == "") {
         this.inputEl.value = "Untitled"
       }
       const clusterName = `${(this.inputEl.value).trim()}-cluster`;
@@ -246,7 +246,7 @@ export default class familyModal extends Modal {
         // pass active file from graph or file tree
         getActiveFile = this.graphActiveFile;
       }
-      
+
       if (getActiveFile === null) {
         this.close();
 
@@ -273,10 +273,7 @@ export default class familyModal extends Modal {
    * This is a helper function that includes a workaround for a bug in the
    * Obsidian mobile app.
    */
-  private async createDirectory(
-    dir: string,
-    newDirectoryPath: string
-  ): Promise<void> {
+  private async createDirectory(dir: string, newDirectoryPath: string): Promise<void> {
     const { vault } = this.app;
     const { adapter } = vault;
     const root = vault.getRoot().path;
@@ -287,8 +284,7 @@ export default class familyModal extends Modal {
       directoryPath = newDirectoryPath;
     }
 
-    const directoryExists = await adapter.exists(directoryPath);
-
+    const directoryExists = this.app.vault.getAbstractFileByPath(directoryPath);
     // ===============================================================
     // -> Desktop App
     // ===============================================================
@@ -328,7 +324,7 @@ export default class familyModal extends Modal {
    * A new markdown file will be created at the given file path (`input`)
    * in the specified parent folder (`this.folder`)
    */
-  async createNewNote(input: string ,template:string): Promise<void> {
+  async createNewNote(input: string, template: string): Promise<void> {
     const { vault } = this.app;
     const { adapter } = vault;
     const prependDirInput = path.join(this.newDirectoryPath, input);
@@ -338,7 +334,7 @@ export default class familyModal extends Modal {
     let filePath = path.join(directoryPath, `${name}.md`);
 
     try {
-      const fileExists = await adapter.exists(filePath);
+      const fileExists = this.app.vault.getAbstractFileByPath(filePath);
       if (fileExists) {
         // If the file already exists, respond with error
         throw new Error(`${filePath} already exists`);
@@ -346,11 +342,11 @@ export default class familyModal extends Modal {
       if (dir !== '') {
         //this.createDirectory(dir);
       }
-   
 
-        const File = await vault.create(filePath, template);
-      
-      
+
+      const File = await vault.create(filePath, template);
+
+
       // Create the file and open it in the active leaf
       let leaf = this.app.workspace.getLeaf(false);
       if (this.mode === NewFileLocation.NewPane) {
@@ -362,8 +358,8 @@ export default class familyModal extends Modal {
         // default for active pane
         leaf = this.app.workspace.getLeaf(true);
       }
-    await leaf.openFile(File);
-   
+      await leaf.openFile(File);
+
     } catch (error) {
       new Notice(error.toString());
       console.log(error.toString());

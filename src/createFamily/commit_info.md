@@ -1,6 +1,8 @@
 ## Did
 
--   [*] move the file to the trash instead of deleting it
+-   [*] getAbstractFileByPath instead this.app.vault.adapter.exists in in familyModal.ts
+-   [*] getAbstractFileByPath instead this.app.vault.adapter.exists in buttons.ts
+-   [*] getAbstractFileByPath instead this.app.vault.adapter.exists in createClustersAndOrphansFolder.ts
 
 ## ToDo
 
@@ -9,4 +11,3 @@
 
 -   [ ] this.app this.app doesn't exist. This might work because its falling back to the global.app instance, but this is deprecated. You should pass app into the function instead
 -   [ ] this.app.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => { what is this code doing? This seems to just be finding any markdown leaf. Why? Do you mean to access activeLeaf? You probably want to use getActiveViewOfType(MarkdownView) instead.
--   [ ] this.app.vault.adapter.exists getAbstractFileByPath Prefer the Vault API over the Adapter API
