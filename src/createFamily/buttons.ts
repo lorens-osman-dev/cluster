@@ -38,15 +38,14 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: any, r
     }
     //! PC 
     else {
-        //const activeLeave = this.app.workspace.activeLeaf
-        const activeLeave = appObject.workspace.activeLeaf
+        const activeLeave = appObject.workspace.getActiveViewOfType(MarkdownView)
         //@ts-ignore
-        const activeLeavePath = activeLeave?.view?.file?.path
+        const activeLeavePath = activeLeave?.file?.path as string
         if (activeLeavePath.startsWith(clusters) || activeLeavePath.startsWith(orphans)) {
-            const obsidianContainer = (activeLeave as WorkspaceLeaf).view.containerEl
+            const obsidianContainer = activeLeave!.containerEl
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
             //@ts-ignore
-            const obsidianHeaderEl = (activeLeave as WorkspaceLeaf).view.headerEl
+            const obsidianHeaderEl = activeLeave!.headerEl
 
             if (removeButtons) {//remove buttons when on unload
                 RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
@@ -57,10 +56,10 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: any, r
 
             }
         } else {
-            const obsidianContainer2 = (activeLeave as WorkspaceLeaf)?.view?.containerEl
+            const obsidianContainer2 = activeLeave!.containerEl
             const obsidianContainerElements2 = Array?.from(obsidianContainer2?.children)
             //@ts-ignore
-            const obsidianHeaderEl2 = (activeLeave as WorkspaceLeaf)?.view?.headerEl
+            const obsidianHeaderEl2 = activeLeave!.headerEl
             // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
             RemoveChild(file, obsidianContainer2, obsidianContainerElements2, obsidianHeaderEl2)
             firstPageOfClusters(file, obsidianContainerElements2)
