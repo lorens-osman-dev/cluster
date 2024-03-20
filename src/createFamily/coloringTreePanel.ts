@@ -4,11 +4,11 @@ const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 
 //- Fold Properties element
-export async function foldPropertiesElement(app: App, file: TFile) {
+export async function foldPropertiesElement(appObject: App, file: TFile) {
     if (file.path.startsWith(clusters) || file.path.startsWith(orphans)) {
         //FIX try to use toggle class instead of add/remove
-        this.app = app
-        const propertiesElement: HTMLElement = this.app.workspace.activeEditor.containerEl.querySelector('.metadata-container');
+        //@ts-ignore
+        const propertiesElement: HTMLElement = appObject.workspace.activeEditor!.containerEl.querySelector('.metadata-container');
         const metaDataContentElement = propertiesElement.querySelector('.collapse-indicator') as HTMLElement;
         const collapseIndicatorElement = propertiesElement.querySelector('.metadata-properties-heading') as HTMLElement;
         if (propertiesElement) {
@@ -29,11 +29,10 @@ export async function foldPropertiesElement(app: App, file: TFile) {
 }
 
 //- Coloring Tree Panel Elements
-export async function coloringTreePanel(app: App, file: TFile) {
+export async function coloringTreePanel(appObject: App, file: TFile) {
     // FIX if the file tree is expanded too much , the errors show from this function even its stops the next functions , for this reason i moved the fold function to top
-    this.app = app
     // Coloring clusters tree Element
-    const fatherClusters: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="CLUSTERS"]');
+    const fatherClusters: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="CLUSTERS"]') as HTMLElement;
     const clustersFolderTreeElement = fatherClusters?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
     if (file instanceof TFile && fatherClusters && clustersFolderTreeElement) {
         if (file.path.startsWith(clusters)) {
@@ -47,7 +46,7 @@ export async function coloringTreePanel(app: App, file: TFile) {
     }
 
     // Coloring orphans tree Element
-    const fatherOrphans: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="ORPHANS"]');
+    const fatherOrphans: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="ORPHANS"]') as HTMLElement;
     const orphansFolderTreeElement = fatherOrphans?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
     if (file instanceof TFile && fatherOrphans && orphansFolderTreeElement) {
         if (file.path.startsWith(orphans)) {
@@ -62,16 +61,15 @@ export async function coloringTreePanel(app: App, file: TFile) {
 
 
 //- Append Unsorted Files Counter Element Function
-export async function addUnsortedFilesCounter(app: App) {
-    this.app = app
-    const father: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]');
+export async function addUnsortedFilesCounter(appObject: App) {
+    const father: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]') as HTMLElement;
     const unSortedFolderTreeElement = father?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
 
     if (unSortedFolderTreeElement) {
         unSortedFolderTreeElement?.addClass("unSortedFolderTreeElement");
 
         let unSortedFilesNumber = 0;
-        this.app.vault.getMarkdownFiles().forEach((item: TFile) => {
+        appObject.vault.getMarkdownFiles().forEach((item: TFile) => {
             if (item.path.startsWith("UN-SORTED")) {
                 unSortedFilesNumber++
             }
@@ -94,15 +92,15 @@ export async function addUnsortedFilesCounter(app: App) {
 
 }
 //- Unsorted Files Observer 
-export async function unSortedObserver(continuaObserving?: boolean) {
-    const unSortedFolderTreeElement: HTMLElement = this.app.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]')?.nextElementSibling;
+export async function unSortedObserver(appObject: App, continuaObserving?: boolean) {
+    const unSortedFolderTreeElement: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]')?.nextElementSibling as HTMLElement;
 
     if (unSortedFolderTreeElement && unSortedFolderTreeElement.className.contains("tree-item-children")) {
         // Create a new MutationObserver with a callback function
         const observer = new MutationObserver((mutations) => {
             // Check if the number of child nodes has changed
             if (mutations[0].type === 'childList') {
-                addUnsortedFilesCounter(this.app)
+                addUnsortedFilesCounter(appObject)
             }
         });
         // Define the type of mutations to observe

@@ -55,7 +55,7 @@ export default class clusterPlugin extends Plugin {
     //- UN-SORTED Folder Styling
     setTimeout(async () => {
       await addUnsortedFilesCounter(this.app)
-      await unSortedObserver()
+      await unSortedObserver(this.app)
     }, 1000);
 
     const file = this.app.workspace.getActiveFile() as TFile
@@ -77,7 +77,7 @@ export default class clusterPlugin extends Plugin {
           await foldPropertiesElement(this.app, file)
         }
         await addUnsortedFilesCounter(this.app)
-        await unSortedObserver()
+        await unSortedObserver(this.app)
 
       }
 
@@ -156,7 +156,7 @@ export default class clusterPlugin extends Plugin {
     // Remove Buttons line
     const file = this.app.workspace.getActiveFile() as TFile
     await buttonsLine(this.app, file, this.settings, true)
-    unSortedObserver(false)
+    unSortedObserver(this.app, false)
     console.log("unloading Cluster plugin");
   }
 }
