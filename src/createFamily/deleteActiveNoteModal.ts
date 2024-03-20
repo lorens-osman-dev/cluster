@@ -17,32 +17,32 @@ export default class deleteActiveNoteModal extends Modal {
 
     //-Create input
     const getActiveFile = this.app.workspace.getActiveFile();
-   
+
     this.inputEl = document.createElement("input");
     this.inputEl.type = "text";
-    this.inputEl.addClasses(["prompt-input","inputDelete"])
-    
+    this.inputEl.addClasses(["prompt-input", "inputDelete"])
+
     //-Delete message 
-    const theRelatedSonsFolder = getActiveFile?.parent?.children?.find((item : any ) => {
+    const theRelatedSonsFolder = getActiveFile?.parent?.children?.find((item: any) => {
       //normale note
-      if(item instanceof TFolder && item.name == getActiveFile.basename){
+      if (item instanceof TFolder && item.name == getActiveFile.basename) {
         return item
       }
       // cluster
-      if(item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename ){
+      if (item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename) {
         return item
       }
     })
     const text = document.createElement('div');
     text.addClass("delMsg")
-    if(theRelatedSonsFolder){
-      text.appendChild(this.createDeleteMsg1(getActiveFile , theRelatedSonsFolder)) 
-    }else{
-      text.appendChild(this.createDeleteMsg2(getActiveFile)) 
+    if (theRelatedSonsFolder) {
+      text.appendChild(this.createDeleteMsg1(getActiveFile, theRelatedSonsFolder))
+    } else {
+      text.appendChild(this.createDeleteMsg2(getActiveFile))
     }
     //-Make modal
     this.modalEl.className = "prompt";
-   
+
     //svg
     if (this.createType == "deleteNote") {
       this.modalEl.appendChild(svgElements().delete());
@@ -54,9 +54,9 @@ export default class deleteActiveNoteModal extends Modal {
     //#region Buttons
     // ok button ✓
     const okBtn = document.createElement('div');
-    setIcon(okBtn , "check")
-    okBtn.classList.add("btn","ok");
-    okBtn.addEventListener("click",()=>{
+    setIcon(okBtn, "check")
+    okBtn.classList.add("btn", "ok");
+    okBtn.addEventListener("click", () => {
       this.doWork()
       this.close();
 
@@ -67,55 +67,57 @@ export default class deleteActiveNoteModal extends Modal {
 
     // escape button  ❌
     const noBtn = document.createElement('div');
-    setIcon(noBtn , "x")
-    noBtn.classList.add("btn","no");
-    noBtn.addEventListener("click",()=>{
+    setIcon(noBtn, "x")
+    noBtn.classList.add("btn", "no");
+    noBtn.addEventListener("click", () => {
       this.close();
 
     })
     this.modalEl.appendChild(noBtn);
     //#endregion
-    
+
     this.inputListener = this.listenInput.bind(this);
   }
 
-  async doWork(){
+  async doWork() {
 
     // get current active file
     const getActiveFile = this.app.workspace.getActiveFile();
-    
-    
+
+
     //parent folder info 
-    const theContainingFolder = getActiveFile!.parent!.children.length
+    const theContainingFolder = getActiveFile!.parent!
+    const theContainingFolderItemsNumber = getActiveFile!.parent!.children.length
     const theContainingFolderPath = getActiveFile!.parent!.path
     //Related Sons Folder
-    const theRelatedSonsFolder = getActiveFile!.parent!.children.find((item : any ) => {
+    const theRelatedSonsFolder = getActiveFile!.parent!.children.find((item: any) => {
       // normal note
-      if(item instanceof TFolder && item.name == getActiveFile!.basename ){
+      if (item instanceof TFolder && item.name == getActiveFile!.basename) {
         return item
       }
       // cluster
-      if(item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename ){
+      if (item instanceof TFolder && getActiveFile?.basename?.endsWith("cluster") && item.name == getActiveFile.basename) {
         return item
       }
     })
-    
-    if(theRelatedSonsFolder){
+
+    if (theRelatedSonsFolder) {
       //delete current active file + delete its Sons
-      await this.app.vault.adapter.remove(getActiveFile!.path)
-      await this.app.vault.adapter.rmdir(theRelatedSonsFolder.path , true)
-      if(theContainingFolder == 2){
-        await this.app.vault.adapter.rmdir(theContainingFolderPath , true)
+
+      await this.app.vault.trash(getActiveFile!, true)
+      await this.app.vault.trash(theRelatedSonsFolder, true)
+      if (theContainingFolderItemsNumber == 2) {
+        await this.app.vault.trash(theContainingFolder, true)
       }
-    }else{
+    } else {
       //delete current active file
-      await this.app.vault.adapter.remove(getActiveFile!.path)
+      await this.app.vault.trash(getActiveFile!, true)
 
     }
-  
+
     //delete parent folder of active file if it is empty
-    if(theContainingFolder == 1 ){
-      await this.app.vault.adapter.rmdir(theContainingFolderPath , true)
+    if (theContainingFolderItemsNumber == 1) {
+      await this.app.vault.trash(theContainingFolder, true)
     }
   }
 
@@ -127,44 +129,44 @@ export default class deleteActiveNoteModal extends Modal {
       this.close();
     }
   }
-  createDeleteMsg1(activeFile : any , theRelatedSonsFolder : any){
-      // Create the container element
-      const deleteMsgContainer = document.createElement('div');
+  createDeleteMsg1(activeFile: any, theRelatedSonsFolder: any) {
+    // Create the container element
+    const deleteMsgContainer = document.createElement('div');
 
-      // Create and append child elements
-      const text1 = document.createElement('span');
-      text1.textContent = 'Delete ';
-      deleteMsgContainer.appendChild(text1);
+    // Create and append child elements
+    const text1 = document.createElement('span');
+    text1.textContent = 'Delete ';
+    deleteMsgContainer.appendChild(text1);
 
-      const delNoteNameMsg1 = document.createElement('span');
-      delNoteNameMsg1.classList.add('delNoteNameMsg');
-      delNoteNameMsg1.textContent = activeFile.basename;
-      deleteMsgContainer.appendChild(delNoteNameMsg1);
+    const delNoteNameMsg1 = document.createElement('span');
+    delNoteNameMsg1.classList.add('delNoteNameMsg');
+    delNoteNameMsg1.textContent = activeFile.basename;
+    deleteMsgContainer.appendChild(delNoteNameMsg1);
 
-      const text2 = document.createElement('span');
-      text2.textContent = activeFile.basename.endsWith("-cluster") ? ' cluster' : ' note';
-      deleteMsgContainer.appendChild(text2);
+    const text2 = document.createElement('span');
+    text2.textContent = activeFile.basename.endsWith("-cluster") ? ' cluster' : ' note';
+    deleteMsgContainer.appendChild(text2);
 
-      const lineBreak = document.createElement('br');
-      deleteMsgContainer.appendChild(lineBreak);
+    const lineBreak = document.createElement('br');
+    deleteMsgContainer.appendChild(lineBreak);
 
-      const text3 = document.createElement('span');
-      text3.textContent = 'along with its [';
-      deleteMsgContainer.appendChild(text3);
+    const text3 = document.createElement('span');
+    text3.textContent = 'along with its [';
+    deleteMsgContainer.appendChild(text3);
 
-      const delNoteNameMsg2 = document.createElement('span');
-      delNoteNameMsg2.classList.add('delNoteNameMsg');
-      delNoteNameMsg2.textContent = `${theRelatedSonsFolder.children.length}`;
-      deleteMsgContainer.appendChild(delNoteNameMsg2);
+    const delNoteNameMsg2 = document.createElement('span');
+    delNoteNameMsg2.classList.add('delNoteNameMsg');
+    delNoteNameMsg2.textContent = `${theRelatedSonsFolder.children.length}`;
+    deleteMsgContainer.appendChild(delNoteNameMsg2);
 
-      const text4 = document.createElement('span');
-      text4.textContent = '] direct sons in [' + activeFile.basename + '] folder';
-      deleteMsgContainer.appendChild(text4);
+    const text4 = document.createElement('span');
+    text4.textContent = '] direct sons in [' + activeFile.basename + '] folder';
+    deleteMsgContainer.appendChild(text4);
 
-      return deleteMsgContainer
+    return deleteMsgContainer
 
   }
-  createDeleteMsg2(activeFile : any ){
+  createDeleteMsg2(activeFile: any) {
     // Create the container element
     const deleteMsgContainer = document.createElement('div');
 
@@ -184,7 +186,7 @@ export default class deleteActiveNoteModal extends Modal {
 
     return deleteMsgContainer
 
-}
+  }
   onOpen() {
     this.inputEl.focus();
     this.inputEl.addEventListener("keydown", this.inputListener);

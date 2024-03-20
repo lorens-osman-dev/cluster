@@ -84,7 +84,6 @@ function RemoveButtonsLine(file: TFile, obsidianContainer: any, obsidianContaine
 
     // remove buttonsLineContainer on unload
     if (isButtonsLineContainer && (file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
-        console.log("RemoveChild ⸦ obsidianContainer:", obsidianContainer);
         obsidianContainer.removeChild(isButtonsLineContainer)
     }
 }
