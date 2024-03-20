@@ -89,7 +89,7 @@ export default class familyModal extends Modal {
     setIcon(okBtn, "check")
     okBtn.classList.add("btn", "ok");
     okBtn.addEventListener("click", () => {
-      this.doWork()
+      this.doWork(this.app)
       this.close();
 
     })
@@ -118,7 +118,7 @@ export default class familyModal extends Modal {
     this.newDirectoryPath = newDirectoryPath;
     this.shouldMakeDir = shouldMakeDir;
   }
-  async doWork() {
+  async doWork(appObject: App) {
     // get current active file
     let getActiveFile;
     if (this.graphActiveFile == undefined) {
@@ -142,14 +142,14 @@ export default class familyModal extends Modal {
             if (result.state) {
 
               const sonsFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
-              await this.createDirectory("", sonsFolderPath);
+              await this.createDirectory(appObject, "", sonsFolderPath);
               const newCreatedSonsFolder = getActiveFile.parent?.children?.find(
                 (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
               );
 
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(this.inputEl.value.trim(), result.clusterSonTemplate);
+              await this.createNewNote(appObject, this.inputEl.value.trim(), result.clusterSonTemplate);
             }
 
           } else {
@@ -165,14 +165,14 @@ export default class familyModal extends Modal {
 
             if (result.state) {
               const sonsFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName}`;
-              await this.createDirectory("", sonsFolderPath);
+              await this.createDirectory(appObject, "", sonsFolderPath);
               const newCreatedSonsFolder = getActiveFile.parent!.children.find(
                 (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
               );
 
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(this.inputEl.value.trim(), result.normalSonTemplate);
+              await this.createNewNote(appObject, this.inputEl.value.trim(), result.normalSonTemplate);
             }
 
           } else {
@@ -197,7 +197,7 @@ export default class familyModal extends Modal {
 
           if (result.state == true) {
             this.setFolder(getActiveFile!.parent!, "");
-            this.createNewNote(this.inputEl.value.trim(), result.brotherTemplate);
+            this.createNewNote(appObject, this.inputEl.value.trim(), result.brotherTemplate);
           }
         }
       } else {
@@ -213,7 +213,7 @@ export default class familyModal extends Modal {
       // @ts-ignore
       this.setFolder(orphansFolder, "");
       const orphanName = this.inputEl.value.trim()
-      this.createNewNote(orphanName, orphanTemplate);
+      this.createNewNote(appObject, orphanName, orphanTemplate);
     }
     //-make newCluster to the current active file
     else if (this.createType == "newCluster") {
@@ -227,7 +227,7 @@ export default class familyModal extends Modal {
         this.inputEl.value = "Untitled"
       }
       const clusterName = `${(this.inputEl.value).trim()}-cluster`;
-      this.createNewNote(clusterName.trim(), clusterTemplate());
+      this.createNewNote(appObject, clusterName.trim(), clusterTemplate());
     }
 
   }
@@ -251,7 +251,7 @@ export default class familyModal extends Modal {
         this.close();
 
       } else {
-        this.doWork()
+        this.doWork(this.app)
         this.close();
       }
 
@@ -273,8 +273,8 @@ export default class familyModal extends Modal {
    * This is a helper function that includes a workaround for a bug in the
    * Obsidian mobile app.
    */
-  private async createDirectory(dir: string, newDirectoryPath: string): Promise<void> {
-    const { vault } = this.app;
+  private async createDirectory(appObject: App, dir: string, newDirectoryPath: string): Promise<void> {
+    const { vault } = appObject;
     const { adapter } = vault;
     const root = vault.getRoot().path;
     let directoryPath = '';
@@ -284,7 +284,7 @@ export default class familyModal extends Modal {
       directoryPath = newDirectoryPath;
     }
 
-    const directoryExists = this.app.vault.getAbstractFileByPath(directoryPath);
+    const directoryExists = appObject.vault.getAbstractFileByPath(directoryPath);
     // ===============================================================
     // -> Desktop App
     // ===============================================================
@@ -324,8 +324,8 @@ export default class familyModal extends Modal {
    * A new markdown file will be created at the given file path (`input`)
    * in the specified parent folder (`this.folder`)
    */
-  async createNewNote(input: string, template: string): Promise<void> {
-    const { vault } = this.app;
+  async createNewNote(appObject: App, input: string, template: string): Promise<void> {
+    const { vault } = appObject;
     const { adapter } = vault;
     const prependDirInput = path.join(this.newDirectoryPath, input);
     const { dir, name } = path.parse(prependDirInput);
@@ -334,7 +334,7 @@ export default class familyModal extends Modal {
     let filePath = path.join(directoryPath, `${name}.md`);
 
     try {
-      const fileExists = this.app.vault.getAbstractFileByPath(filePath);
+      const fileExists = appObject.vault.getAbstractFileByPath(filePath);
       if (fileExists) {
         // If the file already exists, respond with error
         throw new Error(`${filePath} already exists`);
@@ -348,15 +348,15 @@ export default class familyModal extends Modal {
 
 
       // Create the file and open it in the active leaf
-      let leaf = this.app.workspace.getLeaf(false);
+      let leaf = appObject.workspace.getLeaf(false);
       if (this.mode === NewFileLocation.NewPane) {
         //@ts-ignore
-        leaf = this.app.workspace.splitLeafOrActive();
+        leaf = appObject.workspace.splitLeafOrActive();
       } else if (this.mode === NewFileLocation.NewTab) {
-        leaf = this.app.workspace.getLeaf(true);
+        leaf = appObject.workspace.getLeaf(true);
       } else if (!leaf) {
         // default for active pane
-        leaf = this.app.workspace.getLeaf(true);
+        leaf = appObject.workspace.getLeaf(true);
       }
       await leaf.openFile(File);
 
