@@ -13,19 +13,13 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: any, r
     Vars = settings
     //! Android 
     if (Platform.isMobile) {
-        let LEAF: WorkspaceLeaf | null = null;
-        appObject.workspace.iterateAllLeaves((leaf: WorkspaceLeaf) => {
-            if (leaf.getViewState().type == "markdown") {
-                LEAF = leaf
-            }
-        })
-
+        let LEAF = appObject.workspace.getActiveViewOfType(MarkdownView)
         if (LEAF !== null) {
-            const obsidianContainer = (LEAF as WorkspaceLeaf).view.containerEl
+            const obsidianContainer = LEAF!.containerEl
 
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
             //@ts-ignore
-            const obsidianHeaderEl = (LEAF as WorkspaceLeaf).view.headerEl
+            const obsidianHeaderEl = LEAF!.headerEl
             if (removeButtons) {//remove buttons when on unload
                 RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
             } else {
