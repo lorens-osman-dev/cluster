@@ -11,19 +11,40 @@ Note clustering is a way to create a hierarchy or structure among your notes, ma
 Provides parent-child hierarchy, commands, in-note buttons, and ribbon buttons to make clustering process easier on mobile devices and work well on PCs ether.
 
 **Simple Example:**
-Imagine you have notes about different animals. You could create "Animals cluster" like:
+Imagine you have notes about different Programming topics. So you need organize your notes like:
 
--   Animals (cluster)
-    -   Mammals (first generation note)
-        -   Dogs (second generation note)
-        -   Cats (second generation note)
-        -   Whales (second generation note)
-    -   Birds (first generation note)
-        -   Eagles (second generation note)
-        -   Penguins (second generation note)
-        -   Owls (second generation note)
+-   Programming (Main Note)
+    -   JavaScript 
+        -   Array
+        -   for loop
+        -   functions 
+        -   if statements 
+        -   variables
+            - var
+            - const
+            - let 
+    -   Css 
+        -   ID 
+        -   Class 
+        -   Element 
 
 With `Cluster` plugin you can make that easily .
+
+Youtube Demo how to make Programming topics with `Cluster` plugin easily:
+
+[![youtube cluster demo](https://github.com/lorens-osman-dev/cluster/assets/114411575/8d784150-a011-430d-b0fd-1210723446a3)](https://www.youtube.com/watch?v=EQDt_44u_Wo)
+
+The Result :
+
+
+<img src="https://github.com/lorens-osman-dev/cluster/assets/114411575/7f7bc9a5-e919-4761-b5a8-e47bab44b819" width="250"  height="250">
+
+Folder Structure :
+
+
+<img src="https://github.com/lorens-osman-dev/cluster/assets/114411575/b05686e8-bb1c-4a23-b691-b50ff607794e" width="300"  height="600">
+
+
 
 ### Don't be scared by the words!
 
