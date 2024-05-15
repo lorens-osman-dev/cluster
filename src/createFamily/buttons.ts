@@ -1,25 +1,26 @@
-import { App, TFile, setTooltip, setIcon, addIcon, WorkspaceLeaf, MarkdownView, Editor, Platform } from "obsidian";
+import { App, TFile, setTooltip, setIcon, addIcon, MarkdownView, Editor, Platform } from "obsidian";
 import familyModal from "./familyModal";
 import { NewFileLocation } from '../util/enums';
 import deleteActiveNoteModal from "./deleteActiveNoteModal";
 import { createClustersAndOrphansFolder } from "./createClustersAndOrphansFolder";
 import { puzzleTemplate } from "./templates";
+import type { clusterPluginSettings } from "main";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 let Vars = {}
-export async function buttonsLine(appObject: App, file: TFile, settings?: any, removeButtons?: boolean) {
+export async function buttonsLine(appObject: App, file: TFile, settings?: clusterPluginSettings, removeButtons?: boolean) {
 
-    Vars = settings
+    Vars = settings as clusterPluginSettings;
     //! Android 
     if (Platform.isMobile) {
-        let LEAF = appObject.workspace.getActiveViewOfType(MarkdownView)
+        const LEAF = appObject.workspace.getActiveViewOfType(MarkdownView)
         if (LEAF !== null) {
-            const obsidianContainer = LEAF!.containerEl
+            const obsidianContainer = LEAF?.containerEl
 
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
             //@ts-ignore
-            const obsidianHeaderEl = LEAF!.headerEl
+            const obsidianHeaderEl = LEAF?.headerEl
             if (removeButtons) {//remove buttons when on unload
                 RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
             } else {
@@ -36,7 +37,7 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: any, r
         //@ts-ignore
         const activeLeavePath = activeLeave?.file?.path as string
         if (activeLeavePath.startsWith(clusters) || activeLeavePath.startsWith(orphans)) {
-            const obsidianContainer = activeLeave!.containerEl
+            const obsidianContainer = activeLeave?.containerEl
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
             //@ts-ignore
             const obsidianHeaderEl = activeLeave!.headerEl
@@ -276,4 +277,16 @@ function firstPageOfClusters(file: TFile, obsidianContainerElements: any) {
         }
     }
 
+}
+
+export async function cardStyleFunction(settings: clusterPluginSettings){
+    setTimeout(() => {
+        
+        const appContainer = document.body  
+        if(settings.cardStyle){
+            appContainer.classList.add("card-layout-open-dark")
+        }else{
+            appContainer.classList.remove("card-layout-open-dark")
+        }
+    }, 500);
 }
