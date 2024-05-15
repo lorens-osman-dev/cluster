@@ -61,19 +61,25 @@ export class settingTab extends PluginSettingTab {
 			const cardStyle = new Setting(containerEl);
 			cardStyle.setName("Card Style");
 			cardStyle.setDesc(
-				"If you are using 'Lorens' theme this option will add card style on PC.",
+				"If you are using 'Lorens' theme on PC this option will add card style .",
 			);
 			cardStyle.addToggle((toggle: ToggleComponent) => {
 				toggle.setValue(this.plugin.settings.cardStyle);
 				toggle.onChange(async (value) => {
 					this.plugin.settings.cardStyle = value;
-                    const appContainer = document.body  
+										const appContainer = document.body  
+										const classList = Array.from(appContainer.classList)
+										const isDark = classList.find((className : string) => className ==="theme-dark" )
                     if(value){
                         await this.plugin.saveSettings();
-                        appContainer.classList.add("card-layout-open-dark")
-                        console.log(this.plugin.settings.cardStyle)
+												if(isDark){
+
+													appContainer.classList.add("card-layout-open-dark")
+											}
+											appContainer.classList.add("card-layout-open-light")
                     }else{
                         appContainer.classList.remove("card-layout-open-dark")
+												appContainer.classList.remove("card-layout-open-light")
                         await this.plugin.saveSettings();
 
                     }

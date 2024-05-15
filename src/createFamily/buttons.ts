@@ -5,6 +5,7 @@ import deleteActiveNoteModal from "./deleteActiveNoteModal";
 import { createClustersAndOrphansFolder } from "./createClustersAndOrphansFolder";
 import { puzzleTemplate } from "./templates";
 import type { clusterPluginSettings } from "main";
+import { stringify } from "querystring";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -283,10 +284,19 @@ export async function cardStyleFunction(settings: clusterPluginSettings){
     setTimeout(() => {
         
         const appContainer = document.body  
+        const classList = Array.from(appContainer.classList)
+        const isDark = classList.find((className : string) => className ==="theme-dark" )
+        
+        console.log("classList:", classList);
         if(settings.cardStyle){
-            appContainer.classList.add("card-layout-open-dark")
+            if(isDark){
+
+                appContainer.classList.add("card-layout-open-dark")
+            }
+            appContainer.classList.add("card-layout-open-light")
         }else{
             appContainer.classList.remove("card-layout-open-dark")
+            appContainer.classList.remove("card-layout-open-light")
         }
     }, 500);
 }
