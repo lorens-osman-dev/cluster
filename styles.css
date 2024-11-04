@@ -73,11 +73,17 @@
   top: 30% !important;
 }
 .prompt:has(.brother) .modal-content,
+.prompt:has(.brother) .modal-header,
 .prompt:has(.brother) .modal-close-button, .prompt:has(.son) .modal-content,
+.prompt:has(.son) .modal-header,
 .prompt:has(.son) .modal-close-button, .prompt:has(.cluster) .modal-content,
+.prompt:has(.cluster) .modal-header,
 .prompt:has(.cluster) .modal-close-button, .prompt:has(.delete) .modal-content,
+.prompt:has(.delete) .modal-header,
 .prompt:has(.delete) .modal-close-button, .prompt:has(.orphan) .modal-content,
+.prompt:has(.orphan) .modal-header,
 .prompt:has(.orphan) .modal-close-button, .prompt:has(.noThing) .modal-content,
+.prompt:has(.noThing) .modal-header,
 .prompt:has(.noThing) .modal-close-button {
   display: none;
 }
