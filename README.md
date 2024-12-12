@@ -1,5 +1,9 @@
 ![clusterSvg](https://raw.githubusercontent.com/lorens-osman-dev/cluster/16c7f97a3f24322de18d9540fa7170817b80a7cc/cluster-plugin-lorens-osman.svg)
 
+<p align="center"> 
+<img src="https://img.shields.io/github/downloads/lorens-osman-dev/cluster/total">
+</p>
+
 ## Cluster plugin mainly designed to simplify the process of note clustering for [Obsidian](https://obsidian.md/) on mobile devices and work well on PCs ether.
 
 ### Note Clustering
@@ -14,19 +18,19 @@ Provides parent-child hierarchy, commands, in-note buttons, and ribbon buttons t
 Imagine you have notes about different Programming topics. So you need organize your notes like:
 
 -   Programming (Main Note)
-    -   JavaScript 
+    -   JavaScript
         -   Array
         -   for loop
-        -   functions 
-        -   if statements 
+        -   functions
+        -   if statements
         -   variables
-            - var
-            - const
-            - let 
-    -   Css 
-        -   ID 
-        -   Class 
-        -   Element 
+            -   var
+            -   const
+            -   let
+    -   Css
+        -   ID
+        -   Class
+        -   Element
 
 With `Cluster` plugin you can make that easily .
 
@@ -36,15 +40,11 @@ Youtube Demo how to make Programming topics with `Cluster` plugin easily:
 
 The Result :
 
-
 <img src="https://github.com/lorens-osman-dev/cluster/assets/114411575/7f7bc9a5-e919-4761-b5a8-e47bab44b819" width="250"  height="250">
 
 Folder Structure :
 
-
 <img src="https://github.com/lorens-osman-dev/cluster/assets/114411575/b05686e8-bb1c-4a23-b691-b50ff607794e" width="300"  height="600">
-
-
 
 ### Don't be scared by the words!
 
@@ -115,7 +115,6 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 -   Intuitive folders: Group related notes into folders for maintain a clear hierarchy folder structure.
 -   Automatically generate useful note properties that's helps with search, graph view and maintain note clustering process.
 
-
 ### ⚙️ PC Recommendation
 
 -   Set `Ctrl+Shift+B` hotkey to New brother command.
@@ -123,31 +122,33 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 -   Set `Ctrl+Shift+C` hotkey to New cluster command.
 -   Set `Ctrl+Shift+D` hotkey to Delete active note command.
 
-
 ## HELP !
 
 **The Challenge**:
 
 Currently, the Cluster plugin for each `son` note creates a subfolder with the same name as the `parent` note, following these steps :
+
 1. create folder with same name of the `parent` note if is not exist.
 2. Create the `son` note within the newly created folder.
 
 **Benefits:**
-- Maintains a consistent file structure.
+
+-   Maintains a consistent file structure.
 
 **Drawbacks:**
-- Crowded file navigation pane ("file-explorer"). Each `parent` note with `child` notes creates a folder with the same name as `parent`, resulting in a cluttered file structure (see image below).
+
+-   Crowded file navigation pane ("file-explorer"). Each `parent` note with `child` notes creates a folder with the same name as `parent`, resulting in a cluttered file structure (see image below).
 
 <img src="./assets/imags/Frame 1.png" >
 
-
-**The goal is to make new "file-explorer" like** 
+**The goal is to make new "file-explorer" like**
 
 <img src="./assets/imags/sdfs.png" >
 
-**we welcome any GitHub pull requests (PRs) contributions.** 
+**we welcome any GitHub pull requests (PRs) contributions.**
 
 ---
+
 If you like this plugin, feel free to support the development by buying a coffee:
 
 ## <a href="https://www.buymeacoffee.com/lorens" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-yellow.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
