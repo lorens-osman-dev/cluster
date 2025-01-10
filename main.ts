@@ -1,4 +1,4 @@
-import { App, Plugin, TFile, addIcon } from "obsidian";
+import { Plugin, TFile, addIcon } from "obsidian";
 import familyModal from "./src/createFamily/familyModal";
 import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
@@ -10,11 +10,12 @@ import {
 	foldPropertiesElement,
 } from "./src/createFamily/coloringTreePanel";
 import { createClustersAndOrphansFolder } from "./src/createFamily/createClustersAndOrphansFolder";
-import { fileMenu } from "src/createFamily/fileMenu";
+import { fileMenu } from "src/mainParts/fileMenu";
 import { settingTab } from "./src/createFamily/settings";
+import SimpleFocusClass from "src/focus/simpleFocus";
 
-const clusters = "CLUSTERS";
-const orphans = "ORPHANS";
+const SimpleFocus = new SimpleFocusClass();
+
 
 export interface clusterPluginSettings {
 	foldProperties: boolean;
@@ -148,7 +149,23 @@ export default class clusterPlugin extends Plugin {
 				).open();
 			},
 		});
-
+		this.addCommand({
+      id: "simple-focus-exit-focus",
+      name: "Exit focus",
+      callback: () => {
+        SimpleFocus.exitFocus()
+      },
+    });
+    this.addCommand({
+      id: "simple-focus-enter-focus",
+      name: "Enter focus",
+      callback: () => {
+        const file = this.app.workspace.getActiveFile();
+        if(file?.path) {
+          SimpleFocus.enterFocus(file.path)
+        }
+      },
+    });
 		//- Ribbon Icon
 		addIcon(
 			"cluster-svg",
@@ -171,7 +188,7 @@ export default class clusterPlugin extends Plugin {
 			).open();
 		});
 		//- File Menu
-		fileMenu(this);
+		fileMenu(this,SimpleFocus);
 	}
 
 	async loadSettings() {

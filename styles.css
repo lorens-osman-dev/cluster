@@ -600,5 +600,8 @@
     transform: translateX(-8px);
   }
 }
+.plugin-simple-focus-hidden {
+  display: none;
+}
 
 /*# sourceMappingURL=styles.css.map */

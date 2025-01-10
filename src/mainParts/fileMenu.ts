@@ -1,15 +1,27 @@
 import { TFile, TFolder, Menu } from "obsidian";
-import familyModal from "./familyModal";
-import { createClustersAndOrphansFolder } from "./createClustersAndOrphansFolder";
+import familyModal from "../createFamily/familyModal";
+import { createClustersAndOrphansFolder } from "../createFamily/createClustersAndOrphansFolder";
 import { NewFileLocation } from "src/util/enums";
+
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 //@ts-ignore
-export function fileMenu(x) {
+export function fileMenu(x ,SimpleFocus) {
   //- file-menu
   x.registerEvent(
     x.app.workspace.on("file-menu", (menu: Menu, file: TFile) => {
+      //- Focus menu
+      if (file) {
+        menu.addItem((item) => {
+          item
+            .setTitle(SimpleFocus.isFocus ? "Exit focus" : "Focus")
+            .setIcon(SimpleFocus.isFocus ? "log-out" : "focus")
+            .onClick(async () => {
+              SimpleFocus.toggleFocus(file?.path);
+            });
+        });
+      }
       //- cluster menu
       if (
         (file instanceof TFile && file.parent instanceof TFolder && file.parent.name == clusters)
@@ -77,7 +89,6 @@ export function fileMenu(x) {
             });
         });
       }
-
     })
 
   );
