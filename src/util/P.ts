@@ -1,3 +1,4 @@
+import { App } from "obsidian";
 import { fileMenu } from "src/mainParts/fileMenu";
 import { addCommands } from "src/mainParts/addCommands";
 import { addEvents } from "src/mainParts/events";
@@ -13,6 +14,14 @@ import {
   unSortedObserver,
   foldPropertiesElement,
 } from "../createFamily/coloringTreePanel";
+
+// unsorted
+function unsortedFiles(appInstance: App) {
+  setTimeout(async () => {
+    await addUnsortedFilesCounter(appInstance);
+    await unSortedObserver(appInstance);
+  }, 1000);
+}
 const P = {
   fileMenu,
   addEvents,
@@ -22,10 +31,12 @@ const P = {
   buttonsLine,
   cardStyleFunction,
   coloringTreePanel,
-  addUnsortedFilesCounter,
-  unSortedObserver,
+  unsorted: {
+    unsortedFiles,
+    addUnsortedFilesCounter,
+    unSortedObserver,
+  },
   foldPropertiesElement,
+};
 
-}
-
-export default P
+export default P;

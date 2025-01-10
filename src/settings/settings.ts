@@ -92,22 +92,22 @@ export class settingTab extends PluginSettingTab {
 				toggle.setValue(this.plugin.settings.cardStyle);
 				toggle.onChange(async (value) => {
 					this.plugin.settings.cardStyle = value;
-										const appContainer = document.body  
-										const classList = Array.from(appContainer.classList)
-										const isDark = classList.find((className : string) => className ==="theme-dark" )
-                    if(value){
-                        await this.plugin.saveSettings();
-												if(isDark){
+					const appContainer = document.body
+					const classList = Array.from(appContainer.classList)
+					const isDark = classList.find((className: string) => className === "theme-dark")
+					if (value) {
+						await this.plugin.saveSettings();
+						if (isDark) {
 
-													appContainer.classList.add("card-layout-open-dark")
-											}
-											appContainer.classList.add("card-layout-open-light")
-                    }else{
-                        appContainer.classList.remove("card-layout-open-dark")
-												appContainer.classList.remove("card-layout-open-light")
-                        await this.plugin.saveSettings();
+							appContainer.classList.add("card-layout-open-dark")
+						}
+						appContainer.classList.add("card-layout-open-light")
+					} else {
+						appContainer.classList.remove("card-layout-open-dark")
+						appContainer.classList.remove("card-layout-open-light")
+						await this.plugin.saveSettings();
 
-                    }
+					}
 				});
 			});
 		}
@@ -128,8 +128,8 @@ export class settingTab extends PluginSettingTab {
 				button.setIcon("github");
 				button.onClick(
 					() =>
-						(window.location.href =
-							"https://github.com/lorens-osman-dev/cluster"),
+					(window.location.href =
+						"https://github.com/lorens-osman-dev/cluster"),
 				);
 			});
 

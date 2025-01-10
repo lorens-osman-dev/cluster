@@ -84,7 +84,7 @@ export function addCommands(plugin: Plugin) {
     name: "Enter focus",
     callback: () => {
       const file = plugin.app.workspace.getActiveFile();
-      if(file?.path) {
+      if (file?.path) {
         SimpleFocus.enterFocus(file.path)
       }
     },

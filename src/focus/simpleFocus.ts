@@ -2,7 +2,7 @@
 
 const hideenClass = "plugin-simple-focus-hidden";
 
-class SimpleFocusClass  {
+class SimpleFocusClass {
   isFocus: boolean;
   constructor() {
     this.isFocus = false;

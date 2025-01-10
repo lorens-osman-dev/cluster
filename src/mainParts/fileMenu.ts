@@ -1,16 +1,16 @@
-import { TFile, TFolder, Menu } from "obsidian";
+import { TFile, TFolder, Menu, Plugin } from "obsidian";
 import familyModal from "../createFamily/familyModal";
 import { createClustersAndOrphansFolder } from "../createFamily/createClustersAndOrphansFolder";
 import { NewFileLocation } from "src/util/enums";
+import SimpleFocusClass from "src/focus/simpleFocus";
 
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
-//@ts-ignore
-export function fileMenu(x ,SimpleFocus) {
-  //- file-menu
-  x.registerEvent(
-    x.app.workspace.on("file-menu", (menu: Menu, file: TFile) => {
+
+export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
+  plugin.registerEvent(
+    plugin.app.workspace.on("file-menu", (menu: Menu, file: TFile) => {
       //- Focus menu
       if (file) {
         menu.addItem((item) => {
@@ -34,9 +34,9 @@ export function fileMenu(x ,SimpleFocus) {
             .setTitle("New cluster")
             .setIcon("folder-git-2")
             .onClick(async () => {
-              createClustersAndOrphansFolder(x.app);
+              createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(x.app, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
+              new familyModal(plugin.app, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
             });
         });
       }
@@ -48,9 +48,9 @@ export function fileMenu(x ,SimpleFocus) {
             .setTitle("New son")
             .setIcon("baby")
             .onClick(async () => {
-              createClustersAndOrphansFolder(x.app);
+              createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(x.app, NewFileLocation.NewTab, "newSon", graphActiveFile).open();
+              new familyModal(plugin.app, NewFileLocation.NewTab, "newSon", graphActiveFile).open();
             });
         });
       }
@@ -65,9 +65,9 @@ export function fileMenu(x ,SimpleFocus) {
             .setTitle("New brother")
             .setIcon("git-compare")
             .onClick(async () => {
-              createClustersAndOrphansFolder(x.app);
+              createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(x.app, NewFileLocation.NewTab, "newBrother", graphActiveFile).open();
+              new familyModal(plugin.app, NewFileLocation.NewTab, "newBrother", graphActiveFile).open();
             });
         });
       }
@@ -83,9 +83,9 @@ export function fileMenu(x ,SimpleFocus) {
             .setTitle("New orphan")
             .setIcon("disc")
             .onClick(async () => {
-              createClustersAndOrphansFolder(x.app);
+              createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(x.app, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
+              new familyModal(plugin.app, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
             });
         });
       }
