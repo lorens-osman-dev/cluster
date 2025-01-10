@@ -1,7 +1,7 @@
 import { Plugin } from "obsidian";
 import familyModal from "../createFamily/familyModal";
 import { createClustersAndOrphansFolder } from "../createFamily/createClustersAndOrphansFolder";
-import { NewFileLocation } from "src/util/enums";
+import { NewFileLocation } from '../util/U';
 import deleteActiveNoteModal from "src/createFamily/deleteActiveNoteModal";
 import SimpleFocusClass from "src/focus/simpleFocus";
 const SimpleFocus = new SimpleFocusClass();

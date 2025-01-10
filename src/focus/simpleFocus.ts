@@ -1,6 +1,6 @@
 
 
-const hideenClass = "plugin-simple-focus-hidden";
+const hiddenCssClass = "plugin-simple-focus-hidden";
 
 class SimpleFocusClass {
   isFocus: boolean;
@@ -22,7 +22,7 @@ class SimpleFocusClass {
       `.tree-item:not(:has([data-path="${path}"]),:has([data-path^="${path}/"]))`
     );
     hiddenEls.forEach((hiddenEl) => {
-      hiddenEl.addClass(hideenClass);
+      hiddenEl.addClass(hiddenCssClass);
     });
   }
 
@@ -30,11 +30,11 @@ class SimpleFocusClass {
     this.isFocus = false;
 
     const unFocusEls = document.querySelectorAll<HTMLElement>(
-      `.${hideenClass}`
+      `.${hiddenCssClass}`
     );
 
     unFocusEls.forEach((unFocusEl) => {
-      unFocusEl.removeClass(hideenClass);
+      unFocusEl.removeClass(hiddenCssClass);
     });
   }
 }

@@ -1,8 +1,10 @@
-import { App, normalizePath, Platform, TFolder, Notice, Modal, Instruction, Vault, MarkdownView, setIcon } from "obsidian";
-import { NewFileLocation } from '../util/enums';
+import { App, normalizePath, Platform, TFolder, Notice, Modal, setIcon } from "obsidian";
 import { path } from '../util/utils';
 import svgElements from "./svg";
 import { templates, clusterTemplate, orphanTemplate } from "./templates";
+import { NewFileLocation } from '../util/U';
+
+
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -326,12 +328,11 @@ export default class familyModal extends Modal {
    */
   async createNewNote(appObject: App, input: string, template: string): Promise<void> {
     const { vault } = appObject;
-    const { adapter } = vault;
     const prependDirInput = path.join(this.newDirectoryPath, input);
     const { dir, name } = path.parse(prependDirInput);
     const directoryPath = path.join(this.folder.path, dir);
 
-    let filePath = path.join(directoryPath, `${name}.md`);
+    const filePath = path.join(directoryPath, `${name}.md`);
 
     try {
       const fileExists = appObject.vault.getAbstractFileByPath(filePath);

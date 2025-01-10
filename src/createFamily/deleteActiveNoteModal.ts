@@ -1,6 +1,6 @@
-import { App, Notice, Modal, TFolder, TFile, setIcon } from "obsidian";
-import { NewFileLocation } from "../util/enums";
+import { App, Modal, TAbstractFile, TFolder, setIcon } from "obsidian";
 import svgElements from "./svg";
+import { NewFileLocation } from '../util/U';
 
 
 
@@ -86,13 +86,13 @@ export default class deleteActiveNoteModal extends Modal {
 
 
     //parent folder info 
-    const theContainingFolder = getActiveFile!.parent!
-    const theContainingFolderItemsNumber = getActiveFile!.parent!.children.length
-    const theContainingFolderPath = getActiveFile!.parent!.path
+    const theContainingFolder = getActiveFile?.parent
+    const theContainingFolderItemsNumber = getActiveFile?.parent?.children.length
+
     //Related Sons Folder
-    const theRelatedSonsFolder = getActiveFile!.parent!.children.find((item: any) => {
+    const theRelatedSonsFolder = getActiveFile?.parent?.children.find((item: any) => {
       // normal note
-      if (item instanceof TFolder && item.name == getActiveFile!.basename) {
+      if (item instanceof TFolder && item.name == getActiveFile?.basename) {
         return item
       }
       // cluster
@@ -107,7 +107,7 @@ export default class deleteActiveNoteModal extends Modal {
       await this.app.vault.trash(getActiveFile!, true)
       await this.app.vault.trash(theRelatedSonsFolder, true)
       if (theContainingFolderItemsNumber == 2) {
-        await this.app.vault.trash(theContainingFolder, true)
+        await this.app.vault.trash(theContainingFolder as TAbstractFile, true)
       }
     } else {
       //delete current active file
@@ -117,7 +117,7 @@ export default class deleteActiveNoteModal extends Modal {
 
     //delete parent folder of active file if it is empty
     if (theContainingFolderItemsNumber == 1) {
-      await this.app.vault.trash(theContainingFolder, true)
+      await this.app.vault.trash(theContainingFolder as TAbstractFile, true)
     }
   }
 

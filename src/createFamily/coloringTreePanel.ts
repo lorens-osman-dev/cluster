@@ -8,7 +8,7 @@ export async function foldPropertiesElement(appObject: App, file: TFile) {
     if (file.path.startsWith(clusters) || file.path.startsWith(orphans)) {
         //FIX try to use toggle class instead of add/remove
         //@ts-ignore
-        const propertiesElement: HTMLElement = appObject.workspace.activeEditor!.containerEl.querySelector('.metadata-container');
+        const propertiesElement: HTMLElement = appObject.workspace.activeEditor?.containerEl.querySelector('.metadata-container');
         const metaDataContentElement = propertiesElement.querySelector('.collapse-indicator') as HTMLElement;
         const collapseIndicatorElement = propertiesElement.querySelector('.metadata-properties-heading') as HTMLElement;
         if (propertiesElement) {

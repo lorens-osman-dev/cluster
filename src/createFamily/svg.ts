@@ -1,13 +1,13 @@
 import { addIcon, setIcon } from "obsidian";
 
-//@ts-ignore
-export default function svgElements(){
-    
-    return{
-        cluster:function(){
+
+export default function svgElements() {
+
+    return {
+        cluster: function () {
             // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon","cluster");
+            con.classList.add("inputMsgCon", "cluster");
 
             // 2 - SVG Element
             addIcon("cluster-svg", `<g clip-path="url(#clip0_2_2)">
@@ -18,8 +18,8 @@ export default function svgElements(){
             <rect width="100" height="100" fill="white"/>
             </clipPath>
             </defs>`);
-            
-            setIcon(con ,"cluster-svg")
+
+            setIcon(con, "cluster-svg")
             // 3 - Text Element
             const text = document.createElement('div');
             text.innerText = "Create Cluster";
@@ -30,10 +30,10 @@ export default function svgElements(){
 
             return con;
         },
-        son:function(){
+        son: function () {
             // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon","son");
+            con.classList.add("inputMsgCon", "son");
 
             // 2 - SVG Element
             setIcon(con, 'baby');
@@ -48,13 +48,13 @@ export default function svgElements(){
 
             return con;
         },
-        brother:function(){
-           // 1 - Container Element
+        brother: function () {
+            // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon","brother");
+            con.classList.add("inputMsgCon", "brother");
 
             // 2 - SVG Element
-            setIcon(con , "git-compare")
+            setIcon(con, "git-compare")
 
             // 3 - Text Element
             const text = document.createElement('div');
@@ -66,10 +66,10 @@ export default function svgElements(){
 
             return con;
         },
-        orphan:function(){
+        orphan: function () {
             // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon","orphan");
+            con.classList.add("inputMsgCon", "orphan");
 
             // 2 - SVG Element
             setIcon(con, 'disc');
@@ -84,13 +84,13 @@ export default function svgElements(){
 
             return con;
         },
-        delete:function(){
+        delete: function () {
             // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon","delete");
+            con.classList.add("inputMsgCon", "delete");
 
             // 2 - SVG Element
-            setIcon(con ,"trash-2")
+            setIcon(con, "trash-2")
 
             // 3 - Text Element
             const text = document.createElement('div');
@@ -105,13 +105,13 @@ export default function svgElements(){
         noThing: function () {
             // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon","noThing");
-        
+            con.classList.add("inputMsgCon", "noThing");
+
             // 2 - SVG Element
-           setIcon(con ,"x-circle")
-        
+            setIcon(con, "x-circle")
+
             return con;
-        },        
+        },
 
     }
 }

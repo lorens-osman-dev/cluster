@@ -1,7 +1,7 @@
 import { TFile, TFolder, Menu, Plugin } from "obsidian";
 import familyModal from "../createFamily/familyModal";
 import { createClustersAndOrphansFolder } from "../createFamily/createClustersAndOrphansFolder";
-import { NewFileLocation } from "src/util/enums";
+import { NewFileLocation } from '../util/U';
 import SimpleFocusClass from "src/focus/simpleFocus";
 
 

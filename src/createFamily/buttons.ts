@@ -1,11 +1,10 @@
 import { App, TFile, setTooltip, setIcon, addIcon, MarkdownView, Editor, Platform } from "obsidian";
 import familyModal from "./familyModal";
-import { NewFileLocation } from '../util/enums';
+import U from '../util/U';
 import deleteActiveNoteModal from "./deleteActiveNoteModal";
 import { createClustersAndOrphansFolder } from "./createClustersAndOrphansFolder";
 import { puzzleTemplate } from "./templates";
-import type { clusterPluginSettings } from "main";
-import { stringify } from "querystring";
+import type { clusterPluginSettings } from "../settings/settings";
 
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
@@ -39,9 +38,10 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: cluste
         const activeLeavePath = activeLeave?.file?.path as string
         if (activeLeavePath.startsWith(clusters) || activeLeavePath.startsWith(orphans)) {
             const obsidianContainer = activeLeave?.containerEl
+            //@ts-ignore
             const obsidianContainerElements = Array?.from(obsidianContainer?.children)
             //@ts-ignore
-            const obsidianHeaderEl = activeLeave!.headerEl
+            const obsidianHeaderEl = activeLeave?.headerEl
 
             if (removeButtons) {//remove buttons when on unload
                 RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
@@ -52,10 +52,11 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: cluste
 
             }
         } else {
-            const obsidianContainer2 = activeLeave!.containerEl
+            const obsidianContainer2 = activeLeave?.containerEl
+            //@ts-ignore
             const obsidianContainerElements2 = Array?.from(obsidianContainer2?.children)
             //@ts-ignore
-            const obsidianHeaderEl2 = activeLeave!.headerEl
+            const obsidianHeaderEl2 = activeLeave?.headerEl
             // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
             RemoveChild(file, obsidianContainer2, obsidianContainerElements2, obsidianHeaderEl2)
             firstPageOfClusters(file, obsidianContainerElements2)
@@ -185,23 +186,23 @@ function makeButton(appObject: App, type: string, className: string, tooltipMsg:
     button.addEventListener('click', async () => {
         if (type == "Cluster") {
             createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, NewFileLocation.NewTab, "newCluster", undefined).open();
+            new familyModal(appObject, U.NewFileLocation.NewTab, "newCluster", undefined).open();
         }
         else if (type == "Son") {
             createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, NewFileLocation.NewTab, "newSon", undefined).open()
+            new familyModal(appObject, U.NewFileLocation.NewTab, "newSon", undefined).open()
         }
         else if (type == "Brother") {
             createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, NewFileLocation.NewTab, "newBrother", undefined).open();
+            new familyModal(appObject, U.NewFileLocation.NewTab, "newBrother", undefined).open();
         }
         else if (type == "Orphan") {
             createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, NewFileLocation.NewTab, "newOrphan", undefined).open();
+            new familyModal(appObject, U.NewFileLocation.NewTab, "newOrphan", undefined).open();
         }
         else if (type == "Delete") {
             createClustersAndOrphansFolder(appObject);
-            new deleteActiveNoteModal(appObject, NewFileLocation.NewTab, "deleteNote").open();
+            new deleteActiveNoteModal(appObject, U.NewFileLocation.NewTab, "deleteNote").open();
         }
         // Extra Buttons
         else if (type == "extraBtn") {
@@ -280,21 +281,21 @@ function firstPageOfClusters(file: TFile, obsidianContainerElements: any) {
 
 }
 
-export async function cardStyleFunction(settings: clusterPluginSettings){
+export async function cardStyleFunction(settings: clusterPluginSettings) {
     setTimeout(() => {
-        
-        const appContainer = document.body  
+
+        const appContainer = document.body
         const classList = Array.from(appContainer.classList)
-        const isDark = classList.find((className : string) => className ==="theme-dark" )
-        
+        const isDark = classList.find((className: string) => className === "theme-dark")
+
         console.log("classList:", classList);
-        if(settings.cardStyle){
-            if(isDark){
+        if (settings.cardStyle) {
+            if (isDark) {
 
                 appContainer.classList.add("card-layout-open-dark")
             }
             appContainer.classList.add("card-layout-open-light")
-        }else{
+        } else {
             appContainer.classList.remove("card-layout-open-dark")
             appContainer.classList.remove("card-layout-open-light")
         }

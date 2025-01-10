@@ -27,6 +27,7 @@ export const path = {
    * // ==> { dir: '/one/two/', name: 'Untitled' }
    */
   parse(pathString: string): ParsedPath {
+    //@ts-ignore
     const regex = /(?<dir>([^/\\]+[/\\])*)(?<name>[^/\\]*$)/;
     const match = String(pathString).match(regex);
     //@ts-ignore
