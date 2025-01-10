@@ -10,7 +10,6 @@ export default class clusterPlugin extends Plugin {
 		console.log("loading Cluster plugin");
 
 		await this.loadSettings();
-		
 		this.addSettingTab(new settingTab(this.app, this));
 
 		// UN-SORTED Folder Styling
@@ -19,8 +18,7 @@ export default class clusterPlugin extends Plugin {
 			await P.unSortedObserver(this.app);
 		}, 1000);
 
-		await P.cardStyleFunction( this.settings);//card style for lorens theme
-
+		
 		const file = this.app.workspace.getActiveFile() as TFile;
 		if (file) {
 			await P.buttonsLine(this.app, file, this.settings);
@@ -29,6 +27,8 @@ export default class clusterPlugin extends Plugin {
 		P.addRibbonIcon( this);
 		P.fileMenu(this,P.SimpleFocus);
 		P.addCommands(this);
+		
+		await P.cardStyleFunction( this.settings);//card style for lorens theme
 	}
 
 	async loadSettings() {
