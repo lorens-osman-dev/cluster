@@ -5,9 +5,34 @@ import {
 	Setting,
 	TextComponent,
 	ToggleComponent,
-	WorkspaceContainer,
 	Platform,
 } from "obsidian";
+
+
+export interface clusterPluginSettings {
+	foldProperties: boolean;
+
+	firstPageClusters: boolean;
+	cardStyle: boolean;
+	restBgClusters: boolean;
+	newBG_clusters: string;
+	newBG_orphans: string;
+	restBgOrphans: boolean;
+	buttonsLineContainerBG_clusters: string;
+	buttonsLineContainerBG_orphans: string;
+}
+
+export const DEFAULT_SETTINGS: Partial<clusterPluginSettings> = {
+	foldProperties: true,
+
+	firstPageClusters: true,
+	cardStyle: false,
+	restBgClusters: true,
+	restBgOrphans: true,
+	buttonsLineContainerBG_clusters:
+		"var(--background-button-container-clusters)",
+	buttonsLineContainerBG_orphans: "var(--background-button-container-orphans)",
+};
 
 export class settingTab extends PluginSettingTab {
 	plugin: clusterPlugin;
@@ -18,7 +43,7 @@ export class settingTab extends PluginSettingTab {
 	}
 
 	display(): void {
-		let { containerEl } = this;
+		const { containerEl } = this;
 
 		containerEl.empty();
 		containerEl.classList.add("clusterSettingPage");
@@ -171,7 +196,7 @@ export class settingTab extends PluginSettingTab {
 					this.plugin.settings.restBgClusters = true;
 					this.plugin.settings.buttonsLineContainerBG_clusters =
 						"var(--background-button-container-clusters)";
-					inputText!.setValue("var(--background-button-container-clusters)");
+					inputText?.setValue("var(--background-button-container-clusters)");
 					inputText!.inputEl.style.backgroundColor =
 						"var(--background-button-container-clusters)";
 					input.controlEl.classList.add("inputDisable");
@@ -240,7 +265,7 @@ export class settingTab extends PluginSettingTab {
 					this.plugin.settings.restBgOrphans = true;
 					this.plugin.settings.buttonsLineContainerBG_orphans =
 						"var(--background-button-container-orphans)";
-					inputText!.setValue("var(--background-button-container-orphans)");
+					inputText?.setValue("var(--background-button-container-orphans)");
 					inputText!.inputEl.style.backgroundColor =
 						"var(--background-button-container-orphans)";
 					input.controlEl.classList.add("inputDisable");
@@ -252,7 +277,7 @@ export class settingTab extends PluginSettingTab {
 					this.plugin.settings.restBgOrphans = false;
 					this.plugin.settings.buttonsLineContainerBG_orphans =
 						this.plugin.settings.newBG_orphans;
-					inputText!.setValue(this.plugin.settings.newBG_orphans);
+					inputText?.setValue(this.plugin.settings.newBG_orphans);
 					inputText!.inputEl.style.backgroundColor =
 						this.plugin.settings.newBG_orphans;
 				}
