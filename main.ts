@@ -1,6 +1,5 @@
 import { Plugin, TFile, addIcon } from "obsidian";
 import familyModal from "./src/createFamily/familyModal";
-import deleteActiveNoteModal from "./src/createFamily/deleteActiveNoteModal";
 import { NewFileLocation } from "./src/util/enums";
 import { buttonsLine, cardStyleFunction } from "./src/createFamily/buttons";
 import {
@@ -13,6 +12,7 @@ import { createClustersAndOrphansFolder } from "./src/createFamily/createCluster
 import { fileMenu } from "src/mainParts/fileMenu";
 import { settingTab } from "./src/createFamily/settings";
 import SimpleFocusClass from "src/focus/simpleFocus";
+import { addCommands } from "src/mainParts/addCommands";
 
 const SimpleFocus = new SimpleFocusClass();
 
@@ -50,7 +50,7 @@ export default class clusterPlugin extends Plugin {
 		console.log("loading Cluster plugin");
 
 		await this.loadSettings();
-
+		
 		this.addSettingTab(new settingTab(this.app, this));
 
 		//- UN-SORTED Folder Styling
@@ -84,88 +84,7 @@ export default class clusterPlugin extends Plugin {
 			}),
 		);
 
-		//- Commands
-		this.addCommand({
-			id: "New-Cluster",
-			name: "new cluster",
-			callback: () => {
-				createClustersAndOrphansFolder(this.app);
-				new familyModal(
-					this.app,
-					NewFileLocation.NewTab,
-					"newCluster",
-					undefined,
-				).open();
-			},
-		});
-		this.addCommand({
-			id: "New-Son",
-			name: "New son",
-			callback: () => {
-				createClustersAndOrphansFolder(this.app);
-				new familyModal(
-					this.app,
-					NewFileLocation.NewTab,
-					"newSon",
-					undefined,
-				).open();
-			},
-		});
-		this.addCommand({
-			id: "New-Brother",
-			name: "New brother",
-			callback: () => {
-				createClustersAndOrphansFolder(this.app);
-				new familyModal(
-					this.app,
-					NewFileLocation.NewTab,
-					"newBrother",
-					undefined,
-				).open();
-			},
-		});
-		this.addCommand({
-			id: "New-Orphan",
-			name: "New orphan",
-			callback: () => {
-				createClustersAndOrphansFolder(this.app);
-				new familyModal(
-					this.app,
-					NewFileLocation.NewTab,
-					"newOrphan",
-					undefined,
-				).open();
-			},
-		});
-		this.addCommand({
-			id: "Delete-Active-Note",
-			name: "Delete active note",
-			callback: () => {
-				createClustersAndOrphansFolder(this.app);
-				new deleteActiveNoteModal(
-					this.app,
-					NewFileLocation.NewTab,
-					"deleteNote",
-				).open();
-			},
-		});
-		this.addCommand({
-      id: "simple-focus-exit-focus",
-      name: "Exit focus",
-      callback: () => {
-        SimpleFocus.exitFocus()
-      },
-    });
-    this.addCommand({
-      id: "simple-focus-enter-focus",
-      name: "Enter focus",
-      callback: () => {
-        const file = this.app.workspace.getActiveFile();
-        if(file?.path) {
-          SimpleFocus.enterFocus(file.path)
-        }
-      },
-    });
+	
 		//- Ribbon Icon
 		addIcon(
 			"cluster-svg",
@@ -189,6 +108,8 @@ export default class clusterPlugin extends Plugin {
 		});
 		//- File Menu
 		fileMenu(this,SimpleFocus);
+		//- Commands
+		addCommands(this);
 	}
 
 	async loadSettings() {
