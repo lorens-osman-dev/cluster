@@ -7,65 +7,53 @@ export function sayHi() {
   if (!elements) {
     return
   }
-  const pairs = foldersEdit(elements)
+  const pairs = getPairs(elements)
   console.log("pairs:", pairs);
 }
 
-export function foldersEdit(elements: ElementsObj): Pairs | undefined {
-  const pairs: Pairs = []
+export function getPairs(elements: ElementsObj): Pairs | undefined {
+  const pairs: Pairs = [];
   elements.folders.forEach((folder) => {
     if (folder.file.path === "CLUSTERS") {
-      return
+      return;
     }
     folder.file.parent?.children.forEach((child) => {
-      if (child instanceof TFile) {
-        if (child.basename === folder.file.name) {
-          const file = elements.files.find(item => item.file.name === child.name)
-          if (file) {
-
-            pairs.push({ file: file, folder: folder })
-            return
-          }
+      if (child instanceof TFile && child.basename === folder.file.name) {
+        const file = elements.files.find(item => item.file.name === child.name);
+        if (file) {
+          pairs.push({ file: file, folder: folder });
         }
       }
-    })
-  })
-  if (pairs.length === 0) {
-    return
-  }
-  return pairs
+    });
+  });
+  return pairs.length > 0 ? pairs : undefined;
 }
 
 
 
 // Get Elements object from CLUSTERS folder
 export function getElementsObj(): ElementsObj | undefined {
-
   const fileExplorers = this.app.workspace.getLeavesOfType('file-explorer');
-  const elementsObg: ElementsObj = {
+  const elementsObj: ElementsObj = {
     files: [],
     folders: []
-  }
+  };
 
   fileExplorers.forEach((fileExplorer: ExplorerLeaf) => {
     const newTree = fileExplorer.view.fileItems;
     for (const key in newTree) {
-      if (fileExplorer.view.fileItems.hasOwnProperty(key)) {
-        const el = fileExplorer.view.fileItems[key]
+      if (newTree.hasOwnProperty(key)) {
+        const el = newTree[key];
         if (el.file instanceof TFile && el.file.path.startsWith("CLUSTERS")) {
-          elementsObg.files.push(el)
+          elementsObj.files.push(el);
         } else if (el.file instanceof TFolder && el.file.path.startsWith("CLUSTERS")) {
-          elementsObg.folders.push(el)
+          elementsObj.folders.push(el);
         }
       }
     }
-  })
+  });
 
-  if (elementsObg.folders.length === 0) {
-    return
-  }
-  return elementsObg
-
+  return elementsObj.folders.length > 0 ? elementsObj : undefined;
 }
 // export function sayHi(){
 
