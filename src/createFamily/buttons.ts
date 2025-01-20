@@ -288,7 +288,7 @@ export async function cardStyleFunction(settings: clusterPluginSettings) {
         const classList = Array.from(appContainer.classList)
         const isDark = classList.find((className: string) => className === "theme-dark")
 
-        console.log("classList:", classList);
+
         if (settings.cardStyle) {
             if (isDark) {
 

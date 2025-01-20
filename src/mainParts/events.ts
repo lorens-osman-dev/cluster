@@ -1,7 +1,7 @@
 import { Plugin, TFile } from "obsidian";
 import { clusterPluginSettings } from "src/settings/settings";
 import P from "src/util/P";
-
+import { sayHi } from "../navtree/naveTree";
 interface ExtendedPlugin extends Plugin {
   settings: clusterPluginSettings;
   }
@@ -16,6 +16,12 @@ export function addEvents(plugin: ExtendedPlugin) {
         await P.unsorted.addUnsortedFilesCounter(plugin.app);
         await P.unsorted.unSortedObserver(plugin.app);
       }
+    }),
+  );
+  // watch if file opened
+  plugin.registerEvent(
+    plugin.app.workspace.on("editor-menu", async () => {
+      sayHi()
     }),
   );
 }
