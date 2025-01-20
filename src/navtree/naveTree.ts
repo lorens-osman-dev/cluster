@@ -8,7 +8,36 @@ export function sayHi() {
     return
   }
   const pairs = getPairs(elements)
-  console.log("pairs:", pairs);
+  if (!pairs) {
+    return
+  }
+  newFileTree(pairs)
+}
+
+export function newFileTree(pairs: Pairs) {
+  pairs.forEach((pair) => {
+    const targetInnerEl = pair.folder.innerEl
+    const targetCon = pair.folder.selfEl
+    const toMoveCon = pair.file.selfEl
+    const toMove = pair.file.innerEl
+
+    const dataPath = toMoveCon.getAttribute('data-path');
+
+    toMove.setAttribute("data-path", dataPath as string)
+    toMove.addEventListener('click', () => {
+      const file = this.app.vault.getAbstractFileByPath(dataPath as string);
+      if (file instanceof TFile) {
+        this.app.workspace.getLeaf().openFile(file);
+      }
+    });
+
+    targetInnerEl.style.display = "none"
+    toMoveCon.style.display = "none"
+    targetCon.appendChild(toMove)
+
+    console.log(dataPath)
+
+  })
 }
 
 export function getPairs(elements: ElementsObj): Pairs | undefined {

@@ -27,10 +27,13 @@ interface ExplorerView extends View {
 }
 
 interface FileItem {
-  titleEl: HTMLDivElement;
-  titleInnerEl: HTMLDivElement;
   el: HTMLElement;
   file: TAbstractFile;
+  titleEl: HTMLDivElement;
+  titleInnerEl: HTMLDivElement;
+  innerEl: HTMLDivElement;
+  selfEl: HTMLDivElement;
+  collapseEl: HTMLDivElement
 }
 
 
