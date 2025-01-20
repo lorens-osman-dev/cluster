@@ -12,6 +12,10 @@ export function sayHi(){
 }
 
 function  getNameText(element:ChildNode):string | false{
+
+  if(!(element as HTMLElement).classList.contains("tree-item-self")){
+    return false;
+  }
   const realElement = Array.from(element.childNodes).find((child: ChildNode) => { 
     if((child as HTMLElement).classList.contains("tree-item-inner")){
       return true;
