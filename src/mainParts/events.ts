@@ -13,8 +13,8 @@ export function addEvents(plugin: ExtendedPlugin) {
         await P.buttonsLine(plugin.app, file, plugin.settings);	// Add Cluster Buttons 
         await P.coloringTreePanel(plugin.app, file);
         plugin.settings.foldProperties ? await P.foldPropertiesElement(plugin.app, file) : null; // Fold Properties
-        await P.addUnsortedFilesCounter(plugin.app);
-        await P.unSortedObserver(plugin.app);
+        await P.unsorted.addUnsortedFilesCounter(plugin.app);
+        await P.unsorted.unSortedObserver(plugin.app);
       }
     }),
   );
