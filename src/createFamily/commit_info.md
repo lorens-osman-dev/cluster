@@ -5,3 +5,4 @@
 -   [ ] FIX you need to add buttons line when onload if there is an active file
 -   [ ] make the extra buttons [ puzzle ] functionality implementation
 -   [ ] when you rename parent note you need rename the son's containing folder with same name
+-   [ ] fix prevent making children withe "-cluster" name
