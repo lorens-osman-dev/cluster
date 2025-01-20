@@ -20,7 +20,12 @@ export function foldersEdit(elements: ElementsObj): Pairs | undefined {
     folder.file.parent?.children.forEach((child) => {
       if (child instanceof TFile) {
         if (child.basename === folder.file.name) {
-          pairs.push({ file: child, folder: folder.file })
+          const file = elements.files.find(item => item.file.name === child.name)
+          if (file) {
+
+            pairs.push({ file: file, folder: folder })
+            return
+          }
         }
       }
     })

@@ -39,7 +39,7 @@ export type ElementsObj = {
   folders: FileItem[]
 }
 export type Pair = {
-  file: TAbstractFile,
-  folder: TAbstractFile
+  file: FileItem,
+  folder: FileItem
 }
 export type Pairs = Pair[]
