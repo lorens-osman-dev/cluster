@@ -6,7 +6,7 @@ export enum NewFileLocation {
   NewTab = 'new-tab',
 }
 const U = {
-  IF
+  IF,NewFileLocation
 };
 
 export default U;
