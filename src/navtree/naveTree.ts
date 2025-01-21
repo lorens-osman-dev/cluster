@@ -1,20 +1,22 @@
 import { TFile, TFolder } from 'obsidian';
 import { ExplorerLeaf, ElementsObj, Pairs } from '../types/obsidian';
 
-export function sayHi() {
-
+export function newNavTreeStart() {
+  // 1.get the elements in CLUSTER 
   const elements = getElementsObj()
   if (!elements) {
     return
   }
+  // 1.extract/sort the pairs from elements
   const pairs = getPairs(elements)
   if (!pairs) {
     return
   }
-  newFileTree(pairs)
+  // 3.edit the old navTree
+  oldNavTreeChange(pairs)
 }
 
-export function newFileTree(pairs: Pairs) {
+export function oldNavTreeChange(pairs: Pairs) {
   pairs.forEach((pair) => {
     const targetInnerEl = pair.folder.innerEl
     const targetCon = pair.folder.selfEl
@@ -83,32 +85,4 @@ export function getElementsObj(): ElementsObj | undefined {
   });
 
   return elementsObj.folders.length > 0 ? elementsObj : undefined;
-}
-// export function sayHi(){
-
-//    // Access an HTML element by its class, ID, or tag name
-//    const childElement = document.querySelector('[data-path="CLUSTERS"]') as HTMLElement;
-//    const parentElement = childElement.closest('.tree-item.nav-folder') as HTMLElement;
-//    if (!parentElement) {
-//      console.log('Element not found')
-//      return;
-//     }
-//     console.log('Element found:', parentElement.childNodes);
-//     console.log(getNameText(parentElement.childNodes[0]))
-// }
-
-function getNameText(element: ChildNode): string | false {
-
-  if (!(element as HTMLElement).classList.contains("tree-item-self")) {
-    return false;
-  }
-  const realElement = Array.from(element.childNodes).find((child: ChildNode) => {
-    if ((child as HTMLElement).classList.contains("tree-item-inner")) {
-      return true;
-    }
-    return false;
-  }) as HTMLElement;
-  if (!realElement) return false
-  const elementName: string = realElement.innerText
-  return elementName
 }

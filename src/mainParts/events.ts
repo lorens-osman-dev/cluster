@@ -1,10 +1,10 @@
 import { Plugin, TFile } from "obsidian";
 import { clusterPluginSettings } from "src/settings/settings";
 import P from "src/util/P";
-import { sayHi } from "../navtree/naveTree";
+import { newNavTreeStart } from "../navtree/naveTree";
 interface ExtendedPlugin extends Plugin {
   settings: clusterPluginSettings;
-  }
+}
 export function addEvents(plugin: ExtendedPlugin) {
   // watch if file opened
   plugin.registerEvent(
@@ -21,7 +21,7 @@ export function addEvents(plugin: ExtendedPlugin) {
   // watch if file opened
   plugin.registerEvent(
     plugin.app.workspace.on("editor-menu", async () => {
-      sayHi()
+      newNavTreeStart()
     }),
   );
 }
