@@ -1,0 +1,33 @@
+//-FILE MENU -------------------*/
+.menu-item:has(.menu-item-icon .lucide-folder-git-2) {
+  background-color: var(--background-menu-cluster);
+}
+
+.menu-item.selected:has(.menu-item-icon .lucide-folder-git-2) {
+  background-color: var(--background-menu-cluster-selected);
+}
+
+.menu-item:has(.menu-item-icon .lucide-baby) {
+  background-color: var(--background-menu-son);
+  margin-bottom: 2px;
+}
+
+.menu-item.selected:has(.menu-item-icon .lucide-baby) {
+  background-color: var(--background-menu-son-selected);
+}
+
+.menu-item:has(.menu-item-icon .lucide-git-compare) {
+  background-color: var(--background-menu-brother);
+}
+
+.menu-item.selected:has(.menu-item-icon .lucide-git-compare) {
+  background-color: var(--background-menu-brother-selected);
+}
+
+.menu-item:has(.menu-item-icon .lucide-disc) {
+  background-color: var(--background-menu-orphan);
+}
+
+.menu-item.selected:has(.menu-item-icon .lucide-disc) {
+  background-color: var(--background-menu-orphan-selected);
+}

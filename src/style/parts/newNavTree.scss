@@ -1,0 +1,31 @@
+.toMove {
+  color: red;
+}
+
+
+
+//- FILE TREE -------------------*/
+
+.clustersFolderTreeElement {
+  color: var(--color-tree-Clusters);
+}
+
+.clustersFilesTreeElementTitles {
+  color: var(--color-tree-Clusters);
+}
+
+.orphansFolderTreeElement {
+  color: var(--color-tree-Orphans);
+}
+
+.unSortedFolderTreeElement {
+  position: relative;
+  overflow: visible;
+
+  .unSortedFilesNumber {
+    position: absolute;
+    right: -30px;
+    top: 0;
+    color: red;
+  }
+}

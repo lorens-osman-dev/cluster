@@ -1,0 +1,47 @@
+//- LIGHT THEME-------------------*/
+
+.theme-light {
+  .prompt {
+    .inputMsgCon {
+      color: var(--background-primary);
+
+      .cluster-svg {
+        fill: var(--background-primary);
+      }
+    }
+  }
+
+  .btn {
+    &.ok {
+      background-color: hsl(157 50% 30%);
+
+      &:hover {
+        background-color: hsl(157 50% 40%);
+      }
+    }
+
+    &.no {
+      background-color: hsl(0deg 50% 30%);
+
+      &:hover {
+        background-color: hsl(0deg 50% 40%);
+      }
+    }
+
+    svg {
+      color: var(--background-primary);
+    }
+
+    .cluster-svg {
+      fill: var(--background-primary) !important;
+    }
+  }
+
+  .delMsg {
+    color: var(--text-normal);
+  }
+
+  .cluster-svg {
+    fill: var(--background-primary) !important;
+  }
+}

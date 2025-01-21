@@ -1,0 +1,67 @@
+//- PC FAMILY MODAL STYLES-------------------*/
+.prompt {
+  background-color: var(--background-primary);
+
+  &:has(.brother),
+  &:has(.son),
+  &:has(.cluster),
+  &:has(.delete),
+  &:has(.orphan),
+  &:has(.noThing) {
+    display: grid !important;
+    align-items: center !important;
+    grid-template-columns: 30% 1fr 25px 25px;
+    border-radius: 0;
+    top: 30% !important;
+
+    .modal-content,
+    .modal-header,
+    .modal-close-button {
+      display: none;
+    }
+  }
+
+  .prompt-input {
+    border: none !important;
+  }
+
+  //-input Msg Container
+  .inputMsgCon {
+    display: grid;
+    grid-template-columns: 65px 1fr;
+    align-items: center;
+    font-size: var(--font-ui-medium);
+    font-weight: bold;
+    justify-items: center;
+    height: 57px;
+
+    &.cluster {
+      background-color: var(--background-prompt-cluster);
+    }
+
+    &.son {
+      background-color: var(--background-prompt-son);
+    }
+
+    &.brother {
+      background-color: var(--background-prompt-brother);
+    }
+
+    &.orphan {
+      background-color: var(--background-prompt-orphan);
+    }
+
+    &.delete {
+      background-color: var(--background-prompt-delete);
+    }
+
+    &.noThing {
+      grid-template-columns: none;
+    }
+  }
+}
+
+.prompt:has(.noThing) .btn.ok,
+.prompt:has(.noThing) .btn.no {
+  display: none;
+}

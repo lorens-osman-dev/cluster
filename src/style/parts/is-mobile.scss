@@ -1,0 +1,83 @@
+//-PHONE FAMILY MODAL STYLES-------------------*/
+
+.is-phone {
+  .prompt {
+    &:has(.btn) {
+      display: grid !important;
+      grid-template-columns: 1fr 40px 40px;
+      grid-template-rows: 57px 1fr;
+      grid-template-areas:
+        "inputMsgCon ok no"
+        "prompt-input prompt-input prompt-input";
+      top: 20% !important;
+
+      .prompt-input {
+        grid-area: prompt-input;
+        align-self: start;
+      }
+    }
+
+    &:has(.noThing) {
+      grid-template-columns: none;
+    }
+
+    &:has(.delete) {
+      height: calc(var(--mobile-height) - var(--prompt-top) - var(--prompt-bottom));
+    }
+  }
+
+  .inputMsgCon {
+    grid-area: inputMsgCon;
+  }
+
+  .delMsg {
+    grid-area: prompt-input;
+    align-self: start;
+    padding: var(--size-4-4);
+  }
+
+  //Buttons Line Container phone
+  .buttonsLineContainer {
+    height: 36px;
+
+    .extraButtonsContainer {
+      width: 36px;
+      top: 36px;
+
+      &.showOnClusters {
+        height: 160px;
+      }
+
+      &.showOnOrphans {
+        height: 160px;
+      }
+    }
+  }
+
+  //Buttons phone
+  .btn {
+    padding: 10px 15px;
+
+    &.ok {
+      grid-area: ok;
+    }
+
+    &.no {
+      grid-area: no;
+    }
+
+    &.extraBtn {
+      height: 36px;
+      width: 36px;
+    }
+  }
+
+  //settings page phone
+  .clusterSettingPage {
+    .setting-item {
+      &.color_input {
+        margin-top: 0;
+      }
+    }
+  }
+}

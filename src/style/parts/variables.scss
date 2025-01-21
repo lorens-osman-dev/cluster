@@ -1,0 +1,71 @@
+.theme-dark {
+  //-prompt colors
+  --background-prompt-son: hsl(340.53deg 50% 30%);
+  --background-prompt-cluster: hsl(154.99deg 50% 30%);
+  --background-prompt-brother: hsl(210.38deg 50% 30%);
+  --background-prompt-orphan: hsl(303deg 50% 30%);
+  --background-prompt-delete: hsl(5, 83%, 42%);
+  //-tree colors
+  --color-tree-Clusters: hsl(155 30% 50%);
+  --color-tree-Orphans: hsl(303deg 30% 50%);
+  //-menu colors
+  --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
+  --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
+  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
+  --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
+  --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
+  --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
+  //- buttons container colors
+  --background-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
+  --background-button-container-orphans: hsl(303deg 50% 30%/ 30%);
+  //- extra buttons container colors
+  --background-extra-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
+  --background-extra-button-container-orphans: hsl(303deg 50% 30%/ 30%);
+  //- buttons colors
+  --background-button-ok: hsl(157, 26%, 17%);
+  --background-button-ok-hover: hsl(157, 26%, 27%);
+  --background-button-no: hsl(0deg 26% 17%);
+  --background-button-no-hover: hsl(0deg 26% 27%);
+  //- FIRST PAGE OF ANY CLUSTER BACKGROUND COLOR
+  --background-first-page-clusters: hsl(155deg 50% 30% / 20%);
+  //- CLUSTER SETTING PAGE
+  --settings-background-opacity: 0.3;
+}
+
+.theme-light {
+  //-prompt colors
+  --background-prompt-son: hsl(340.53deg 50% 30%);
+  --background-prompt-cluster: hsl(154.99deg 50% 30%);
+  --background-prompt-brother: hsl(210.38deg 50% 30%);
+  --background-prompt-orphan: hsl(303deg 50% 30%);
+  --background-prompt-delete: hsl(5, 83%, 42%);
+  //-tree colors
+  --color-tree-Clusters: hsl(154.99deg 70% 30%);
+  --color-tree-Orphans: hsl(303deg 70% 30%);
+  //-menu colors
+  --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
+  --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
+  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
+  --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
+  --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
+  --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
+  //- buttons container colors
+  --background-button-container-clusters: hsl(155 30% 50%);
+  --background-button-container-orphans: hsl(303deg 30% 50%);
+  //- extra buttons container colors
+  --background-extra-button-container-clusters: hsl(155 30% 50%);
+  --background-extra-button-container-orphans: hsl(303deg 30% 50%);
+  //- buttons colors
+  --background-button-ok: hsl(157, 26%, 17%);
+  --background-button-ok-hover: hsl(157, 26%, 27%);
+  --background-button-no: hsl(0deg 26% 17%);
+  --background-button-no-hover: hsl(0deg 26% 27%);
+  //- FIRST PAGE OF ANY CLUSTER BACKGROUND COLOR
+  --background-first-page-clusters: hsl(155 30% 50% / 20%);
+  //- CLUSTER SETTING PAGE
+  --settings-background-opacity: 0.7;
+}

@@ -1,0 +1,89 @@
+//- CLUSTER SETTING PAGE-------------------*/
+.clusterSettingPage {
+  position: relative;
+  overflow-x: hidden;
+
+  .setting-item {
+    position: relative;
+    z-index: 10;
+
+    &.color_input {
+      flex-direction: row;
+
+      .setting-item-control {
+        flex-direction: column;
+        align-items: start;
+        row-gap: 20px;
+
+        input {
+          width: 80%;
+          max-width: 300px;
+        }
+
+        &.inputDisable input {
+          pointer-events: none;
+          color: var(--text-faint);
+          cursor: default;
+        }
+
+        &.inputEnable input {
+          color: var(--text-normal);
+          cursor: text;
+        }
+
+        &.inputDisable,
+        &.inputEnable {
+          position: relative;
+
+          .inputExtraText {
+            position: absolute;
+            top: -20px;
+            text-align: start;
+            color: var(--text-muted);
+            font-size: var(--font-ui-smaller);
+          }
+        }
+      }
+    }
+
+    &.settingsBackground {
+      width: 80%;
+      height: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+      filter: blur(50px);
+      opacity: var(--settings-background-opacity);
+      background-image: linear-gradient(#4ddc9e, #5b37eb, #f1307e);
+      animation: rotate 10s cubic-bezier(0.8, 0.2, 0.2, 0.8) alternate infinite;
+      border-radius: 30% 70% 70% 30%/30% 30% 70% 70%;
+    }
+
+    .customToggle {
+      color: red;
+      position: relative;
+
+      .toggleExtraText {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        left: 50px;
+        width: 200px;
+        text-align: start;
+        color: var(--text-muted);
+        font-size: var(--font-ui-smaller);
+      }
+    }
+
+    .coffeeSettingBtn {
+      color: #292222;
+      background-color: #ffdd00;
+
+      &:hover {
+        cursor: pointer;
+      }
+    }
+  }
+}

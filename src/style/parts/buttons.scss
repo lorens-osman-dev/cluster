@@ -1,0 +1,98 @@
+//-BUTTONS STYLES-------------------*/
+
+.btn {
+  display: grid;
+  justify-content: center;
+  align-items: center;
+  padding: 4px 6px;
+
+  &:hover {
+    box-shadow: none;
+    background-color: var(--background-modifier-hover);
+    cursor: pointer;
+  }
+
+  &.ok {
+    background-color: var(--background-button-ok);
+    height: 57px;
+
+    &:hover {
+      background-color: var(--background-button-ok-hover);
+    }
+  }
+
+  &.no {
+    background-color: var(--background-button-no);
+    height: 57px;
+
+    &:hover {
+      background-color: var(--background-button-no-hover);
+    }
+  }
+
+  &.extraBtn {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 26px;
+    width: 26px;
+
+    svg {
+      transition: transform 0.5s;
+    }
+
+    &.rotate-90-cw svg {
+      transform: rotate(-90deg);
+    }
+  }
+
+  svg {
+    color: var(--icon-color);
+  }
+
+  .cluster-svg {
+    fill: var(--icon-color) !important;
+  }
+}
+
+.cluster-svg {
+  fill: var(--icon-color) !important;
+}
+
+
+//-BUTTONS-------------------*/
+.buttonsLineContainer {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  z-index: 60;
+  height: 26px;
+
+  &:has(.sonBtn) {
+    background-color: var(--background-button-container-clusters);
+  }
+
+  &:not(:has(.sonBtn)) {
+    background-color: var(--background-button-container-orphans);
+  }
+
+  .extraButtonsContainer {
+    position: absolute;
+    overflow: hidden;
+    height: 0;
+    width: 26px;
+    top: 26px;
+    right: 0;
+    transition: height 0.4s;
+
+    &.showOnClusters {
+      background-color: var(--background-extra-button-container-clusters);
+      height: 104px;
+    }
+
+    &.showOnOrphans {
+      background-color: var(--background-extra-button-container-orphans);
+      height: 104px;
+    }
+  }
+}

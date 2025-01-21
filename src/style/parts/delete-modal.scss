@@ -1,0 +1,56 @@
+//-delete modal
+.prompt:has(.delete) {
+  grid-template-columns: 1fr 25px 25px;
+  grid-template-rows: 57px 1fr;
+  grid-template-areas:
+    "delete ok no"
+    "delMsg delMsg delMsg";
+  height: 157px;
+}
+
+.prompt:has(.delete) .btn.ok {
+  grid-area: ok;
+}
+
+.prompt:has(.delete) .btn.no {
+  grid-area: no;
+}
+
+.inputDelete {
+  height: 97px !important;
+  opacity: 0;
+  position: absolute;
+  bottom: 0;
+}
+
+.delMsg {
+  grid-area: delMsg;
+  color: var(--text-faint);
+  padding-left: var(--size-4-6);
+}
+
+.delMsg .delNoteNameMsg {
+  color: var(--background-prompt-delete);
+  text-decoration: underline;
+}
+
+.textMsg {
+  justify-self: left;
+}
+
+.svg {
+  text-align: center;
+  height: 40px;
+  width: 40px;
+}
+
+.inputMsgCon .lucide-baby,
+.inputMsgCon .lucide-git-compare,
+.inputMsgCon .lucide-trash-2,
+.inputMsgCon .lucide-x-circle,
+.inputMsgCon .lucide-git-commit-vertical,
+.inputMsgCon .cluster-svg {
+  text-align: center;
+  height: 40px !important;
+  width: 40px !important;
+}

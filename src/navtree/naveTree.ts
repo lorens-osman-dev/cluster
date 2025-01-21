@@ -23,6 +23,9 @@ export function oldNavTreeChange(pairs: Pairs) {
     const toMoveCon = pair.file.selfEl
     const toMove = pair.file.innerEl
 
+    toMove.addClass("toMove")
+    targetCon.addClass("targetCon")
+
     const dataPath = toMoveCon.getAttribute('data-path');
 
     toMove.setAttribute("data-path", dataPath as string)
@@ -36,8 +39,6 @@ export function oldNavTreeChange(pairs: Pairs) {
     targetInnerEl.style.display = "none"
     toMoveCon.style.display = "none"
     targetCon.appendChild(toMove)
-
-    console.log(dataPath)
 
   })
 }
