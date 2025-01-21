@@ -24,4 +24,5 @@ export function addEvents(plugin: ExtendedPlugin) {
       newNavTreeStart()
     }),
   );
+
 }

@@ -2,6 +2,7 @@ import { TFile, TFolder } from 'obsidian';
 import { ExplorerLeaf, ElementsObj, Pairs } from '../types/obsidian';
 
 export function newNavTreeStart() {
+
   // 1.get the elements in CLUSTER 
   const elements = getElementsObj()
   if (!elements) {
@@ -18,18 +19,20 @@ export function newNavTreeStart() {
 
 export function oldNavTreeChange(pairs: Pairs) {
   pairs.forEach((pair) => {
-    const targetInnerEl = pair.folder.innerEl
-    const targetCon = pair.folder.selfEl
-    const toMoveCon = pair.file.selfEl
-    const toMove = pair.file.innerEl
+    const targetInnerEl = pair.folder.innerEl;
+    const targetCon = pair.folder.selfEl;
+    const toMoveCon = pair.file.selfEl;
+    const toMove = pair.file.innerEl;
 
-    toMove.addClass("toMove")
-    targetCon.addClass("targetCon")
+    const dataPath = pair.file.file.path;
 
-    const dataPath = toMoveCon.getAttribute('data-path');
+    toMove.addClass("toMove");
+    targetCon.addClass("targetCon");
+    toMoveGenerationClassAdd(toMove, dataPath)
 
-    toMove.setAttribute("data-path", dataPath as string)
-    toMove.addEventListener('click', () => {
+    toMove.setAttribute("data-path", dataPath);
+    toMove.addEventListener("click", (e) => {
+      e.stopPropagation();
       const file = this.app.vault.getAbstractFileByPath(dataPath as string);
       if (file instanceof TFile) {
         this.app.workspace.getLeaf().openFile(file);
@@ -42,7 +45,13 @@ export function oldNavTreeChange(pairs: Pairs) {
 
   })
 }
-
+export function toMoveGenerationClassAdd(el: HTMLElement, path: string) {
+  const gen = path.split('/').length - 2;
+  if (gen < 0) {
+    return
+  }
+  el.addClass(`g${gen}`);
+}
 export function getPairs(elements: ElementsObj): Pairs | undefined {
   const pairs: Pairs = [];
   elements.folders.forEach((folder) => {
