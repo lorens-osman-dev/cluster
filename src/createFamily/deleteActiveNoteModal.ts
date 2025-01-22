@@ -110,16 +110,16 @@ export default class deleteActiveNoteModal extends Modal {
       }
     } else {
       //delete current active file
-      await this.app.vault.trash(getActiveFile!, true)
-
+      //FIX its delete even if theContainingFolderItemsNumber == 1
+      // await this.app.vault.trash(getActiveFile!, true)
     }
 
     //delete parent folder of active file if it is empty
     if (theContainingFolderItemsNumber == 1) {
       // Trigger the custom event
       this.app.workspace.trigger('deleteToMove', theContainingFolder as TAbstractFile);
-
-      await this.app.vault.trash(theContainingFolder as TAbstractFile, true)
+      //FIX uncomment 
+      // await this.app.vault.trash(theContainingFolder as TAbstractFile, true)
     }
   }
 
