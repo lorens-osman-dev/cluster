@@ -8,6 +8,10 @@ declare module 'obsidian' {
   interface TAbstractFile {
     extension?: string;
   }
+  interface Workspace extends Events {
+    on(name: 'deleteToMove', callback: (data: TAbstractFile) => any, ctx?: any): EventRef;
+    trigger(name: 'deleteToMove', ...data: [TAbstractFile]): void;
+  }
 }
 
 interface ExplorerLeaf extends WorkspaceLeaf {
