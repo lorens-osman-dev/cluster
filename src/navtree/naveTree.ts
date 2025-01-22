@@ -1,10 +1,10 @@
-import { TFile, TFolder } from 'obsidian';
+import { TFile, TFolder, Plugin } from 'obsidian';
 import { ExplorerLeaf, ElementsObj, Pairs } from '../types/obsidian';
 
-export function newNavTreeStart() {
+export function newNavTreeStart(plugin: Plugin) {
 
   // 1.get the elements in CLUSTER 
-  const elements = getElementsObj()
+  const elements = getElementsObj(plugin)
   if (!elements) {
     return
   }
@@ -14,16 +14,18 @@ export function newNavTreeStart() {
     return
   }
   // 3.edit the old navTree
-  oldNavTreeChange(pairs)
+  oldNavTreeChange(plugin, pairs)
 }
+export function dealWithOldToMove() {
 
-export function oldNavTreeChange(pairs: Pairs) {
+}
+export function oldNavTreeChange(plugin: Plugin, pairs: Pairs) {
   pairs.forEach((pair) => {
     const targetInnerEl = pair.folder.innerEl;
     const targetCon = pair.folder.selfEl;
     const toMoveCon = pair.file.selfEl;
     const toMove = pair.file.innerEl;
-
+    // console.log("toMove:", toMove, targetCon)
     const dataPath = pair.file.file.path;
 
     toMove.addClass("toMove");
@@ -33,9 +35,9 @@ export function oldNavTreeChange(pairs: Pairs) {
     toMove.setAttribute("data-path", dataPath);
     toMove.addEventListener("click", (e) => {
       e.stopPropagation();
-      const file = this.app.vault.getAbstractFileByPath(dataPath as string);
+      const file = plugin.app.vault.getAbstractFileByPath(dataPath as string);
       if (file instanceof TFile) {
-        this.app.workspace.getLeaf().openFile(file);
+        plugin.app.workspace.getLeaf().openFile(file);
       }
     });
 
@@ -67,17 +69,30 @@ export function getPairs(elements: ElementsObj): Pairs | undefined {
       }
     });
   });
+
+  // elements.oldToMoveElements.forEach((item) => {
+  //   console.log("item name:", item.file.name.slice(0, -3))
+  //   const isHasFolderToPair = elements.folders.find((folder) => folder.file.name === item.file.name.slice(0, -3))
+  //   if (isHasFolderToPair) {
+  //     console.log("pair:", item)
+  //     return
+  //   }
+  //   console.log(isHasFolderToPair, "single:", item)
+  //   item.selfEl.style.display = "block"
+  // })
+  // console.log(elements)
   return pairs.length > 0 ? pairs : undefined;
 }
 
 
 
 // Get Elements object from CLUSTERS folder
-export function getElementsObj(): ElementsObj | undefined {
-  const fileExplorers = this.app.workspace.getLeavesOfType('file-explorer');
+export function getElementsObj(plugin: Plugin): ElementsObj | undefined {
+  const fileExplorers = plugin.app.workspace.getLeavesOfType('file-explorer');
   const elementsObj: ElementsObj = {
     files: [],
-    folders: []
+    folders: [],
+    oldToMoveElements: []
   };
 
   fileExplorers.forEach((fileExplorer: ExplorerLeaf) => {
@@ -86,6 +101,9 @@ export function getElementsObj(): ElementsObj | undefined {
       if (newTree.hasOwnProperty(key)) {
         const el = newTree[key];
         if (el.file instanceof TFile && el.file.path.startsWith("CLUSTERS")) {
+          if (el.innerEl.classList.contains("toMove")) {
+            elementsObj.oldToMoveElements.push(el);
+          }
           elementsObj.files.push(el);
         } else if (el.file instanceof TFolder && el.file.path.startsWith("CLUSTERS")) {
           elementsObj.folders.push(el);

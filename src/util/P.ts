@@ -3,6 +3,7 @@ import { fileMenu } from "src/mainParts/fileMenu";
 import { addCommands } from "src/mainParts/addCommands";
 import { addEvents } from "src/mainParts/events";
 import { addRibbonIcon } from "src/mainParts/addRibbonIcon";
+import { newNavTreeStart } from "src/navtree/naveTree";
 
 import SimpleFocusClass from "src/focus/simpleFocus";
 const SimpleFocus = new SimpleFocusClass();
@@ -37,6 +38,7 @@ const P = {
     unSortedObserver,
   },
   foldPropertiesElement,
+  newNavTreeStart,
 };
 
 export default P;

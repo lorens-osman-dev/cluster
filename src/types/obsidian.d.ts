@@ -39,7 +39,8 @@ interface FileItem {
 
 export type ElementsObj = {
   files: FileItem[],
-  folders: FileItem[]
+  folders: FileItem[],
+  oldToMoveElements: FileItem[]
 }
 export type Pair = {
   file: FileItem,

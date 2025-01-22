@@ -2,6 +2,18 @@ import { App, Modal, TAbstractFile, TFolder, setIcon } from "obsidian";
 import svgElements from "./svg";
 import { NewFileLocation } from '../util/U';
 
+// Define your custom event's data type
+interface CustomEventData {
+  data: string;
+  timestamp: number;
+}
+
+// Declare the custom events in a type definition
+declare module 'obsidian' {
+  interface Events {
+    'custom-event': CustomEventData;
+  }
+}
 
 
 export default class deleteActiveNoteModal extends Modal {
@@ -107,6 +119,7 @@ export default class deleteActiveNoteModal extends Modal {
       await this.app.vault.trash(getActiveFile!, true)
       await this.app.vault.trash(theRelatedSonsFolder, true)
       if (theContainingFolderItemsNumber == 2) {
+
         await this.app.vault.trash(theContainingFolder as TAbstractFile, true)
       }
     } else {
@@ -117,6 +130,12 @@ export default class deleteActiveNoteModal extends Modal {
 
     //delete parent folder of active file if it is empty
     if (theContainingFolderItemsNumber == 1) {
+      // Trigger the custom event
+      this.app.workspace.trigger('custom-event', {
+        data: 'Hello from custom event!',
+        timestamp: Date.now()
+      });
+
       await this.app.vault.trash(theContainingFolder as TAbstractFile, true)
     }
   }
