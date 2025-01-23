@@ -1,11 +1,11 @@
 import { Plugin, TFile } from "obsidian";
 import { clusterPluginSettings } from "src/settings/settings";
 import P from "src/util/P";
-import { getElementsObj, newNavTreeStart } from "../navtree/naveTree";
+import { getElementsObj } from "../navtree/naveTree";
+
 interface ExtendedPlugin extends Plugin {
   settings: clusterPluginSettings;
 }
-
 
 export function addEvents(plugin: ExtendedPlugin) {
   // watch if file opened
@@ -31,16 +31,14 @@ export function addEvents(plugin: ExtendedPlugin) {
     plugin.app.workspace.on('deleteToMove', (data) => {
       const dataPathMD = `${data.path}.md`
       const elements = getElementsObj(plugin)
-      const targetCon = elements?.folders.find(folder => folder.file.path === data.path)?.selfEl
-      const toMove = Array.from(targetCon?.childNodes || []).find(
-        (item) => (item as HTMLElement).classList.contains("toMove")
-      ) as HTMLElement | null;
-      // console.log("toMove:", toMove);
       const newTargetCon = elements?.oldToMoveElements.find(child => child.selfEl.getAttribute("data-path") == dataPathMD)
-      console.log("newTargetCon:", newTargetCon);
-      // console.log("oldTargetCon:", oldTargetCon);
-      // if (!elements) return
-      // elements.forEach((child) => { console.log(child) })
+      if (newTargetCon) {
+        newTargetCon.selfEl.style.display = "flex"
+        // remove g0 g1 etc classes and toMove class 
+        const classesToRemove = Array.from(newTargetCon.innerEl.classList).filter(cls => /^g.*\d$/.test(cls));
+        newTargetCon.innerEl.removeClasses([...classesToRemove, "toMove"]);
+        newTargetCon.selfEl.appendChild(newTargetCon.innerEl)
+      }
     })
   );
 }

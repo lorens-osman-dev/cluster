@@ -69,18 +69,6 @@ export function getPairs(elements: ElementsObj): Pairs | undefined {
       }
     });
   });
-
-  // elements.oldToMoveElements.forEach((item) => {
-  //   console.log("item name:", item.file.name.slice(0, -3))
-  //   const isHasFolderToPair = elements.folders.find((folder) => folder.file.name === item.file.name.slice(0, -3))
-  //   if (isHasFolderToPair) {
-  //     console.log("pair:", item)
-  //     return
-  //   }
-  //   console.log(isHasFolderToPair, "single:", item)
-  //   item.selfEl.style.display = "block"
-  // })
-  // console.log(elements)
   return pairs.length > 0 ? pairs : undefined;
 }
 
