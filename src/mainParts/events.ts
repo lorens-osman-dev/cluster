@@ -23,7 +23,7 @@ export function addEvents(plugin: ExtendedPlugin) {
   // watch if file opened
   plugin.registerEvent(
     plugin.app.workspace.on("file-open", async () => {
-      setTimeout(() => P.newNavTreeStart(plugin), 500)
+      setTimeout(() => P.newNavTreeStart(plugin), 100)
     }),
   );
   plugin.registerEvent(
