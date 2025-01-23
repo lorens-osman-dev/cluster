@@ -1,4 +1,4 @@
-import { TFile, TFolder, Plugin, Events, Menu } from 'obsidian';
+import { TFile, TFolder, Plugin, Menu } from 'obsidian';
 import { ExplorerLeaf, ElementsObj, Pairs } from '../types/obsidian';
 
 export function newNavTreeStart(plugin: Plugin) {
@@ -93,6 +93,10 @@ export function getPairs(elements: ElementsObj): Pairs | undefined {
 // Get Elements object from CLUSTERS folder
 export function getElementsObj(plugin: Plugin): ElementsObj | undefined {
   const fileExplorers = plugin.app.workspace.getLeavesOfType('file-explorer');
+  if (fileExplorers.length <= 0) {
+    console.log("fileExplorers is empty:");
+    return
+  }
   const elementsObj: ElementsObj = {
     files: [],
     folders: [],
