@@ -26,6 +26,11 @@ export function addEvents(plugin: ExtendedPlugin) {
       setTimeout(() => P.newNavTreeStart(plugin), 500)
     }),
   );
+  plugin.registerEvent(
+    plugin.app.workspace.on("layout-change", async () => {
+      setTimeout(() => P.newNavTreeStart(plugin), 100)
+    }),
+  );
 
   plugin.registerEvent(
     plugin.app.workspace.on('deleteToMove', (data) => {
