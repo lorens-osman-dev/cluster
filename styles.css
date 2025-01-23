@@ -106,6 +106,10 @@
   left: 18px;
   border-left: 1px dashed rgba(89, 166, 134, 0.4196078431);
 }
+.tree-item.nav-folder:has(.tree-item-self[data-path=CLUSTERS]) .tree-item-children.nav-folder-children .tree-item-self.nav-folder-title .tree-item-icon {
+  position: relative;
+  display: none;
+}
 
 .targetCon .tree-item-icon {
   position: relative;
