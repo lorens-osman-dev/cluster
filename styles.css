@@ -476,7 +476,7 @@
 }
 
 .prompt:has(.delete) {
-  grid-template-columns: 1fr 25px 25px;
+  grid-template-columns: 1fr !important;
   grid-template-rows: 57px 1fr;
   grid-template-areas: "delete ok no" "delMsg delMsg delMsg";
   height: 157px;
