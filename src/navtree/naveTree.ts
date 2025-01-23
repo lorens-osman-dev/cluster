@@ -1,4 +1,4 @@
-import { TFile, TFolder, Plugin } from 'obsidian';
+import { TFile, TFolder, Plugin, Events, Menu } from 'obsidian';
 import { ExplorerLeaf, ElementsObj, Pairs } from '../types/obsidian';
 
 export function newNavTreeStart(plugin: Plugin) {
@@ -40,7 +40,23 @@ export function oldNavTreeChange(plugin: Plugin, pairs: Pairs) {
         plugin.app.workspace.getLeaf().openFile(file);
       }
     });
+    toMove.addEventListener("contextmenu", (e) => {
+      e.stopPropagation(); // Prevent event from bubbling up
+      e.preventDefault(); // Prevent the browser's default context menu
 
+      const file = plugin.app.vault.getAbstractFileByPath(dataPath as string);
+      if (file instanceof TFile) {
+        // Create a new Menu object
+        const menu = new Menu();
+
+        // Trigger the 'file-menu' event
+        //@ts-ignore
+        plugin.app.workspace.trigger("file-menu", menu, file, "file-explorer");
+
+        // Show the menu at the mouse position
+        menu.showAtMouseEvent(e);
+      }
+    });
     targetInnerEl.style.display = "none"
     toMoveCon.style.display = "none"
     targetCon.appendChild(toMove)
