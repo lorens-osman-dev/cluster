@@ -1,7 +1,7 @@
 .toMove {
   position: relative;
   padding-left: calc(8px + var(--icon-size));
-  left: 4px;
+  // left: 4px;
   cursor: pointer;
   overflow: visible;
 
@@ -52,9 +52,26 @@
 //   }
 // }
 
+.tree-item.nav-folder:has(.tree-item-self[data-path="CLUSTERS"]) .tree-item-children.nav-folder-children {
+  border-color: transparent;
+  position: relative;
+
+  &::before {
+    content: " ";
+    display: block;
+    width: 1px;
+    height: 100%;
+    position: absolute;
+    top: 0px;
+    left: 18px;
+    border-left: 1px dashed #59a6866b;
+  }
+}
+
 .targetCon {
   .tree-item-icon {
     position: relative;
+    display: none;
   }
 }
 

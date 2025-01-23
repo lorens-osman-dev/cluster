@@ -57,7 +57,6 @@
 .toMove {
   position: relative;
   padding-left: calc(8px + var(--icon-size));
-  left: 4px;
   cursor: pointer;
   overflow: visible;
 }
@@ -93,8 +92,24 @@
   z-index: -1;
 }
 
+.tree-item.nav-folder:has(.tree-item-self[data-path=CLUSTERS]) .tree-item-children.nav-folder-children {
+  border-color: transparent;
+  position: relative;
+}
+.tree-item.nav-folder:has(.tree-item-self[data-path=CLUSTERS]) .tree-item-children.nav-folder-children::before {
+  content: " ";
+  display: block;
+  width: 1px;
+  height: 100%;
+  position: absolute;
+  top: 0px;
+  left: 18px;
+  border-left: 1px dashed rgba(89, 166, 134, 0.4196078431);
+}
+
 .targetCon .tree-item-icon {
   position: relative;
+  display: none;
 }
 
 .clustersFolderTreeElement {
