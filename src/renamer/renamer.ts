@@ -17,8 +17,9 @@ export function checkFileItemType(plugin: Plugin, fileItem: RenamedItem<TAbstrac
 
   if (fileItem.file instanceof TFile) {
     const isThereChildrenFolder = checkFileChildrenFolder(fileItem as RenamedItem<TFile>)
-    if (isThereChildrenFolder) {
-      console.log("isThereChildrenFolder:", isThereChildrenFolder);
+    if (!isThereChildrenFolder) {
+      console.log("Alone file:", !isThereChildrenFolder);
+      editAloneFile(plugin, fileItem as RenamedItem<TFile>)
       return
     }
     console.log("isThereChildrenFolder:", isThereChildrenFolder);
@@ -34,4 +35,24 @@ export function checkFileChildrenFolder(fileItem: RenamedItem<TFile>): TFolder |
     return isThereChildrenFolder
   }
   return false
+}
+
+export async function editAloneFile(plugin: Plugin, fileItem: RenamedItem<TFile>) {
+  const file = fileItem.file;
+  try {
+    await plugin.app.fileManager.processFrontMatter(file, (frontmatter) => {
+      console.log("Original frontmatter:", frontmatter);
+
+      // Ensure frontmatter is an object before modifying it
+      if (!frontmatter) {
+        console.error("No frontmatter found in file:", file.path);
+        return;
+      }
+      // Update the "parent" property
+      frontmatter.parent = `[[${file.parent?.path}|${file.parent?.name}]]`;
+    });
+
+  } catch (error) {
+    console.error("Error updating frontmatter:", error);
+  }
 }

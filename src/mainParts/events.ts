@@ -36,11 +36,14 @@ export function addEvents(plugin: ExtendedPlugin) {
   plugin.registerEvent(
     plugin.app.vault.on("rename", async (file, oldPath) => {
 
-      if (file.path.startsWith("CLUSTER")) {
+      if (file && file.parent && file.path.startsWith("CLUSTER")) {
+        const partsOfOldPath = oldPath.split("/")
         const renamedFile: RenamedItem<TAbstractFile> = {
           file: file,
           oldPath: oldPath,
-          newPath: file.path
+          oldParent: partsOfOldPath[partsOfOldPath.length - 2],
+          newPath: file.path,
+          newParent: file.parent.name
         }
         renamer(plugin, renamedFile)
       }

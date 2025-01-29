@@ -56,6 +56,8 @@ export type RenamedItem<T extends TAbstractFile> = {
   file: T;
   oldPath: string;
   newPath: string;
+  oldParent: string;
+  newParent: string
 };
 
 export type RenamedItemTFile = RenamedItem<TFile>;
