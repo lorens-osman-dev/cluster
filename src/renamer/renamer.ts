@@ -38,18 +38,19 @@ export function checkFileChildrenFolder(fileItem: RenamedItem<TFile>): TFolder |
 }
 
 export async function editAloneFile(plugin: Plugin, fileItem: RenamedItem<TFile>) {
-  const file = fileItem.file;
   try {
-    await plugin.app.fileManager.processFrontMatter(file, (frontmatter) => {
-      console.log("Original frontmatter:", frontmatter);
-
-      // Ensure frontmatter is an object before modifying it
+    await plugin.app.fileManager.processFrontMatter(fileItem.file, (frontmatter) => {
       if (!frontmatter) {
-        console.error("No frontmatter found in file:", file.path);
+        console.error("No frontmatter found in file:", fileItem.file.path);
         return;
       }
+      console.log("frontmatter.paren:", frontmatter.parent)
       // Update the "parent" property
-      frontmatter.parent = `[[${file.parent?.path}|${file.parent?.name}]]`;
+      frontmatter.parent = `[[${fileItem.file.parent?.path}|${fileItem.file.parent?.name}]]`;
+
+      // Update the "cluster tag" property
+      const clusterTagIndex = (frontmatter.tags as string[]).findIndex(tag => tag.contains("-cluster"));
+      (frontmatter.tags as string[])[clusterTagIndex] = fileItem.newPath.split("/")[1]
     });
 
   } catch (error) {
