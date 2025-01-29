@@ -17,7 +17,7 @@ export default class clusterPlugin extends Plugin {
 		file ? await P.buttonsLine(this.app, file, this.settings) : null;
 		P.addEvents(this)
 		P.addRibbonIcon(this);
-		setTimeout(() => P.newNavTreeStart(this), 500)
+		// setTimeout(() => P.newNavTreeStart(this), 500)
 
 		P.fileMenu(this, P.SimpleFocus);
 		P.addCommands(this);

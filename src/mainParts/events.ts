@@ -1,7 +1,9 @@
-import { Plugin, TFile } from "obsidian";
+import { Plugin, TAbstractFile, TFile, TFolder } from "obsidian";
 import { clusterPluginSettings } from "src/settings/settings";
 import P from "src/util/P";
 import { getElementsObj } from "../navtree/naveTree";
+import { renamer } from "src/renamer/renamer";
+import { RenamedItem } from "src/types/obsidian";
 
 interface ExtendedPlugin extends Plugin {
   settings: clusterPluginSettings;
@@ -20,15 +22,29 @@ export function addEvents(plugin: ExtendedPlugin) {
       }
     }),
   );
-  // watch if file opened
+  // // watch if file opened
+  // plugin.registerEvent(
+  //   plugin.app.workspace.on("file-open", async () => {
+  //     setTimeout(() => P.newNavTreeStart(plugin), 100)
+  //   }),
+  // );
+  // plugin.registerEvent(
+  //   plugin.app.workspace.on("layout-change", async () => {
+  //     setTimeout(() => P.newNavTreeStart(plugin), 100)
+  //   }),
+  // );
   plugin.registerEvent(
-    plugin.app.workspace.on("file-open", async () => {
-      setTimeout(() => P.newNavTreeStart(plugin), 100)
-    }),
-  );
-  plugin.registerEvent(
-    plugin.app.workspace.on("layout-change", async () => {
-      setTimeout(() => P.newNavTreeStart(plugin), 100)
+    plugin.app.vault.on("rename", async (file, oldPath) => {
+
+      if (file.path.startsWith("CLUSTER")) {
+        const renamedFile: RenamedItem<TAbstractFile> = {
+          file: file,
+          oldPath: oldPath,
+          newPath: file.path
+        }
+        renamer(plugin, renamedFile)
+      }
+      // setTimeout(() => P.newNavTreeStart(plugin), 100)
     }),
   );
 

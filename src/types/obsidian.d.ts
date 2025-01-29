@@ -1,4 +1,4 @@
-import { TFile, View, WorkspaceLeaf, TAbstractFile } from 'obsidian';
+import { TFile, View, WorkspaceLeaf, TAbstractFile, TFolder } from 'obsidian';
 
 declare module 'obsidian' {
   interface Workspace {
@@ -51,3 +51,12 @@ export type Pair = {
   folder: FileItem
 }
 export type Pairs = Pair[]
+
+export type RenamedItem<T extends TAbstractFile> = {
+  file: T;
+  oldPath: string;
+  newPath: string;
+};
+
+export type RenamedItemTFile = RenamedItem<TFile>;
+export type RenamedItemTFolder = RenamedItem<TFolder>;
