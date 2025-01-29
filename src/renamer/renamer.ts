@@ -1,10 +1,10 @@
 import { TFile, TFolder, Plugin, TAbstractFile } from 'obsidian';
-import { ExplorerLeaf, ElementsObj, RenamedItem } from '../types/obsidian';
+import { RenamedItem } from '../types/obsidian';
 
-export function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
+export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
 
-  // 1.get the elements in CLUSTER 
-  const result = checkFileItemType(plugin, fileItem)
+  // s1.get the elements in CLUSTER 
+  const result = await checkFileItemType(plugin, fileItem)
   // if (!elements) {
   //   return
   // }
@@ -12,19 +12,20 @@ export function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
 }
 
 // Get Elements object from CLUSTERS folder
-export function checkFileItemType(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
-  // console.log("fileItem:", fileItem.file.parent?.name);
-
+export async function checkFileItemType(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
+  //_ if the file is cluster
   if (fileItem.file instanceof TFile) {
     const isThereChildrenFolder = checkFileChildrenFolder(fileItem as RenamedItem<TFile>)
-    if (!isThereChildrenFolder) {
-      console.log("Alone file:", !isThereChildrenFolder);
-      editAloneFile(plugin, fileItem as RenamedItem<TFile>)
+    if (isThereChildrenFolder) {
+      await editAloneFile(plugin, fileItem as RenamedItem<TFile>)
+      await plugin.app.fileManager.renameFile(isThereChildrenFolder, fileItem.newPath.slice(0, -3))
       return
     }
-    console.log("isThereChildrenFolder:", isThereChildrenFolder);
+    await editAloneFile(plugin, fileItem as RenamedItem<TFile>)
+    return
   }
-  // if(fileItem.file instanceof TFile && fileItem.file.parent?.name)
+
+  //_   if (fileItem.file instanceof TFolder)   
 }
 
 export function checkFileChildrenFolder(fileItem: RenamedItem<TFile>): TFolder | false {

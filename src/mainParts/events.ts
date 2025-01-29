@@ -45,7 +45,7 @@ export function addEvents(plugin: ExtendedPlugin) {
           newPath: file.path,
           newParent: file.parent.name
         }
-        renamer(plugin, renamedFile)
+        await renamer(plugin, renamedFile)
       }
       // setTimeout(() => P.newNavTreeStart(plugin), 100)
     }),
