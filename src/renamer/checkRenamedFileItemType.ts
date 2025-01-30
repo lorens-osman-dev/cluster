@@ -8,73 +8,74 @@ export function checkRenamedFileItemType(fileItem: RenamedItem<TAbstractFile>): 
   //# check 1
   const check1 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
-    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>), "the file did'nt has children"],
+    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "alone", "the file has children"],
     [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
   ])
-  if (check1) {
-    return 'file:hasChildren:notTheCluster';
+  if (check1 === true) {
+    return 'file:alone:notTheCluster';
   }
   //# check 2
   const check2 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
-    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>), "the file did'nt has children"],
+    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "alone", "the file has children"],
     [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "theCluster", "the file is not cluster"],
   ])
-  if (check2) {
-    return 'file:hasChildren:theCluster';
+  if (check2 === true) {
+    return 'file:alone:theCluster';
   }
   //# check3
   const check3 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
-    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === false, "the file has children"],
+    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "hasChildren", "the file has not children"],
     [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
   ])
-  if (check3) {
-    return 'file:alone:notTheCluster';
+  if (check3 === true) {
+    return 'file:hasChildren:notTheCluster';
   }
   //# check4
   const check4 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
-    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === false, "the file has children"],
+    [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "hasChildren", "the file has not children"],
     [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "theCluster", "the file is not cluster"],
   ])
-  if (check4) {
-    return 'file:alone:theCluster';
+  if (check4 === true) {
+    return 'file:hasChildren:theCluster';
   }
+  //= folders
   //# check5
   const check5 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "cluster", "the folder not cluster"],
-    [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "linked", "the folder unlinked"],
+    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "notTheCluster", "the folder is cluster"],
+    [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "unLinked", "the folder linked"],
   ])
-  if (check5) {
-    return 'folder:cluster:linked';
+  if (check5 === true) {
+    return 'folder:notTheCluster:unLinked';
   }
   //# check6
   const check6 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "cluster", "the folder not cluster"],
-    [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "unLinked", "the folder linked"],
+    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "notTheCluster", "the folder is cluster"],
+    [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "linked", "the folder unlinked"],
   ])
-  if (check6) {
-    return 'folder:cluster:unLinked';
+  if (check6 === true) {
+    return 'folder:notTheCluster:linked';
   }
   //# check7
   const check7 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "normal", "the folder is cluster"],
+    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "theCluster", "the folder not the cluster"],
     [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "unLinked", "the folder linked"],
   ])
-  if (check7) {
-    return 'folder:normal:unLinked';
+  if (check7 === true) {
+    return 'folder:theCluster:unLinked';
   }
   //# check8
   const check8 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "normal", "the folder is cluster"],
+    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "theCluster", "the folder not  cluster"],
     [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "linked", "the folder unlinked"],
   ])
-  if (check8) {
-    return 'folder:normal:linked';
+  if (check8 === true) {
+    return 'folder:theCluster:linked';
   }
 }
