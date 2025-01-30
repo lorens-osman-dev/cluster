@@ -28,6 +28,16 @@ function isFileCluster(fileItem: RenamedItem<TFile>): "theCluster" | "notTheClus
   }
   return "theCluster"
 }
+function isFolderClusterOrNormal(fileItem: RenamedItem<TFolder>): "normal" | "cluster" {
+  if (!(fileItem.file.name.contains("-cluster"))) {
+    return "normal"
+  }
+  const fileGeneration = fileItem.newPath.split('/').length - 2;
+  if (!(fileGeneration === 0)) {
+    return "normal"
+  }
+  return "cluster"
+}
 
 
 const isItem = {
