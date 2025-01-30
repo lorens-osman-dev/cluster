@@ -1,17 +1,31 @@
 import { TFile, TFolder, Plugin, TAbstractFile } from 'obsidian';
 import { RenamedItem } from '../types/obsidian';
+import isItem from './isItem';
+import { checkRenamedFileItemType } from './checkRenamedFileItemType';
+import U from 'src/util/U';
 
 export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
+  if (fileItem.file instanceof TFolder) {
 
-  // s1.get the elements in CLUSTER 
-  const result = await (plugin, fileItem)
-  // if (!elements) {
-  //   return
+    const t = checkRenamedFileItemType(fileItem)
+    console.log(`${fileItem.file.name} folder `, t)
+  }
+
+  // const check1 = U.IF([
+  //   [fileItem.file instanceof TFile, "the file is folder"],
+  //   [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "alone", "the file has children"],
+  //   [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
+  // ])
+  // if (check1 === true) {
+  //   console.log(fileItem.file.name + ":", check1);
+  //   return 'file:hasChildren:notTheCluster';
+  // } else {
+
+  //   console.log(fileItem.file.name + "else:\n", check1);
   // }
 
 }
 
-// Get Elements object from CLUSTERS folder
 
 
 export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {

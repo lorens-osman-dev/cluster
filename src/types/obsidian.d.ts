@@ -68,7 +68,7 @@ type FileType = "file" | "folder";
 type FileStatus = "alone" | "hasChildren";
 type IsCluster = "theCluster" | "notTheCluster";
 
-type FolderType = "normal" | "cluster";//cluster means the folder generation is 0 
+type FolderType = "theCluster" | "notTheCluster";//cluster means the folder generation is 0 
 
 type FolderClusteringState = "linked" | "unLinked"
 
