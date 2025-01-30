@@ -70,9 +70,9 @@ type IsCluster = "theCluster" | "notTheCluster";
 
 type FolderType = "normal" | "cluster";//cluster means the folder generation is 0 
 
-type ItemClusteringState = "sorted" | "unsorted"
+type FolderClusteringState = "linked" | "unLinked"
 
 export type RenamedFileItemType =
-  | `${"file"}:${FileStatus}:${IsCluster}:${ItemClusteringState}`
-  | `${"folder"}:${FolderType}:${ItemClusteringState}`;
+  | `${"file"}:${FileStatus}:${IsCluster}`
+  | `${"folder"}:${FolderType}:${FolderClusteringState}`;
 

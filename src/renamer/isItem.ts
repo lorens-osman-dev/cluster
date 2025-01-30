@@ -2,7 +2,7 @@ import { TAbstractFile, TFile, TFolder } from "obsidian"
 import { RenamedItem } from "src/types/obsidian"
 
 
-function isFileHasChildren(fileItem: RenamedItem<TFile>): Boolean {
+function isFileHasChildren(fileItem: RenamedItem<TFile>): boolean {
   const selfOldName = fileItem.oldPath.split("/").find(str => str.endsWith(".md"))?.slice(0, -3)
   const siblings = fileItem.file.parent?.children
   const isThereChildrenFolder = siblings?.find((item) => item instanceof TFolder && item.name === selfOldName) as TFolder
@@ -38,12 +38,24 @@ function isFolderClusterOrNormal(fileItem: RenamedItem<TFolder>): "normal" | "cl
   }
   return "cluster"
 }
+function whatClusteringState(fileItem: RenamedItem<TFolder>): "linked" | "unLinked" {
+  const selfName = fileItem.file.name
+  const siblings = fileItem.file.parent?.children
+  const mainNoteOfFolder = siblings?.find((item) => item instanceof TFile && item.basename === selfName) as TFile
+  if (mainNoteOfFolder) {
+    return "linked"
+  }
+  return "unLinked"
+}
 
 
 const isItem = {
   isFileOrFolder,
   isFileHasChildren,
   isFileCluster,
-  isFolderClusterOrNormal
+  isFolderClusterOrNormal,
   whatClusteringState
+
 }
+
+export default isItem
