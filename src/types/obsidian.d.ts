@@ -66,7 +66,7 @@ export type RenamedItemTFolder = RenamedItem<TFolder>;
 type FileType = "file" | "folder";
 
 type FileStatus = "alone" | "hasChildren";
-type IsCluster = "isTheCluster" | "noTheCluster";
+type IsCluster = "theCluster" | "notTheCluster";
 
 type FolderType = "normal" | "cluster";//cluster means the folder generation is 0 
 

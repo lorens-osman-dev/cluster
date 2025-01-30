@@ -16,6 +16,7 @@ export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFil
 
 export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
   //_ if the file is cluster
+  //_ forbid naming -cluster for non cluster
   if (fileItem.file instanceof TFile) {
     const isThereChildrenFolder = getFileHasChildrenFolder(fileItem as RenamedItem<TFile>)
     if (isThereChildrenFolder) {
