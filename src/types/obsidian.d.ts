@@ -62,3 +62,17 @@ export type RenamedItem<T extends TAbstractFile> = {
 
 export type RenamedItemTFile = RenamedItem<TFile>;
 export type RenamedItemTFolder = RenamedItem<TFolder>;
+
+type FileType = "file" | "folder";
+
+type FileStatus = "alone" | "hasChildren";
+type IsCluster = "isTheCluster" | "noTheCluster";
+
+type FolderType = "normal" | "cluster";//cluster means the folder generation is 0 
+
+type ItemClusteringState = "sorted" | "unsorted"
+
+export type RenamedFileItemType =
+  | `${"file"}:${FileStatus}:${IsCluster}:${ItemClusteringState}`
+  | `${"folder"}:${FolderType}:${ItemClusteringState}`;
+

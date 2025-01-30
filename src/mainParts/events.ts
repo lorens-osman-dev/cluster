@@ -1,4 +1,4 @@
-import { Plugin, TAbstractFile, TFile, TFolder } from "obsidian";
+import { Plugin, TAbstractFile, TFile } from "obsidian";
 import { clusterPluginSettings } from "src/settings/settings";
 import P from "src/util/P";
 import { getElementsObj } from "../navtree/naveTree";
