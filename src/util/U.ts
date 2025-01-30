@@ -34,7 +34,7 @@ function IF(conditions: [boolean, string][]): true | ErrorsString {
   const errs: string[] = [];
   let errsNumber = 0;
   conditions.forEach((condition) => {
-    if (condition[0]) {//condition itself is array [0] means first item
+    if (!condition[0]) {//condition itself is array [0] means first item
       errsNumber++;
       errs.push(`${errsNumber} : ${condition[1]}`);
     }
