@@ -2,21 +2,17 @@ import { TFile, TFolder, Plugin, TAbstractFile } from 'obsidian';
 import { RenamedFileItemType, RenamedItem } from '../types/obsidian';
 import { checkRenamedFileItemType } from './checkRenamedFileItemType';
 import doModify from './doModify';
-import isItem from './isItem';
 
 export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
-  const ff = isItem.isFileCluster(plugin, fileItem)
-  console.log("ff:", ff);
-  // const renamedFileItemType = checkRenamedFileItemType(plugin, fileItem)
-  // console.log(fileItem.file.name + "-->", renamedFileItemType);
-  // if (!renamedFileItemType) {
-  //   console.log("renamedFileItemType:", renamedFileItemType);
-  //   return
-  // }
-  // //do rename
-  // rename(plugin, fileItem, renamedFileItemType)
+  const renamedFileItemType = checkRenamedFileItemType(plugin, fileItem)
+  console.log(fileItem.file.name + "-->", renamedFileItemType);
+  if (!renamedFileItemType) {
+    console.log("renamedFileItemType:", renamedFileItemType);
+    return
+  }
+  //do rename
+  rename(plugin, fileItem, renamedFileItemType)
 }
-
 
 
 export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>, type: RenamedFileItemType) {
@@ -25,8 +21,7 @@ export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile
     await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
     await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
   }
-  // file:alone:theCluster //! forbid naming -cluster for non cluster
-
+  // file:alone:theCluster 
   if (type === "file:alone:theCluster") {
     await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
   }
