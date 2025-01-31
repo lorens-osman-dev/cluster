@@ -11,7 +11,7 @@ export async function templates(activeFile: TFile, type: string) {
 
     if (type == "clusterSon") {
 
-        U.IF.ELSE(() => {
+        U.bigIF.ELSE(() => {
             const frontmatterProperties = this.app.metadataCache.getFileCache(activeFile).frontmatter;
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == "Cluster")
             const selfTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == activeFile.basename)
@@ -19,7 +19,7 @@ export async function templates(activeFile: TFile, type: string) {
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length // how many "/" in the path
             const parentFileLink = frontmatterProperties?.parent
 
-            U.IF.checkAll([
+            U.bigIF.checkAll([
                 [!frontmatterProperties, `Please set frontmatter properties`],
                 [!activeFile.basename.endsWith("-cluster"), "cluster file must ends with '-cluster' word .\nexample :'lorens-cluster'"],
                 [!((activeFile.path.match(/\//g) || []).length == 1), "The Cluster should not be in this generation."],
@@ -47,7 +47,7 @@ generation: ${generationFromActiveFilePath}
 
     } else if (type == "normalSon") {
 
-        U.IF.ELSE(() => {
+        U.bigIF.ELSE(() => {
             const frontmatterProperties = this.app.metadataCache.getFileCache(activeFile).frontmatter;
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '').replace(/ /g, "-")
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
@@ -57,7 +57,7 @@ generation: ${generationFromActiveFilePath}
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length - 1 // how many "/" in the path
             const parentFileLink = frontmatterProperties?.parent
 
-            U.IF.checkAll([
+            U.bigIF.checkAll([
 
                 [!frontmatterProperties, `Please set frontmatter properties`],
                 [isClusterTagExist == undefined, `You Should add '${clusterTagName}' tag which refers to the containing cluster.`],
@@ -86,7 +86,7 @@ generation: ${generationFromActiveFilePath + 1}
         })
     } else if (type == "brother") {
 
-        U.IF.ELSE(() => {
+        U.bigIF.ELSE(() => {
             const frontmatterProperties = this.app.metadataCache.getFileCache(activeFile).frontmatter;
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '').replace(/ /g, "-")
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
@@ -95,7 +95,7 @@ generation: ${generationFromActiveFilePath + 1}
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length - 1 // how many "/" in the path
             const parentFileLink = frontmatterProperties?.parent
 
-            U.IF.checkAll([
+            U.bigIF.checkAll([
                 [!frontmatterProperties, `Please set frontmatter properties`],
                 [isClusterTagExist == undefined, `You Should add '${clusterTagName}' tag which refers to the containing cluster.`],
                 [parentFileLink === undefined, "Set the parent property."],
