@@ -20,6 +20,7 @@ export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile
   if (type === "file:alone:notTheCluster") {
     await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
     await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
   }
   // file:alone:theCluster 
   if (type === "file:alone:theCluster") {

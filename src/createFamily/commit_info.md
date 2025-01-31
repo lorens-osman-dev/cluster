@@ -8,3 +8,4 @@
 -   [ ] fix prevent making children withe "-cluster" name
 -   [ ] اخفي زر الحذف ضمن مجلد الكلستر عند الصغط على زر اليمين
 -   [ ] READEME.md
+-   [ ] Make TESTS

@@ -1,4 +1,4 @@
-import { TFile, TFolder, Plugin } from 'obsidian';
+import { TFile, TFolder, Plugin, Notice } from 'obsidian';
 import { RenamedItem } from "src/types/obsidian";
 import isItem from './isItem';
 
@@ -55,13 +55,22 @@ async function renameChildrenFolder(plugin: Plugin, fileItem: RenamedItem<TFile>
 async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TFile>): Promise<void> {
   if (isItem.isFileCluster(plugin, fileItem) === "theCluster") {
     const oldName = fileItem.oldPath.split("/")[1].slice(0, -3)
-    console.log("oldName:", oldName);
     const newName = fileItem.newPath.split("/")[1].slice(0, -3)
-    console.log("newName:", newName);
     if (oldName.endsWith("-cluster") && !(newName.endsWith("-cluster"))) {
       try {
         await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
-        console.log("errrr")
+        new Notice("The file name must include the '-cluster' suffix.", 3000)
+      } catch (error) {
+        console.error("Error renaming cluster file:", error);
+      }
+    }
+  }
+  if (isItem.isFileCluster(plugin, fileItem) === "notTheCluster") {
+    const newName = fileItem.file.basename
+    if (newName.endsWith("-cluster")) {
+      try {
+        await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
+        new Notice("You cannot add the '-cluster' suffix to this file.", 3000)
       } catch (error) {
         console.error("Error renaming cluster file:", error);
       }
