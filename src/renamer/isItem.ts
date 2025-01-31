@@ -18,21 +18,24 @@ function isFileCluster(plugin: Plugin, fileItem: RenamedItem<TFile>): "theCluste
     return
   }
   const frontmatter = plugin.app.metadataCache.getFileCache(fileItem.file)?.frontmatter;
-  const theClusterTag = (frontmatter?.tags as string[]).find(tag => tag === "Cluster");
-  const clusterTag = (frontmatter?.tags as string[]).find(tag => tag.contains("-cluster"));
+  const theClusterTag = (frontmatter?.tags as string[])?.find(tag => tag === "Cluster");
+  const clusterTag = (frontmatter?.tags as string[])?.find(tag => tag.contains("-cluster"));
+  const fileGeneration = frontmatter?.generation
+  const parent = frontmatter?.parent
   const oldName = fileItem.oldPath.split("/")[1].slice(0, -3);
   const newName = fileItem.newPath.split("/")[1].slice(0, -3);
-  const fileGeneration = fileItem.newPath.split('/').length - 2;
   const result = U.IF([
     [fileItem.file instanceof TFile, "its is folder"],
     [oldName.endsWith("-cluster"), "old name didn't end with cluster"],
     [fileGeneration === 0, "cluster generation must be 0 "],
     [theClusterTag === "Cluster", "there is no Cluster tag"],
-    [!clusterTag, "there parent cluster"],
+    [!clusterTag, `${clusterTag} forbidden`],
+    [!parent, `the parent property ${parent} forbidden`],
   ])
   if (result === true) {
     return "theCluster"
   } else {
+    console.log(result)
     return "notTheCluster"
   }
 

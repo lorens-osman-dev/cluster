@@ -2,18 +2,19 @@ import { TFile, TFolder, Plugin, TAbstractFile } from 'obsidian';
 import { RenamedFileItemType, RenamedItem } from '../types/obsidian';
 import { checkRenamedFileItemType } from './checkRenamedFileItemType';
 import doModify from './doModify';
+import isItem from './isItem';
 
 export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
-  // const ff = plugin.app.metadataCache.getFirstLinkpathDest("sss.md", "")
-  // console.log("ff:", ff);
-  const renamedFileItemType = checkRenamedFileItemType(plugin, fileItem)
-  console.log(fileItem.file.name + "-->", renamedFileItemType);
-  if (!renamedFileItemType) {
-    console.log("renamedFileItemType:", renamedFileItemType);
-    return
-  }
-  //do rename
-  rename(plugin, fileItem, renamedFileItemType)
+  const ff = isItem.isFileCluster(plugin, fileItem)
+  console.log("ff:", ff);
+  // const renamedFileItemType = checkRenamedFileItemType(plugin, fileItem)
+  // console.log(fileItem.file.name + "-->", renamedFileItemType);
+  // if (!renamedFileItemType) {
+  //   console.log("renamedFileItemType:", renamedFileItemType);
+  //   return
+  // }
+  // //do rename
+  // rename(plugin, fileItem, renamedFileItemType)
 }
 
 

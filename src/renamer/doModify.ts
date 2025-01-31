@@ -1,9 +1,9 @@
 import { TFile, TFolder, Plugin } from 'obsidian';
 import { RenamedItem } from "src/types/obsidian";
+import isItem from './isItem';
 
 async function updateParentFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFile>) {
-  const oldName = fileItem.oldPath.split("/")[1].slice(0, -3);
-  if (!(oldName.endsWith("-cluster"))) {
+  if (isItem.isFileCluster(plugin, fileItem) === "notTheCluster") {
     try {
       await plugin.app.fileManager.processFrontMatter(fileItem.file, (frontmatter) => {
         if (!frontmatter) {
@@ -20,8 +20,7 @@ async function updateParentFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFi
   }
 }
 async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFile>) {
-  const oldName = fileItem.oldPath.split("/")[1].slice(0, -3);
-  if (!(oldName.endsWith("-cluster"))) {
+  if (isItem.isFileCluster(plugin, fileItem) === "notTheCluster") {
     try {
       await plugin.app.fileManager.processFrontMatter(fileItem.file, (frontmatter) => {
         if (!frontmatter) {
@@ -54,19 +53,20 @@ async function renameChildrenFolder(plugin: Plugin, fileItem: RenamedItem<TFile>
   }
 }
 async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TFile>): Promise<void> {
-  const oldName = fileItem.oldPath.split("/")[1].slice(0, -3)
-  console.log("oldName:", oldName);
-  const newName = fileItem.newPath.split("/")[1].slice(0, -3)
-  console.log("newName:", newName);
-  if (oldName.endsWith("-cluster") && !(newName.endsWith("-cluster"))) {
-    try {
-      await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
-      console.log("errrr")
-    } catch (error) {
-      console.error("Error renaming cluster file:", error);
+  if (isItem.isFileCluster(plugin, fileItem) === "theCluster") {
+    const oldName = fileItem.oldPath.split("/")[1].slice(0, -3)
+    console.log("oldName:", oldName);
+    const newName = fileItem.newPath.split("/")[1].slice(0, -3)
+    console.log("newName:", newName);
+    if (oldName.endsWith("-cluster") && !(newName.endsWith("-cluster"))) {
+      try {
+        await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
+        console.log("errrr")
+      } catch (error) {
+        console.error("Error renaming cluster file:", error);
+      }
     }
   }
-
 }
 const doModify = {
   file: {
