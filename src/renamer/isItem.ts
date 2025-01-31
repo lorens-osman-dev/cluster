@@ -1,4 +1,4 @@
-import { TAbstractFile, TFile, TFolder } from "obsidian"
+import { TFile, TFolder } from "obsidian"
 import { RenamedItem } from "src/types/obsidian"
 
 
@@ -12,12 +12,6 @@ function isFileHasChildren(fileItem: RenamedItem<TFile>): "alone" | "hasChildren
   return "alone"
 }
 
-function isFileOrFolder(fileItem: RenamedItem<TAbstractFile>): "file" | "folder" {
-  if (fileItem.file instanceof TFile) {
-    return "file"
-  }
-  return "folder"
-}
 function isFileCluster(fileItem: RenamedItem<TFile>): "theCluster" | "notTheCluster" | undefined {
   if (fileItem.file instanceof TFolder) {
     return
