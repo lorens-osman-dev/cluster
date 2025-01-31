@@ -55,6 +55,7 @@ generation: ${generationFromActiveFilePath}
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length - 1 // how many "/" in the path
+            //FIX how To ensure that a normalized link like [[tt|tt]] always refers to the specific file [[CLUSTERS/tto-cluster/qqq/tt|tt]]
             const parentFileLink = frontmatterProperties?.parent
 
             U.bigIF.checkAll([
@@ -93,6 +94,7 @@ generation: ${generationFromActiveFilePath + 1}
             const activeFileParentLink = `[[${activeFile?.parent?.path}|${activeFile?.parent?.name}]]`
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length - 1 // how many "/" in the path
+            //FIX how To ensure that a normalized link like [[tt|tt]] always refers to the specific file [[CLUSTERS/tto-cluster/qqq/tt|tt]]
             const parentFileLink = frontmatterProperties?.parent
 
             U.bigIF.checkAll([

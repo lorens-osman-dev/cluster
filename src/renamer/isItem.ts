@@ -1,5 +1,6 @@
-import { TFile, TFolder } from "obsidian"
+import { Plugin, TFile, TFolder } from "obsidian"
 import { RenamedItem } from "src/types/obsidian"
+import U from "src/util/U"
 
 
 function isFileHasChildren(fileItem: RenamedItem<TFile>): "alone" | "hasChildren" {
@@ -12,18 +13,29 @@ function isFileHasChildren(fileItem: RenamedItem<TFile>): "alone" | "hasChildren
   return "alone"
 }
 
-function isFileCluster(fileItem: RenamedItem<TFile>): "theCluster" | "notTheCluster" | undefined {
+function isFileCluster(plugin: Plugin, fileItem: RenamedItem<TFile>): "theCluster" | "notTheCluster" | undefined {
   if (fileItem.file instanceof TFolder) {
     return
   }
-  if (!(fileItem.file.basename.contains("-cluster"))) {
-    return "notTheCluster"
-  }
+  const frontmatter = plugin.app.metadataCache.getFileCache(fileItem.file)?.frontmatter;
+  const theClusterTag = (frontmatter?.tags as string[]).find(tag => tag === "Cluster");
+  const clusterTag = (frontmatter?.tags as string[]).find(tag => tag.contains("-cluster"));
+  const oldName = fileItem.oldPath.split("/")[1].slice(0, -3);
+  const newName = fileItem.newPath.split("/")[1].slice(0, -3);
   const fileGeneration = fileItem.newPath.split('/').length - 2;
-  if (!(fileGeneration === 0)) {
+  const result = U.IF([
+    [fileItem.file instanceof TFile, "its is folder"],
+    [oldName.endsWith("-cluster"), "old name didn't end with cluster"],
+    [fileGeneration === 0, "cluster generation must be 0 "],
+    [theClusterTag === "Cluster", "there is no Cluster tag"],
+    [!clusterTag, "there parent cluster"],
+  ])
+  if (result === true) {
+    return "theCluster"
+  } else {
     return "notTheCluster"
   }
-  return "theCluster"
+
 }
 function isFolderClusterOrNormal(fileItem: RenamedItem<TFolder>): "theCluster" | "notTheCluster" {
   if (!(fileItem.file.name.contains("-cluster"))) {

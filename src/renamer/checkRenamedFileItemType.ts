@@ -1,15 +1,15 @@
-import { TFile, TFolder, TAbstractFile } from 'obsidian';
+import { TFile, TFolder, TAbstractFile, Plugin } from 'obsidian';
 import { RenamedFileItemType, RenamedItem } from "src/types/obsidian"
 import U from 'src/util/U';
 import isItem from './isItem';
 
 
-export function checkRenamedFileItemType(fileItem: RenamedItem<TAbstractFile>): RenamedFileItemType | undefined {
+export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>): RenamedFileItemType | undefined {
   //# check 1
   const check1 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
     [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "alone", "the file has children"],
-    [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
+    [isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
   ])
   if (check1 === true) {
     return 'file:alone:notTheCluster';
@@ -18,7 +18,7 @@ export function checkRenamedFileItemType(fileItem: RenamedItem<TAbstractFile>): 
   const check2 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
     [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "alone", "the file has children"],
-    [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "theCluster", "the file is not cluster"],
+    [isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "theCluster", "the file is not cluster"],
   ])
   if (check2 === true) {
     return 'file:alone:theCluster';
@@ -27,7 +27,7 @@ export function checkRenamedFileItemType(fileItem: RenamedItem<TAbstractFile>): 
   const check3 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
     [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "hasChildren", "the file has not children"],
-    [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
+    [isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
   ])
   if (check3 === true) {
     return 'file:hasChildren:notTheCluster';
@@ -36,7 +36,7 @@ export function checkRenamedFileItemType(fileItem: RenamedItem<TAbstractFile>): 
   const check4 = U.IF([
     [fileItem.file instanceof TFile, "the file is folder"],
     [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "hasChildren", "the file has not children"],
-    [isItem.isFileCluster(fileItem as RenamedItem<TFile>) === "theCluster", "the file is not cluster"],
+    [isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "theCluster", "the file is not cluster"],
   ])
   if (check4 === true) {
     return 'file:hasChildren:theCluster';
