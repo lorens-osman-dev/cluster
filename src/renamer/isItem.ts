@@ -1,4 +1,4 @@
-import { Plugin, TFile, TFolder } from "obsidian"
+import { Notice, Plugin, TAbstractFile, TFile, TFolder } from "obsidian"
 import { RenamedItem } from "src/types/obsidian"
 import U from "src/util/U"
 
@@ -88,12 +88,38 @@ function whatClusteringState(fileItem: RenamedItem<TFolder>): "linked" | "unLink
   return "unLinked"
 }
 
+async function isCLUSTERSorORPHANS(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>): Promise<boolean> {
+  if (fileItem.file instanceof TFolder && fileItem.oldPath === "CLUSTERS") {
+    if (fileItem.newPath !== "CLUSTERS") {
+      try {
+        await plugin.app.fileManager.renameFile(fileItem.file, "CLUSTERS");
+        new Notice("This folder should remains with CLUSTERS name", 3000)
+        return true
+      } catch (error) {
+        console.error("Error renaming cluster file:", error);
+      }
+    }
+  }
+  if (fileItem.file instanceof TFolder && fileItem.oldPath === "ORPHANS") {
+    if (fileItem.newPath !== "ORPHANS") {
+      try {
+        await plugin.app.fileManager.renameFile(fileItem.file, "ORPHANS");
+        new Notice("This folder should remains with ORPHANS name", 3000)
+        return true
+      } catch (error) {
+        console.error("Error renaming cluster file:", error);
+      }
+    }
+  }
+  return false
+}
 
 const isItem = {
   isFileHasChildren,
   isFileCluster,
   isFolderCluster,
-  whatClusteringState
+  whatClusteringState,
+  isCLUSTERSorORPHANS
 }
 
 export default isItem

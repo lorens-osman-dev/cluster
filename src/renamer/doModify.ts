@@ -72,6 +72,7 @@ async function renameChildrenFolder(plugin: Plugin, fileItem: RenamedItem<TFile>
   }
 }
 async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>): Promise<boolean> {
+  //= files
   if (fileItem.file instanceof TFile && isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "theCluster") {
     const oldName = fileItem.oldPath.split("/")[1].slice(0, -3)
     const newName = fileItem.newPath.split("/")[1].slice(0, -3)
@@ -97,6 +98,7 @@ async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbst
       }
     }
   }
+  //= folders
   if (fileItem.file instanceof TFolder && isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "theCluster") {
     const oldName = fileItem.oldPath.split("/")[1];
     const newName = fileItem.newPath.split("/")[1];

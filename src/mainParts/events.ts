@@ -36,7 +36,7 @@ export function addEvents(plugin: ExtendedPlugin) {
   plugin.registerEvent(
     plugin.app.vault.on("rename", async (file, oldPath) => {
 
-      if (file && file.parent && file.path.startsWith("CLUSTER")) {
+      if (file && file.parent && (oldPath.startsWith("CLUSTERS") || oldPath.startsWith("ORPHANS"))) {
         const partsOfOldPath = oldPath.split("/")
         const renamedFile: RenamedItem<TAbstractFile> = {
           file: file,
@@ -47,8 +47,7 @@ export function addEvents(plugin: ExtendedPlugin) {
         }
         await renamer(plugin, renamedFile)
       }
-      // setTimeout(() => P.newNavTreeStart(plugin), 100)
-    }),
+    })
   );
 
   plugin.registerEvent(

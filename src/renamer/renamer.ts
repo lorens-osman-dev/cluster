@@ -2,20 +2,27 @@ import { TFile, TFolder, Plugin, TAbstractFile } from 'obsidian';
 import { RenamedFileItemType, RenamedItem } from '../types/obsidian';
 import { checkRenamedFileItemType } from './checkRenamedFileItemType';
 import doModify from './doModify';
-
+import isItem from './isItem';
+//_ renamer
 export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
+  // check if the name CLUSTERS or ORPHANS
+  if (await isItem.isCLUSTERSorORPHANS(plugin, fileItem)) {
+    return
+  }
   const renamedFileItemType = checkRenamedFileItemType(plugin, fileItem)
   if (!renamedFileItemType) {
-    console.log(fileItem.file.name + ": undifined -->", renamedFileItemType);
+    console.log(fileItem.file.name + ": undefined -->", renamedFileItemType);
     return
   }
   console.log(fileItem.file.name + "-->", renamedFileItemType);
+
   //do rename
-  rename(plugin, fileItem, renamedFileItemType)
+  await rename(plugin, fileItem, renamedFileItemType)
 }
 
 
-export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>, type: RenamedFileItemType) {
+//_ rename
+async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>, type: RenamedFileItemType) {
   // file:alone:notTheCluster
   if (type === "file:alone:notTheCluster") {
     const forbid = await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
