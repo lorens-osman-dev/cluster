@@ -1,7 +1,5 @@
 ## Did
 
--   [*] son --> child , father --> parent , brother --> sibling
-
 ## ToDo
 
 -   [ ] FIX you need to add buttons line when onload if there is an active file

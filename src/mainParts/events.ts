@@ -22,17 +22,19 @@ export function addEvents(plugin: ExtendedPlugin) {
       }
     }),
   );
-  // // watch if file opened
-  // plugin.registerEvent(
-  //   plugin.app.workspace.on("file-open", async () => {
-  //     setTimeout(() => P.newNavTreeStart(plugin), 100)
-  //   }),
-  // );
-  // plugin.registerEvent(
-  //   plugin.app.workspace.on("layout-change", async () => {
-  //     setTimeout(() => P.newNavTreeStart(plugin), 100)
-  //   }),
-  // );
+  // watch if file opened
+  plugin.registerEvent(
+    plugin.app.workspace.on("file-open", async () => {
+      setTimeout(() => P.newNavTreeStart(plugin), 100)
+    }),
+  );
+  // watch if layout-change
+  plugin.registerEvent(
+    plugin.app.workspace.on("layout-change", async () => {
+      setTimeout(() => P.newNavTreeStart(plugin), 100)
+    }),
+  );
+  // watch if file renamed
   plugin.registerEvent(
     plugin.app.vault.on("rename", async (file, oldPath) => {
 
@@ -49,7 +51,7 @@ export function addEvents(plugin: ExtendedPlugin) {
       }
     })
   );
-
+  // watch if custom event deleteToMove
   plugin.registerEvent(
     plugin.app.workspace.on('deleteToMove', (data) => {
       const dataPathMD = `${data.path}.md`

@@ -3,22 +3,20 @@ import { ExplorerLeaf, ElementsObj, Pairs } from '../types/obsidian';
 
 export function newNavTreeStart(plugin: Plugin) {
 
-  // 1.get the elements in CLUSTER 
+  //: 1.get the elements in CLUSTER 
   const elements = getElementsObj(plugin)
   if (!elements) {
     return
   }
-  // 1.extract/sort the pairs from elements
+  //: 2.extract/sort the pairs from elements
   const pairs = getPairs(elements)
   if (!pairs) {
     return
   }
-  // 3.edit the old navTree
+  //: 3.edit the old navTree
   oldNavTreeChange(plugin, pairs)
 }
-export function dealWithOldToMove() {
 
-}
 export function oldNavTreeChange(plugin: Plugin, pairs: Pairs) {
   pairs.forEach((pair) => {
     const targetInnerEl = pair.folder.innerEl;
@@ -70,6 +68,8 @@ export function toMoveGenerationClassAdd(el: HTMLElement, path: string) {
   }
   el.addClass(`g${gen}`);
 }
+
+// get pairs
 export function getPairs(elements: ElementsObj): Pairs | undefined {
   const pairs: Pairs = [];
   elements.folders.forEach((folder) => {
@@ -87,8 +87,6 @@ export function getPairs(elements: ElementsObj): Pairs | undefined {
   });
   return pairs.length > 0 ? pairs : undefined;
 }
-
-
 
 // Get Elements object from CLUSTERS folder
 export function getElementsObj(plugin: Plugin): ElementsObj | undefined {
