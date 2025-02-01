@@ -77,10 +77,10 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 
 ![baby](https://github.com/lorens-osman-dev/cluster/blob/assets/babdc.svg)
 
--   This button creates a new note linked to the current note, we call it `son` note.
--   `son` note means the new created note will contains link to the current note and tag with cluster's name.
--   The generation property of the `son` note will be the current note's generation +1
--   A new folder with the same name of current note will be created for all `son` notes of the current note.
+-   This button creates a new note linked to the current note, we call it `child` note.
+-   `child` note means the new created note will contains link to the current note and tag with cluster's name.
+-   The generation property of the `child` note will be the current note's generation +1
+-   A new folder with the same name of current note will be created for all `child` notes of the current note.
 
 ![brother](https://github.com/lorens-osman-dev/cluster/blob/assets/git-compare.svg)
 
@@ -96,7 +96,7 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 
 -   This button deletes current note.
 -   If the current note has no brothers the containing folder will be deleted.
--   If the current note has sons the sons will be deleted along with their own folders.
+-   If the current note has children the children will be deleted along with their own folders.
 -   If the current note is `cluster` all the cluster's files and folders will be deleted.
 
 ![extra buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/arrow-left-square.svg?raw=true)
@@ -118,7 +118,7 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 ### ⚙️ PC Recommendation
 
 -   Set `Ctrl+Shift+B` hotkey to New brother command.
--   Set `Ctrl+Shift+S` hotkey to New son command.
+-   Set `Ctrl+Shift+S` hotkey to New child command.
 -   Set `Ctrl+Shift+C` hotkey to New cluster command.
 -   Set `Ctrl+Shift+D` hotkey to Delete active note command.
 
@@ -126,10 +126,10 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 
 **The Challenge**:
 
-Currently, the Cluster plugin for each `son` note creates a subfolder with the same name as the `parent` note, following these steps :
+Currently, the Cluster plugin for each `child` note creates a subfolder with the same name as the `parent` note, following these steps :
 
 1. create folder with same name of the `parent` note if is not exist.
-2. Create the `son` note within the newly created folder.
+2. Create the `child` note within the newly created folder.
 
 **Benefits:**
 

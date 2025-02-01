@@ -22,14 +22,14 @@ export function addCommands(plugin: Plugin) {
     },
   });
   plugin.addCommand({
-    id: "New-Son",
-    name: "New son",
+    id: "New-Child",
+    name: "New child",
     callback: () => {
       createClustersAndOrphansFolder(plugin.app);
       new familyModal(
         plugin.app,
         NewFileLocation.NewTab,
-        "newSon",
+        "newChild",
         undefined,
       ).open();
     },

@@ -21,7 +21,7 @@ export default class deleteActiveNoteModal extends Modal {
     this.inputEl.addClasses(["prompt-input", "inputDelete"])
 
     //-Delete message 
-    const theRelatedSonsFolder = getActiveFile?.parent?.children?.find((item: any) => {
+    const theRelatedChildrenFolder = getActiveFile?.parent?.children?.find((item: any) => {
       //normale note
       if (item instanceof TFolder && item.name == getActiveFile.basename) {
         return item
@@ -33,8 +33,8 @@ export default class deleteActiveNoteModal extends Modal {
     })
     const text = document.createElement('div');
     text.addClass("delMsg")
-    if (theRelatedSonsFolder) {
-      text.appendChild(this.createDeleteMsg1(getActiveFile, theRelatedSonsFolder))
+    if (theRelatedChildrenFolder) {
+      text.appendChild(this.createDeleteMsg1(getActiveFile, theRelatedChildrenFolder))
     } else {
       text.appendChild(this.createDeleteMsg2(getActiveFile))
     }
@@ -87,8 +87,8 @@ export default class deleteActiveNoteModal extends Modal {
     const theContainingFolder = getActiveFile?.parent
     const theContainingFolderItemsNumber = getActiveFile?.parent?.children.length
 
-    //Related Sons Folder
-    const theRelatedSonsFolder = getActiveFile?.parent?.children.find((item: any) => {
+    //Related Children Folder
+    const theRelatedChildrenFolder = getActiveFile?.parent?.children.find((item: any) => {
       // normal note
       if (item instanceof TFolder && item.name == getActiveFile?.basename) {
         return item
@@ -99,11 +99,11 @@ export default class deleteActiveNoteModal extends Modal {
       }
     })
 
-    if (theRelatedSonsFolder) {
-      //delete current active file + delete its Sons
+    if (theRelatedChildrenFolder) {
+      //delete current active file + delete its children
 
       await this.app.vault.trash(getActiveFile!, true)
-      await this.app.vault.trash(theRelatedSonsFolder, true)
+      await this.app.vault.trash(theRelatedChildrenFolder, true)
       if (theContainingFolderItemsNumber == 2) {
 
         await this.app.vault.trash(theContainingFolder as TAbstractFile, true)
@@ -130,7 +130,7 @@ export default class deleteActiveNoteModal extends Modal {
       this.close();
     }
   }
-  createDeleteMsg1(activeFile: any, theRelatedSonsFolder: any) {
+  createDeleteMsg1(activeFile: any, theRelatedChildrenFolder: any) {
     // Create the container element
     const deleteMsgContainer = document.createElement('div');
 
@@ -157,11 +157,11 @@ export default class deleteActiveNoteModal extends Modal {
 
     const delNoteNameMsg2 = document.createElement('span');
     delNoteNameMsg2.classList.add('delNoteNameMsg');
-    delNoteNameMsg2.textContent = `${theRelatedSonsFolder.children.length}`;
+    delNoteNameMsg2.textContent = `${theRelatedChildrenFolder.children.length}`;
     deleteMsgContainer.appendChild(delNoteNameMsg2);
 
     const text4 = document.createElement('span');
-    text4.textContent = '] direct sons in [' + activeFile.basename + '] folder';
+    text4.textContent = '] direct children in [' + activeFile.basename + '] folder';
     deleteMsgContainer.appendChild(text4);
 
     return deleteMsgContainer

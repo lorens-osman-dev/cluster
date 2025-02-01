@@ -30,17 +30,17 @@ export default function svgElements() {
 
             return con;
         },
-        son: function () {
+        child: function () {
             // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon", "son");
+            con.classList.add("inputMsgCon", "child");
 
             // 2 - SVG Element
             setIcon(con, 'baby');
 
             // 3 - Text Element
             const text = document.createElement('div');
-            text.innerText = "Create Son";
+            text.innerText = "Create Child";
             text.classList.add("textMsg");
 
             // Append Text element to the container

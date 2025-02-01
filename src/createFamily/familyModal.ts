@@ -58,7 +58,7 @@ export default class familyModal extends Modal {
         this.inputEl.addClasses(["prompt-input", "inputDelete"])
         this.modalEl.appendChild(svgElements().noThing());
         const text = document.createElement('div');
-        text.innerText = `Son ?! Brother ?! of what??\nNo active file in the work space, Press ESC`
+        text.innerText = `Child ?! Brother ?! of what??\nNo active file in the work space, Press ESC`
         text.addClass("nothingMsg")
 
         this.modalEl.appendChild(text);
@@ -68,9 +68,9 @@ export default class familyModal extends Modal {
     } else if (this.createType == "newCluster") {
       this.inputEl.placeholder = `Type the new Cluster name`;
       this.modalEl.appendChild(svgElements().cluster());
-    } else if (this.createType == "newSon") {
-      this.inputEl.placeholder = `Type the son name of [${getActiveFile.basename}] note`;
-      this.modalEl.appendChild(svgElements().son());
+    } else if (this.createType == "newChild") {
+      this.inputEl.placeholder = `Type the child name of [${getActiveFile.basename}] note`;
+      this.modalEl.appendChild(svgElements().child());
     } else if (this.createType == "newBrother") {
       this.inputEl.placeholder = `Type the brother name of [${getActiveFile.basename}] note`;
       this.modalEl.appendChild(svgElements().brother());
@@ -135,27 +135,27 @@ export default class familyModal extends Modal {
     const currentActiveFileName = getActiveFile?.basename;
 
 
-    //-make clusterSon to the current active file
-    if (this.createType == "newSon") {
+    //-make clusterChild to the current active file
+    if (this.createType == "newChild") {
       if (getActiveFile?.path?.startsWith(clusters)) {
         if (getActiveFile.basename.endsWith("-cluster")) {
           if ((getActiveFile.path.match(/\//g) || []).length == 1) {
-            const result = await templates(getActiveFile, "clusterSon");
+            const result = await templates(getActiveFile, "clusterChild");
             if (result.state) {
               const childNameFromInput = this.inputEl.value.trim();
               if (childNameFromInput.endsWith("-cluster")) {
                 new Notice("The name should'nt contain '-cluster' suffix", 3e3)
                 return
               }
-              const sonsFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
-              await this.createDirectory(appObject, "", sonsFolderPath);
-              const newCreatedSonsFolder = getActiveFile.parent?.children?.find(
+              const childrenFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
+              await this.createDirectory(appObject, "", childrenFolderPath);
+              const newCreatedChildrenFolder = getActiveFile.parent?.children?.find(
                 (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
               );
 
               // @ts-ignore
-              this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(appObject, childNameFromInput, result.clusterSonTemplate);
+              this.setFolder(newCreatedChildrenFolder, "");
+              await this.createNewNote(appObject, childNameFromInput, result.clusterChildTemplate);
             }
 
           } else {
@@ -163,11 +163,11 @@ export default class familyModal extends Modal {
           }
 
         }
-        //-make normalSon to the current active file
+        //-make normalChild to the current active file
         else if (!getActiveFile.basename.endsWith("-cluster")) {
           if (!((getActiveFile.path.match(/\//g) || []).length == 1)) {
 
-            const result = await templates(getActiveFile, "normalSon");
+            const result = await templates(getActiveFile, "normalChild");
 
             if (result.state) {
               const childNameFromInput = this.inputEl.value.trim();
@@ -175,15 +175,15 @@ export default class familyModal extends Modal {
                 new Notice("The name should'nt contain '-cluster' suffix", 3e3)
                 return
               }
-              const sonsFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName}`;
-              await this.createDirectory(appObject, "", sonsFolderPath);
-              const newCreatedSonsFolder = getActiveFile.parent!.children.find(
+              const childrenFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName}`;
+              await this.createDirectory(appObject, "", childrenFolderPath);
+              const newCreatedChildrenFolder = getActiveFile.parent!.children.find(
                 (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
               );
 
               // @ts-ignore
-              this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(appObject, childNameFromInput, result.normalSonTemplate);
+              this.setFolder(newCreatedChildrenFolder, "");
+              await this.createNewNote(appObject, childNameFromInput, result.normalChildTemplate);
             }
 
           } else {
@@ -193,7 +193,7 @@ export default class familyModal extends Modal {
         }
 
       } else {
-        new Notice("Create new son should not work outside [CLUSTERS] folder")
+        new Notice("Create new child should not work outside [CLUSTERS] folder")
       }
 
     }

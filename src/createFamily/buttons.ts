@@ -117,8 +117,8 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
         const clusterBtn = makeButton(appObject, "Cluster", "clusterBtn", "Create New Cluster in [CLUSTERS] folder")
         setExternalIcon(clusterBtn, "cluster")
 
-        const sonBtn = makeButton(appObject, "Son", "sonBtn", `Create Son for current [${file.basename}] note`)
-        setIcon(sonBtn, "baby")
+        const childBtn = makeButton(appObject, "Child", "childBtn", `Create Child for current [${file.basename}] note`)
+        setIcon(childBtn, "baby")
 
         const brotherBtn = makeButton(appObject, "Brother", "brotherBtn", `Create Brother for current [${file.basename}] note`)
         setIcon(brotherBtn, "git-compare")
@@ -126,7 +126,7 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
         const orphanBtn = makeButton(appObject, "Orphan", "orphanBtn", `Create New Orphan note in [ORPHANS] folder`)
         setIcon(orphanBtn, "disc")
 
-        const deleteBtn = makeButton(appObject, "Delete", "deleteBtn", `Delete the current [${file.basename}] note along with its associated son notes if they exist`)
+        const deleteBtn = makeButton(appObject, "Delete", "deleteBtn", `Delete the current [${file.basename}] note along with its associated child notes if they exist`)
         setIcon(deleteBtn, "trash-2")
 
         // Making Extra Buttons
@@ -146,7 +146,7 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
 
         // Append Buttons to buttonsLineContainer
         buttonsLineContainer?.appendChild(clusterBtn)
-        buttonsLineContainer?.appendChild(sonBtn)
+        buttonsLineContainer?.appendChild(childBtn)
         buttonsLineContainer?.appendChild(brotherBtn)
         buttonsLineContainer?.appendChild(orphanBtn)
         buttonsLineContainer?.appendChild(deleteBtn)
@@ -166,7 +166,7 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
             buttonsLineContainer.style.backgroundColor = Vars.buttonsLineContainerBG_orphans
             //@ts-ignore
             extraButtonsContainer.style.backgroundColor = Vars.buttonsLineContainerBG_orphans
-            buttonsLineContainer?.removeChild(sonBtn)
+            buttonsLineContainer?.removeChild(childBtn)
             buttonsLineContainer?.removeChild(brotherBtn)
         }
 
@@ -188,9 +188,9 @@ function makeButton(appObject: App, type: string, className: string, tooltipMsg:
             createClustersAndOrphansFolder(appObject);
             new familyModal(appObject, U.NewFileLocation.NewTab, "newCluster", undefined).open();
         }
-        else if (type == "Son") {
+        else if (type == "Child") {
             createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, U.NewFileLocation.NewTab, "newSon", undefined).open()
+            new familyModal(appObject, U.NewFileLocation.NewTab, "newChild", undefined).open()
         }
         else if (type == "Brother") {
             createClustersAndOrphansFolder(appObject);

@@ -40,17 +40,17 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
             });
         });
       }
-      //- son menu
+      //- Child menu
       if (file instanceof TFile && file.path.startsWith(clusters)) {
         menu.addSeparator()
         menu.addItem((item) => {
           item
-            .setTitle("New son")
+            .setTitle("New Child")
             .setIcon("baby")
             .onClick(async () => {
               createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(plugin.app, NewFileLocation.NewTab, "newSon", graphActiveFile).open();
+              new familyModal(plugin.app, NewFileLocation.NewTab, "newChild", graphActiveFile).open();
             });
         });
       }
