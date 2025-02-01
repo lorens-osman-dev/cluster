@@ -5,11 +5,11 @@ import doModify from './doModify';
 
 export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>) {
   const renamedFileItemType = checkRenamedFileItemType(plugin, fileItem)
-  console.log(fileItem.file.name + "-->", renamedFileItemType);
   if (!renamedFileItemType) {
-    console.log("renamedFileItemType:", renamedFileItemType);
+    console.log(fileItem.file.name + ": undifined -->", renamedFileItemType);
     return
   }
+  console.log(fileItem.file.name + "-->", renamedFileItemType);
   //do rename
   rename(plugin, fileItem, renamedFileItemType)
 }
@@ -31,6 +31,16 @@ export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile
     await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
     await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
     await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
+    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+  }
+  // file:hasChildren:theCluster
+  if (type === "file:hasChildren:theCluster") {
+    await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
+    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+  }
+  // file:hasChildren:theCluster
+  if (type === "folder:theCluster:unLinked") {
+    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
   }
 
 }

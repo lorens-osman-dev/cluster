@@ -1,4 +1,4 @@
-import { TFile, TFolder, Plugin, Notice } from 'obsidian';
+import { TFile, TFolder, Plugin, Notice, TAbstractFile } from 'obsidian';
 import { RenamedItem } from "src/types/obsidian";
 import isItem from './isItem';
 
@@ -52,8 +52,8 @@ async function renameChildrenFolder(plugin: Plugin, fileItem: RenamedItem<TFile>
     console.error("Error renaming children folder:", error);
   }
 }
-async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TFile>): Promise<void> {
-  if (isItem.isFileCluster(plugin, fileItem) === "theCluster") {
+async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>): Promise<void> {
+  if (fileItem.file instanceof TFile && isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "theCluster") {
     const oldName = fileItem.oldPath.split("/")[1].slice(0, -3)
     const newName = fileItem.newPath.split("/")[1].slice(0, -3)
     if (oldName.endsWith("-cluster") && !(newName.endsWith("-cluster"))) {
@@ -65,12 +65,24 @@ async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TFile
       }
     }
   }
-  if (isItem.isFileCluster(plugin, fileItem) === "notTheCluster") {
+  if (fileItem.file instanceof TFile && isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "notTheCluster") {
     const newName = fileItem.file.basename
     if (newName.endsWith("-cluster")) {
       try {
         await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
         new Notice("You cannot add the '-cluster' suffix to this file.", 3000)
+      } catch (error) {
+        console.error("Error renaming cluster file:", error);
+      }
+    }
+  }
+  if (fileItem.file instanceof TFolder && isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "theCluster") {
+    const oldName = fileItem.oldPath.split("/")[1];
+    const newName = fileItem.newPath.split("/")[1];
+    if (oldName.endsWith("-cluster") && !(newName.endsWith("-cluster"))) {
+      try {
+        await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
+        new Notice("The folder name must include the '-cluster' suffix.", 3000)
       } catch (error) {
         console.error("Error renaming cluster file:", error);
       }

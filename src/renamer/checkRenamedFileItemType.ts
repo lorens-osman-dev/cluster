@@ -45,7 +45,7 @@ export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<T
   //# check5
   const check5 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "notTheCluster", "the folder is cluster"],
+    [isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "notTheCluster", "the folder is cluster"],
     [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "unLinked", "the folder linked"],
   ])
   if (check5 === true) {
@@ -54,7 +54,7 @@ export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<T
   //# check6
   const check6 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "notTheCluster", "the folder is cluster"],
+    [isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "notTheCluster", "the folder is cluster"],
     [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "linked", "the folder unlinked"],
   ])
   if (check6 === true) {
@@ -63,7 +63,7 @@ export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<T
   //# check7
   const check7 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "theCluster", "the folder not the cluster"],
+    [isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "theCluster", "the folder not the cluster"],
     [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "unLinked", "the folder linked"],
   ])
   if (check7 === true) {
@@ -72,7 +72,7 @@ export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<T
   //# check8
   const check8 = U.IF([
     [fileItem.file instanceof TFolder, "the file is file"],
-    [isItem.isFolderClusterOrNormal(fileItem as RenamedItem<TFolder>) === "theCluster", "the folder not  cluster"],
+    [isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "theCluster", "the folder not  cluster"],
     [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "linked", "the folder unlinked"],
   ])
   if (check8 === true) {

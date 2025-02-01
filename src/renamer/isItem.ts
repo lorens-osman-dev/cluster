@@ -53,15 +53,30 @@ function isFileCluster(plugin: Plugin, fileItem: RenamedItem<TFile>): "theCluste
   }
 
 }
-function isFolderClusterOrNormal(fileItem: RenamedItem<TFolder>): "theCluster" | "notTheCluster" {
-  if (!(fileItem.file.name.contains("-cluster"))) {
+function isFolderCluster(fileItem: RenamedItem<TFolder>): "theCluster" | "notTheCluster" | undefined {
+  if (fileItem.file instanceof TFile) {
+    return
+  }
+
+  const generationFromPath = fileItem.oldPath.split('/').length - 2;
+  const oldName = fileItem.oldPath.split("/")[1];
+  const newName = fileItem.newPath.split("/")[1];
+  const theClusterResult = U.IF([
+    [fileItem.file instanceof TFolder, "its is file"],
+    [oldName.endsWith("-cluster"), "old name didn't ends with -cluster"],
+    [generationFromPath === 0, "cluster generation must be 0 "],
+  ])
+  if (theClusterResult === true) {
+    return "theCluster"
+  }
+  const notTheClusterResult = U.IF([
+    [fileItem.file instanceof TFolder, "its is file"],
+    [(oldName.endsWith("-cluster")), "old name ends with -cluster"],
+    [!(generationFromPath === 0), "generation must be bigger than 0 "],
+  ])
+  if (notTheClusterResult === true) {
     return "notTheCluster"
   }
-  const fileGeneration = fileItem.newPath.split('/').length - 2;
-  if (!(fileGeneration === 0)) {
-    return "notTheCluster"
-  }
-  return "theCluster"
 }
 function whatClusteringState(fileItem: RenamedItem<TFolder>): "linked" | "unLinked" {
   const selfName = fileItem.file.name
@@ -77,7 +92,7 @@ function whatClusteringState(fileItem: RenamedItem<TFolder>): "linked" | "unLink
 const isItem = {
   isFileHasChildren,
   isFileCluster,
-  isFolderClusterOrNormal,
+  isFolderCluster,
   whatClusteringState
 }
 
