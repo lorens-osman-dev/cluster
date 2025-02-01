@@ -18,31 +18,64 @@ export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFil
 export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>, type: RenamedFileItemType) {
   // file:alone:notTheCluster
   if (type === "file:alone:notTheCluster") {
-    await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
-    await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
-    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    const forbid = await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+    }
   }
   // file:alone:theCluster 
   if (type === "file:alone:theCluster") {
-    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    const forbid = await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      // Add any additional logic if needed
+    }
   }
   // file:hasChildren:notTheCluster
   if (type === "file:hasChildren:notTheCluster") {
-    await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
-    await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
-    await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
-    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    const forbid = await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
+    }
   }
   // file:hasChildren:theCluster
   if (type === "file:hasChildren:theCluster") {
-    await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
-    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    const forbid = await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
+    }
   }
-  // file:hasChildren:theCluster
+  //= folders
+  // folder:theCluster:unLinked
   if (type === "folder:theCluster:unLinked") {
-    await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    const forbid = await doModify.folder.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      // Add any additional logic if needed
+    }
   }
-
+  // folder:theCluster:linked
+  if (type === "folder:theCluster:linked") {
+    const forbid = await doModify.folder.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      await doModify.folder.renameLinkedFile(plugin, fileItem as RenamedItem<TFolder>)
+    }
+  }
+  // folder:notTheCluster:unLinked
+  if (type === "folder:notTheCluster:unLinked") {
+    const forbid = await doModify.folder.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      // Add any additional logic if needed
+    }
+  }
+  // folder:notTheCluster:linked
+  if (type === "folder:notTheCluster:linked") {
+    const forbid = await doModify.folder.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
+    if (!forbid) {
+      await doModify.folder.renameLinkedFile(plugin, fileItem as RenamedItem<TFolder>)
+    }
+  }
 }
 
 

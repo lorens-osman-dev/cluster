@@ -38,6 +38,21 @@ async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem
   }
 }
 
+async function renameLinkedFile(plugin: Plugin, fileItem: RenamedItem<TFolder>): Promise<void> {
+  const selfOldName = fileItem.oldPath.split("/").pop();//Removes the last element from an array and returns it.
+  const selfNewName = `${fileItem.newPath}.md`
+  const siblings = fileItem.file.parent?.children
+  const isTherelinkedFile = siblings?.find((item) => item instanceof TFile && item.basename === selfOldName) as TFile
+  if (!isTherelinkedFile) {
+    console.log("Error: No linked file found.");
+    return
+  }
+  try {
+    await plugin.app.fileManager.renameFile(isTherelinkedFile, selfNewName);
+  } catch (error) {
+    console.error("Error renaming linked file:", error);
+  }
+}
 async function renameChildrenFolder(plugin: Plugin, fileItem: RenamedItem<TFile>): Promise<void> {
   const selfOldName = fileItem.oldPath.split("/").find(str => str.endsWith(".md"))?.slice(0, -3)
   const siblings = fileItem.file.parent?.children
@@ -52,7 +67,7 @@ async function renameChildrenFolder(plugin: Plugin, fileItem: RenamedItem<TFile>
     console.error("Error renaming children folder:", error);
   }
 }
-async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>): Promise<void> {
+async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>): Promise<boolean> {
   if (fileItem.file instanceof TFile && isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "theCluster") {
     const oldName = fileItem.oldPath.split("/")[1].slice(0, -3)
     const newName = fileItem.newPath.split("/")[1].slice(0, -3)
@@ -60,6 +75,7 @@ async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbst
       try {
         await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
         new Notice("The file name must include the '-cluster' suffix.", 3000)
+        return true
       } catch (error) {
         console.error("Error renaming cluster file:", error);
       }
@@ -71,6 +87,7 @@ async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbst
       try {
         await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
         new Notice("You cannot add the '-cluster' suffix to this file.", 3000)
+        return true
       } catch (error) {
         console.error("Error renaming cluster file:", error);
       }
@@ -83,6 +100,7 @@ async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbst
       try {
         await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
         new Notice("The folder name must include the '-cluster' suffix.", 3000)
+        return true
       } catch (error) {
         console.error("Error renaming cluster file:", error);
       }
@@ -94,11 +112,13 @@ async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbst
       try {
         await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
         new Notice("You cannot add the '-cluster' suffix to this folder.", 3000)
+        return true
       } catch (error) {
         console.error("Error renaming cluster file:", error);
       }
     }
   }
+  return false
 }
 const doModify = {
   file: {
@@ -108,7 +128,8 @@ const doModify = {
     forbidClusterRenaming
   },
   folder: {
-
+    forbidClusterRenaming,
+    renameLinkedFile
   }
 }
 

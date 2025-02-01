@@ -48,6 +48,7 @@ function isFileCluster(plugin: Plugin, fileItem: RenamedItem<TFile>): "theCluste
     [typeof clusterTag === 'string' && clusterTag.contains("-cluster"), `${clusterTag} is missing`],
     [parent, `the parent property ${parent} forbidden`],
   ])
+
   if (notTheClusterResult === true) {
     return "notTheCluster"
   }
@@ -81,8 +82,8 @@ function isFolderCluster(fileItem: RenamedItem<TFolder>): "theCluster" | "notThe
 function whatClusteringState(fileItem: RenamedItem<TFolder>): "linked" | "unLinked" {
   const selfName = fileItem.file.name
   const siblings = fileItem.file.parent?.children
-  const mainNoteOfFolder = siblings?.find((item) => item instanceof TFile && item.basename === selfName) as TFile
-  if (mainNoteOfFolder) {
+  const isTherelinkedFile = siblings?.find((item) => item instanceof TFile && item.basename === selfName) as TFile
+  if (isTherelinkedFile) {
     return "linked"
   }
   return "unLinked"
