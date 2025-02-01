@@ -14,7 +14,7 @@
   --background-menu-sibling-selected: hsl(210deg 50% 30% / 80%) !important;
   --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
   --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
-  --background-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
+  --background-button-container-clusters: hsl(220deg 50% 30% / 30%);
   --background-button-container-orphans: hsl(303deg 50% 30%/ 30%);
   --background-extra-button-container-clusters: hsl(154.99deg 50% 30%/ 30%);
   --background-extra-button-container-orphans: hsl(303deg 50% 30%/ 30%);
@@ -42,7 +42,7 @@
   --background-menu-sibling-selected: hsl(210deg 50% 30% / 80%) !important;
   --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
   --background-menu-orphan-selected: hsl(303deg 50% 30%/ 80%) !important;
-  --background-button-container-clusters: hsl(155 30% 50%);
+  --background-button-container-clusters: hsl(220deg 30% 50%);
   --background-button-container-orphans: hsl(303deg 30% 50%);
   --background-extra-button-container-clusters: hsl(155 30% 50%);
   --background-extra-button-container-orphans: hsl(303deg 30% 50%);
@@ -428,6 +428,14 @@
 
 .cluster-svg {
   fill: var(--icon-color) !important;
+}
+
+.mergeFileFolder {
+  background-color: hsla(55, 50%, 30%, 0.3) !important;
+}
+
+.mergeFileFolderCluster {
+  background-color: hsla(155, 50%, 30%, 0.3) !important;
 }
 
 .buttonsLineContainer {

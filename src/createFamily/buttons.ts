@@ -1,4 +1,4 @@
-import { App, TFile, setTooltip, setIcon, addIcon, MarkdownView, Editor, Platform } from "obsidian";
+import { App, TFile, setTooltip, setIcon, addIcon, MarkdownView, Editor, Platform, TFolder } from "obsidian";
 import familyModal from "./familyModal";
 import U from '../util/U';
 import deleteActiveNoteModal from "./deleteActiveNoteModal";
@@ -107,6 +107,19 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
         buttonsLineContainer.addClasses(["buttonsLineContainer"])
         //@ts-ignore
         buttonsLineContainer.style.backgroundColor = Vars.buttonsLineContainerBG_clusters
+
+        // check if the file and folder in same time
+        const selfName = file.basename
+        const siblings = file.parent?.children
+        const isThereChildrenFolder = siblings?.find((item) => item instanceof TFolder && item.name === selfName) as TFolder
+        if (isThereChildrenFolder) {
+            if (!file.basename.endsWith("-cluster")) {
+                buttonsLineContainer.addClasses(["mergeFileFolder"])
+            }
+            if (file.basename.endsWith("-cluster")) {
+                buttonsLineContainer.addClasses(["mergeFileFolderCluster"])
+            }
+        }
 
         const extraButtonsContainer = document.createElement('div');
         extraButtonsContainer.addClasses(["extraButtonsContainer"])
