@@ -28,12 +28,14 @@ async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem
           return;
         }
         // Update the "cluster tag" property
+        let tagName = fileItem.newPath.split("/")[1]
+        tagName = tagName.endsWith("-cluster") ? tagName : `${tagName}-cluster`
         const clusterTagIndex = (frontmatter.tags as string[]).findIndex(tag => tag.contains("-cluster"));
-        (frontmatter.tags as string[])[clusterTagIndex] = fileItem.newPath.split("/")[1]
+        (frontmatter.tags as string[])[clusterTagIndex] = tagName
       });
 
     } catch (error) {
-      console.error("Error updating cluster tag frontmatter:", error);
+      console.error("Error updating -cluster tag frontmatter:", error);
     }
   }
 }
