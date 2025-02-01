@@ -142,7 +142,11 @@ export default class familyModal extends Modal {
           if ((getActiveFile.path.match(/\//g) || []).length == 1) {
             const result = await templates(getActiveFile, "clusterSon");
             if (result.state) {
-
+              const childNameFromInput = this.inputEl.value.trim();
+              if (childNameFromInput.endsWith("-cluster")) {
+                new Notice("The name should'nt contain '-cluster' suffix", 3e3)
+                return
+              }
               const sonsFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
               await this.createDirectory(appObject, "", sonsFolderPath);
               const newCreatedSonsFolder = getActiveFile.parent?.children?.find(
@@ -151,7 +155,7 @@ export default class familyModal extends Modal {
 
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(appObject, this.inputEl.value.trim(), result.clusterSonTemplate);
+              await this.createNewNote(appObject, childNameFromInput, result.clusterSonTemplate);
             }
 
           } else {
@@ -166,6 +170,11 @@ export default class familyModal extends Modal {
             const result = await templates(getActiveFile, "normalSon");
 
             if (result.state) {
+              const childNameFromInput = this.inputEl.value.trim();
+              if (childNameFromInput.endsWith("-cluster")) {
+                new Notice("The name should'nt contain '-cluster' suffix", 3e3)
+                return
+              }
               const sonsFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName}`;
               await this.createDirectory(appObject, "", sonsFolderPath);
               const newCreatedSonsFolder = getActiveFile.parent!.children.find(
@@ -174,7 +183,7 @@ export default class familyModal extends Modal {
 
               // @ts-ignore
               this.setFolder(newCreatedSonsFolder, "");
-              await this.createNewNote(appObject, this.inputEl.value.trim(), result.normalSonTemplate);
+              await this.createNewNote(appObject, childNameFromInput, result.normalSonTemplate);
             }
 
           } else {
@@ -198,8 +207,13 @@ export default class familyModal extends Modal {
           const result = await templates(getActiveFile, "brother");
 
           if (result.state == true) {
+            const siblingNameFromInput = this.inputEl.value.trim();
+            if (siblingNameFromInput.endsWith("-cluster")) {
+              new Notice("The name should'nt contain '-cluster' suffix", 3e3)
+              return
+            }
             this.setFolder(getActiveFile!.parent!, "");
-            this.createNewNote(appObject, this.inputEl.value.trim(), result.brotherTemplate);
+            this.createNewNote(appObject, siblingNameFromInput, result.brotherTemplate);
           }
         }
       } else {
