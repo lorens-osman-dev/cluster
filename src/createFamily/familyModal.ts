@@ -58,7 +58,7 @@ export default class familyModal extends Modal {
         this.inputEl.addClasses(["prompt-input", "inputDelete"])
         this.modalEl.appendChild(svgElements().noThing());
         const text = document.createElement('div');
-        text.innerText = `Child ?! Brother ?! of what??\nNo active file in the work space, Press ESC`
+        text.innerText = `Child ?! Sibling ?! of what??\nNo active file in the work space, Press ESC`
         text.addClass("nothingMsg")
 
         this.modalEl.appendChild(text);
@@ -71,9 +71,9 @@ export default class familyModal extends Modal {
     } else if (this.createType == "newChild") {
       this.inputEl.placeholder = `Type the child name of [${getActiveFile.basename}] note`;
       this.modalEl.appendChild(svgElements().child());
-    } else if (this.createType == "newBrother") {
-      this.inputEl.placeholder = `Type the brother name of [${getActiveFile.basename}] note`;
-      this.modalEl.appendChild(svgElements().brother());
+    } else if (this.createType == "newSibling") {
+      this.inputEl.placeholder = `Type the sibling name of [${getActiveFile.basename}] note`;
+      this.modalEl.appendChild(svgElements().sibling());
     } else if (this.createType == "newOrphan") {
       this.inputEl.placeholder = `Type the new Orphan name`;
       this.modalEl.appendChild(svgElements().orphan());
@@ -197,14 +197,14 @@ export default class familyModal extends Modal {
       }
 
     }
-    //-make Brother to the current active file
-    else if (this.createType == "newBrother") {
+    //-make Sibling to the current active file
+    else if (this.createType == "newSibling") {
       if (getActiveFile!.path.startsWith(clusters)) {
-        // the next if statement to prevent make brother to a cluster
+        // the next if statement to prevent make Sibling to a cluster
         if (currentActiveFileName!.endsWith("-cluster")) {
-          new Notice(`You cant make Brother to a cluster.\nCreate new cluster instead`);
+          new Notice(`You cant make Sibling to a cluster.\nCreate new cluster instead`);
         } else {
-          const result = await templates(getActiveFile, "brother");
+          const result = await templates(getActiveFile, "sibling");
 
           if (result.state == true) {
             const siblingNameFromInput = this.inputEl.value.trim();
@@ -213,11 +213,11 @@ export default class familyModal extends Modal {
               return
             }
             this.setFolder(getActiveFile!.parent!, "");
-            this.createNewNote(appObject, siblingNameFromInput, result.brotherTemplate);
+            this.createNewNote(appObject, siblingNameFromInput, result.siblingTemplate);
           }
         }
       } else {
-        new Notice("Create new brother should not work outside [CLUSTERS] folder")
+        new Notice("Create new sibling should not work outside [CLUSTERS] folder")
       }
     }
     //-make newOrphan 

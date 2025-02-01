@@ -54,7 +54,7 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
             });
         });
       }
-      //- brother menu
+      //- sibling menu
       if (
         (file instanceof TFile && file.path.startsWith(clusters))
         &&
@@ -62,12 +62,12 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
       ) {
         menu.addItem((item) => {
           item
-            .setTitle("New brother")
+            .setTitle("New sibling")
             .setIcon("git-compare")
             .onClick(async () => {
               createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(plugin.app, NewFileLocation.NewTab, "newBrother", graphActiveFile).open();
+              new familyModal(plugin.app, NewFileLocation.NewTab, "newSibling", graphActiveFile).open();
             });
         });
       }

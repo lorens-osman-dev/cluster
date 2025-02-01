@@ -35,14 +35,14 @@ export function addCommands(plugin: Plugin) {
     },
   });
   plugin.addCommand({
-    id: "New-Brother",
-    name: "New brother",
+    id: "New-Sibling",
+    name: "New sibling",
     callback: () => {
       createClustersAndOrphansFolder(plugin.app);
       new familyModal(
         plugin.app,
         NewFileLocation.NewTab,
-        "newBrother",
+        "newSibling",
         undefined,
       ).open();
     },

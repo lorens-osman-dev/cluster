@@ -82,10 +82,10 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 -   The generation property of the `child` note will be the current note's generation +1
 -   A new folder with the same name of current note will be created for all `child` notes of the current note.
 
-![brother](https://github.com/lorens-osman-dev/cluster/blob/assets/git-compare.svg)
+![Sibling](https://github.com/lorens-osman-dev/cluster/blob/assets/git-compare.svg)
 
--   This button creates a new note beside the current note, we call it `brother` note.
--   `brother` note means the new created note will copy the parent link, the cluster's tag and the generation property from current note.
+-   This button creates a new note beside the current note, we call it `sibling` note.
+-   `sibling` note means the new created note will copy the parent link, the cluster's tag and the generation property from current note.
 
 ![orphan](https://github.com/lorens-osman-dev/cluster/blob/assets/disc.svg)
 
@@ -95,7 +95,7 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 ![delete](https://github.com/lorens-osman-dev/cluster/blob/assets/trash-2.svg)
 
 -   This button deletes current note.
--   If the current note has no brothers the containing folder will be deleted.
+-   If the current note has no siblings the containing folder will be deleted.
 -   If the current note has children the children will be deleted along with their own folders.
 -   If the current note is `cluster` all the cluster's files and folders will be deleted.
 
@@ -117,7 +117,7 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 
 ### ⚙️ PC Recommendation
 
--   Set `Ctrl+Shift+B` hotkey to New brother command.
+-   Set `Ctrl+Shift+B` hotkey to New sibling command.
 -   Set `Ctrl+Shift+S` hotkey to New child command.
 -   Set `Ctrl+Shift+C` hotkey to New cluster command.
 -   Set `Ctrl+Shift+D` hotkey to Delete active note command.

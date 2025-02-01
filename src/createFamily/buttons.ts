@@ -120,8 +120,8 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
         const childBtn = makeButton(appObject, "Child", "childBtn", `Create Child for current [${file.basename}] note`)
         setIcon(childBtn, "baby")
 
-        const brotherBtn = makeButton(appObject, "Brother", "brotherBtn", `Create Brother for current [${file.basename}] note`)
-        setIcon(brotherBtn, "git-compare")
+        const siblingBtn = makeButton(appObject, "Sibling", "siblingBtn", `Create Sibling for current [${file.basename}] note`)
+        setIcon(siblingBtn, "git-compare")
 
         const orphanBtn = makeButton(appObject, "Orphan", "orphanBtn", `Create New Orphan note in [ORPHANS] folder`)
         setIcon(orphanBtn, "disc")
@@ -147,7 +147,7 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
         // Append Buttons to buttonsLineContainer
         buttonsLineContainer?.appendChild(clusterBtn)
         buttonsLineContainer?.appendChild(childBtn)
-        buttonsLineContainer?.appendChild(brotherBtn)
+        buttonsLineContainer?.appendChild(siblingBtn)
         buttonsLineContainer?.appendChild(orphanBtn)
         buttonsLineContainer?.appendChild(deleteBtn)
 
@@ -167,7 +167,7 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
             //@ts-ignore
             extraButtonsContainer.style.backgroundColor = Vars.buttonsLineContainerBG_orphans
             buttonsLineContainer?.removeChild(childBtn)
-            buttonsLineContainer?.removeChild(brotherBtn)
+            buttonsLineContainer?.removeChild(siblingBtn)
         }
 
         // Append the buttonsLineContainer after obsidianHeaderEl 
@@ -192,9 +192,9 @@ function makeButton(appObject: App, type: string, className: string, tooltipMsg:
             createClustersAndOrphansFolder(appObject);
             new familyModal(appObject, U.NewFileLocation.NewTab, "newChild", undefined).open()
         }
-        else if (type == "Brother") {
+        else if (type == "Sibling") {
             createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, U.NewFileLocation.NewTab, "newBrother", undefined).open();
+            new familyModal(appObject, U.NewFileLocation.NewTab, "newSibling", undefined).open();
         }
         else if (type == "Orphan") {
             createClustersAndOrphansFolder(appObject);

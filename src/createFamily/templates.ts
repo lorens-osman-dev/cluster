@@ -6,7 +6,7 @@ export async function templates(activeFile: TFile, type: string) {
         state: false,
         clusterChildTemplate: undefined as unknown as string,
         normalChildTemplate: undefined as unknown as string,
-        brotherTemplate: undefined as unknown as string,
+        siblingTemplate: undefined as unknown as string,
     }
 
     if (type == "clusterChild") {
@@ -101,7 +101,7 @@ generation: ${generationFromActiveFilePath + 1}
 
             return result
         })
-    } else if (type == "brother") {
+    } else if (type == "sibling") {
 
         U.bigIF.ELSE(() => {
             const frontmatterProperties = this.app.metadataCache.getFileCache(activeFile).frontmatter;
@@ -144,7 +144,7 @@ generation: ${generationFromActiveFilePath + 1}
 
             ])
             result.state = true
-            result.brotherTemplate =
+            result.siblingTemplate =
                 `---
 tags:
   - ${clusterTagName}
@@ -247,8 +247,8 @@ When you open a note from either the \`CLUSTERS\` or \`ORPHANS\` folder  the \`C
 - A new folder with the same name of current note will be created for all \`child\` notes of the current note.
 
 ![pic](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNkZmRmZGYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1naXQtY29tcGFyZSI+PGNpcmNsZSBjeD0iMTgiIGN5PSIxOCIgcj0iMyIvPjxjaXJjbGUgY3g9IjYiIGN5PSI2IiByPSIzIi8+PHBhdGggZD0iTTEzIDZoM2EyIDIgMCAwIDEgMiAydjciLz48cGF0aCBkPSJNMTEgMThIOGEyIDIgMCAwIDEtMi0yVjkiLz48L3N2Zz4=)
-- This button creates a new note beside the current note, we call it \`brother\` note.
-- \`brother\` note means the new created note will copy the parent link, the cluster's tag and the generation property from current note.
+- This button creates a new note beside the current note, we call it \`sibling\` note.
+- \`sibling\` note means the new created note will copy the parent link, the cluster's tag and the generation property from current note.
 
 ![pic](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNkZmRmZGYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS1kaXNjIj48Y2lyY2xlIGN4PSIxMiIgY3k9IjEyIiByPSIxMCIvPjxjaXJjbGUgY3g9IjEyIiBjeT0iMTIiIHI9IjIiLz48L3N2Zz4=)
 - This button creates a new note inside \`ORPHANS\` folder.
@@ -256,7 +256,7 @@ When you open a note from either the \`CLUSTERS\` or \`ORPHANS\` folder  the \`C
 
 ![pic](data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9IiNkZmRmZGYiIHN0cm9rZS13aWR0aD0iMiIgc3Ryb2tlLWxpbmVjYXA9InJvdW5kIiBzdHJva2UtbGluZWpvaW49InJvdW5kIiBjbGFzcz0ibHVjaWRlIGx1Y2lkZS10cmFzaC0yIj48cGF0aCBkPSJNMyA2aDE4Ii8+PHBhdGggZD0iTTE5IDZ2MTRjMCAxLTEgMi0yIDJIN2MtMSAwLTItMS0yLTJWNiIvPjxwYXRoIGQ9Ik04IDZWNGMwLTEgMS0yIDItMmg0YzEgMCAyIDEgMiAydjIiLz48bGluZSB4MT0iMTAiIHgyPSIxMCIgeTE9IjExIiB5Mj0iMTciLz48bGluZSB4MT0iMTQiIHgyPSIxNCIgeTE9IjExIiB5Mj0iMTciLz48L3N2Zz4=)
 - This button deletes current note.
-- If the current note has no brothers the containing folder will be deleted.
+- If the current note has no siblings the containing folder will be deleted.
 - If the current note has children the children will be deleted along with their own folders.
 - If the current note is \`cluster\` all the cluster's files and folders will be deleted.
 
@@ -276,7 +276,7 @@ When you open a note from either the \`CLUSTERS\` or \`ORPHANS\` folder  the \`C
 
 ### ⚙️ PC Recommendation
 
-- Set \` Ctrl+Shift+B \` hotkey to New brother command.
+- Set \` Ctrl+Shift+B \` hotkey to New sibling command.
 - Set \` Ctrl+Shift+S \` hotkey to New child command.
 - Set \` Ctrl+Shift+C \` hotkey to New cluster command.
 - Set \` Ctrl+Shift+D \` hotkey to  Delete active note command.

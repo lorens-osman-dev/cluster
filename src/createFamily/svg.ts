@@ -48,17 +48,17 @@ export default function svgElements() {
 
             return con;
         },
-        brother: function () {
+        sibling: function () {
             // 1 - Container Element
             const con = document.createElement('div');
-            con.classList.add("inputMsgCon", "brother");
+            con.classList.add("inputMsgCon", "sibling");
 
             // 2 - SVG Element
             setIcon(con, "git-compare")
 
             // 3 - Text Element
             const text = document.createElement('div');
-            text.innerText = "Create Brother";
+            text.innerText = "Create Sibling";
             text.classList.add("textMsg");
 
             // Append Text element to the container
