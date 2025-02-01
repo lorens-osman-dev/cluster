@@ -49,23 +49,39 @@ generation: ${generationFromActiveFilePath}
 
         U.bigIF.ELSE(() => {
             const frontmatterProperties = this.app.metadataCache.getFileCache(activeFile).frontmatter;
+            const parentLink = {
+                wiki: `[[${activeFile?.parent?.name}|${activeFile?.parent?.name}]]`,
+                absolute: `[[${activeFile?.parent?.path}|${activeFile?.parent?.name}]]`,
+                bare: `[[${activeFile?.parent?.name}]]`,
+                frontmatter: frontmatterProperties?.parent
+            }
+            function checkParentLinkInFrontmatter(): boolean {
+                if (parentLink.frontmatter === parentLink.absolute) {
+                    return true
+                }
+                if (parentLink.frontmatter === parentLink.bare) {
+                    return true
+                }
+                if (parentLink.frontmatter === parentLink.wiki) {
+                    console.warn(parentLink.frontmatter, parentLink.wiki)
+                    return true
+                }
+                return false
+            }
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '').replace(/ /g, "-")
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
-            const activeFileParentLink = `[[${activeFile?.parent?.path}|${activeFile?.parent?.name}]]`
             const sonFileParentLink = `[[${activeFile.path.slice(0, -3)}|${activeFile.basename}]]`
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length - 1 // how many "/" in the path
-            //FIX how To ensure that a normalized link like [[tt|tt]] always refers to the specific file [[CLUSTERS/tto-cluster/qqq/tt|tt]]
-            const parentFileLink = frontmatterProperties?.parent
 
             U.bigIF.checkAll([
 
                 [!frontmatterProperties, `Please set frontmatter properties`],
                 [isClusterTagExist == undefined, `You Should add '${clusterTagName}' tag which refers to the containing cluster.`],
-                [parentFileLink === undefined, "Set the parent property."],
-                [parentFileLink === null, "The parent property should'nt be empty."],
-                [parentFileLink === "", "The parent property should'nt be empty."],
-                [parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name}' file.\nlike:${activeFileParentLink}`],
+                [parentLink.frontmatter === undefined, "Set the parent property."],
+                [parentLink.frontmatter === null, "The parent property should'nt be empty."],
+                [parentLink.frontmatter === "", "The parent property should'nt be empty."],
+                [!checkParentLinkInFrontmatter(), `The parent property should be link to '${activeFile.parent?.name}' file.\nlike:${parentLink.absolute}\nor:${parentLink.wiki}\nor:${parentLink.bare}`],
                 [!(typeof (generationFromActiveFileFrontmatterProperties) === 'number'), "The Cluster's generation property must be Number.\nChange the property type to Number"],
                 [generationFromActiveFileFrontmatterProperties == 0, "JUST Clusters's generation property must be 0"],
                 [generationFromActiveFileFrontmatterProperties !== generationFromActiveFilePath, `The generation property must be ${generationFromActiveFilePath}`],
@@ -89,21 +105,37 @@ generation: ${generationFromActiveFilePath + 1}
 
         U.bigIF.ELSE(() => {
             const frontmatterProperties = this.app.metadataCache.getFileCache(activeFile).frontmatter;
+            const parentLink = {
+                wiki: `[[${activeFile?.parent?.name}|${activeFile?.parent?.name}]]`,
+                absolute: `[[${activeFile?.parent?.path}|${activeFile?.parent?.name}]]`,
+                bare: `[[${activeFile?.parent?.name}]]`,
+                frontmatter: frontmatterProperties?.parent
+            }
+            function checkParentLinkInFrontmatter(): boolean {
+                if (parentLink.frontmatter === parentLink.absolute) {
+                    return true
+                }
+                if (parentLink.frontmatter === parentLink.bare) {
+                    return true
+                }
+                if (parentLink.frontmatter === parentLink.wiki) {
+                    console.warn(parentLink.frontmatter, parentLink.wiki)
+                    return true
+                }
+                return false
+            }
             const clusterTagName = activeFile.path.slice(9).replace(/\/.*$/, '').replace(/ /g, "-")
             const isClusterTagExist = frontmatterProperties?.tags?.find((tag: string) => tag == `${clusterTagName}`)
-            const activeFileParentLink = `[[${activeFile?.parent?.path}|${activeFile?.parent?.name}]]`
             const generationFromActiveFileFrontmatterProperties = frontmatterProperties?.generation
             const generationFromActiveFilePath = (activeFile.path.match(/\//g) || []).length - 1 // how many "/" in the path
-            //FIX how To ensure that a normalized link like [[tt|tt]] always refers to the specific file [[CLUSTERS/tto-cluster/qqq/tt|tt]]
-            const parentFileLink = frontmatterProperties?.parent
 
             U.bigIF.checkAll([
                 [!frontmatterProperties, `Please set frontmatter properties`],
                 [isClusterTagExist == undefined, `You Should add '${clusterTagName}' tag which refers to the containing cluster.`],
-                [parentFileLink === undefined, "Set the parent property."],
-                [parentFileLink === null, "The parent property should'nt be empty."],
-                [parentFileLink === "", "The parent property should'nt be empty."],
-                [parentFileLink !== activeFileParentLink, `The parent property should be link to '${activeFile.parent?.name}' file.\nlike:${activeFileParentLink}`],
+                [parentLink.frontmatter === undefined, "Set the parent property."],
+                [parentLink.frontmatter === null, "The parent property should'nt be empty."],
+                [parentLink.frontmatter === "", "The parent property should'nt be empty."],
+                [!checkParentLinkInFrontmatter(), `The parent property should be link to '${activeFile.parent?.name}' file.\nlike:${parentLink.absolute}\nor:${parentLink.wiki}\nor:${parentLink.bare}`],
                 [!(typeof (generationFromActiveFileFrontmatterProperties) === 'number'), "The Cluster's generation property must be Number.\nChange the property type to Number"],
                 [generationFromActiveFileFrontmatterProperties == 0, "JUST Clusters's generation property must be 0"],
                 [generationFromActiveFileFrontmatterProperties !== generationFromActiveFilePath, `The generation property must be ${generationFromActiveFilePath}`],
@@ -116,7 +148,7 @@ generation: ${generationFromActiveFilePath + 1}
                 `---
 tags:
   - ${clusterTagName}
-parent: "${activeFileParentLink}"
+parent: "${parentLink.absolute}"
 generation: ${generationFromActiveFilePath}
 ---
 `

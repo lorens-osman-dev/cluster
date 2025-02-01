@@ -8,4 +8,7 @@
 -   [ ] fix prevent making children withe "-cluster" name
 -   [ ] اخفي زر الحذف ضمن مجلد الكلستر عند الصغط على زر اليمين
 -   [ ] READEME.md
+-   [ ] modifyFirst Template
 -   [ ] Make TESTS
+-   [ ] forbid make sons with -cluster name
+-   [ ] son --> child , father --> parent , brother --> sibling
