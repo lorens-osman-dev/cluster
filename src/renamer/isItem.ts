@@ -48,7 +48,6 @@ function isFileCluster(plugin: Plugin, fileItem: RenamedItem<TFile>): "theCluste
     [typeof clusterTag === 'string' && clusterTag.contains("-cluster"), `${clusterTag} is missing`],
     [parent, `the parent property ${parent} forbidden`],
   ])
-
   if (notTheClusterResult === true) {
     return "notTheCluster"
   }

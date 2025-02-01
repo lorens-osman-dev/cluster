@@ -40,9 +40,11 @@ async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem
 
 async function renameLinkedFile(plugin: Plugin, fileItem: RenamedItem<TFolder>): Promise<void> {
   const selfOldName = fileItem.oldPath.split("/").pop();//Removes the last element from an array and returns it.
+  console.log("selfOldName:", selfOldName);
   const selfNewName = `${fileItem.newPath}.md`
   const siblings = fileItem.file.parent?.children
-  const isTherelinkedFile = siblings?.find((item) => item instanceof TFile && item.basename === selfOldName) as TFile
+  console.log("selfNewName:", selfNewName);
+  const isTherelinkedFile = siblings?.find((item) => item instanceof TFile && item.basename === selfOldName) as TFile;
   if (!isTherelinkedFile) {
     console.log("Error: No linked file found.");
     return

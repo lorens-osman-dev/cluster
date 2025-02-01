@@ -66,7 +66,7 @@ export async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile
   if (type === "folder:notTheCluster:unLinked") {
     const forbid = await doModify.folder.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
     if (!forbid) {
-      // Add any additional logic if needed
+      await doModify.folder.renameLinkedFile(plugin, fileItem as RenamedItem<TFolder>)
     }
   }
   // folder:notTheCluster:linked
