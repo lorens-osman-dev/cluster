@@ -88,6 +88,17 @@ async function forbidClusterRenaming(plugin: Plugin, fileItem: RenamedItem<TAbst
       }
     }
   }
+  if (fileItem.file instanceof TFolder && isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "notTheCluster") {
+    const newName = fileItem.file.name;
+    if (newName.endsWith("-cluster")) {
+      try {
+        await plugin.app.fileManager.renameFile(fileItem.file, fileItem.oldPath);
+        new Notice("You cannot add the '-cluster' suffix to this folder.", 3000)
+      } catch (error) {
+        console.error("Error renaming cluster file:", error);
+      }
+    }
+  }
 }
 const doModify = {
   file: {
