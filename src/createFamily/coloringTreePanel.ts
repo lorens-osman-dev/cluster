@@ -32,9 +32,9 @@ export async function foldPropertiesElement(appObject: App, file: TFile) {
 export async function coloringTreePanel(appObject: App, file: TFile) {
     // FIX if the file tree is expanded too much , the errors show from this function even its stops the next functions , for this reason i moved the fold function to top
     // Coloring clusters tree Element
-    const fatherClusters: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="CLUSTERS"]') as HTMLElement;
-    const clustersFolderTreeElement = fatherClusters?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
-    if (file instanceof TFile && fatherClusters && clustersFolderTreeElement) {
+    const parentClusters: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="CLUSTERS"]') as HTMLElement;
+    const clustersFolderTreeElement = parentClusters?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
+    if (file instanceof TFile && parentClusters && clustersFolderTreeElement) {
         if (file.path.startsWith(clusters)) {
             clustersFolderTreeElement?.addClass("clustersFolderTreeElement");
 
@@ -46,9 +46,9 @@ export async function coloringTreePanel(appObject: App, file: TFile) {
     }
 
     // Coloring orphans tree Element
-    const fatherOrphans: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="ORPHANS"]') as HTMLElement;
-    const orphansFolderTreeElement = fatherOrphans?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
-    if (file instanceof TFile && fatherOrphans && orphansFolderTreeElement) {
+    const parentOrphans: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="ORPHANS"]') as HTMLElement;
+    const orphansFolderTreeElement = parentOrphans?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
+    if (file instanceof TFile && parentOrphans && orphansFolderTreeElement) {
         if (file.path.startsWith(orphans)) {
             orphansFolderTreeElement?.addClass("orphansFolderTreeElement");
         } else {
@@ -62,8 +62,8 @@ export async function coloringTreePanel(appObject: App, file: TFile) {
 
 //- Append Unsorted Files Counter Element Function
 export async function addUnsortedFilesCounter(appObject: App) {
-    const father: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]') as HTMLElement;
-    const unSortedFolderTreeElement = father?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
+    const parent: HTMLElement = appObject.workspace.containerEl.querySelector('[draggable="true"][data-path="UN-SORTED"]') as HTMLElement;
+    const unSortedFolderTreeElement = parent?.querySelector(".tree-item-inner.nav-folder-title-content") as HTMLElement;
 
     if (unSortedFolderTreeElement) {
         unSortedFolderTreeElement?.addClass("unSortedFolderTreeElement");
