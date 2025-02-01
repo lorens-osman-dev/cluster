@@ -17,11 +17,11 @@
 }
 
 .menu-item:has(.menu-item-icon .lucide-git-compare) {
-  background-color: var(--background-menu-brother);
+  background-color: var(--background-menu-sibling);
 }
 
 .menu-item.selected:has(.menu-item-icon .lucide-git-compare) {
-  background-color: var(--background-menu-brother-selected);
+  background-color: var(--background-menu-sibling-selected);
 }
 
 .menu-item:has(.menu-item-icon .lucide-disc) {

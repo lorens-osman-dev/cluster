@@ -2,7 +2,7 @@
 .prompt {
   background-color: var(--background-primary);
 
-  &:has(.brother),
+  &:has(.sibling),
   &:has(.child),
   &:has(.cluster),
   &:has(.delete),
@@ -43,8 +43,8 @@
       background-color: var(--background-prompt-child);
     }
 
-    &.brother {
-      background-color: var(--background-prompt-brother);
+    &.sibling {
+      background-color: var(--background-prompt-sibling);
     }
 
     &.orphan {
