@@ -1,6 +1,6 @@
 .theme-dark {
   //-prompt colors
-  --background-prompt-son: hsl(340.53deg 50% 30%);
+  --background-prompt-child: hsl(340.53deg 50% 30%);
   --background-prompt-cluster: hsl(154.99deg 50% 30%);
   --background-prompt-brother: hsl(210.38deg 50% 30%);
   --background-prompt-orphan: hsl(303deg 50% 30%);
@@ -11,8 +11,8 @@
   //-menu colors
   --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
   --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
-  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
-  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-child: hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-child-selected: hsl(341deg 50% 30% / 80%) !important;
   --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
   --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
   --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
@@ -36,7 +36,7 @@
 
 .theme-light {
   //-prompt colors
-  --background-prompt-son: hsl(340.53deg 50% 30%);
+  --background-prompt-child: hsl(340.53deg 50% 30%);
   --background-prompt-cluster: hsl(154.99deg 50% 30%);
   --background-prompt-brother: hsl(210.38deg 50% 30%);
   --background-prompt-orphan: hsl(303deg 50% 30%);
@@ -47,8 +47,8 @@
   //-menu colors
   --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
   --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
-  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
-  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-child: hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-child-selected: hsl(341deg 50% 30% / 80%) !important;
   --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
   --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
   --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;

@@ -68,11 +68,11 @@
   z-index: 60;
   height: 26px;
 
-  &:has(.sonBtn) {
+  &:has(.childBtn) {
     background-color: var(--background-button-container-clusters);
   }
 
-  &:not(:has(.sonBtn)) {
+  &:not(:has(.childBtn)) {
     background-color: var(--background-button-container-orphans);
   }
 

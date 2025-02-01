@@ -3,7 +3,7 @@
   background-color: var(--background-primary);
 
   &:has(.brother),
-  &:has(.son),
+  &:has(.child),
   &:has(.cluster),
   &:has(.delete),
   &:has(.orphan),
@@ -39,8 +39,8 @@
       background-color: var(--background-prompt-cluster);
     }
 
-    &.son {
-      background-color: var(--background-prompt-son);
+    &.child {
+      background-color: var(--background-prompt-child);
     }
 
     &.brother {

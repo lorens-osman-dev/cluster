@@ -8,12 +8,12 @@
 }
 
 .menu-item:has(.menu-item-icon .lucide-baby) {
-  background-color: var(--background-menu-son);
+  background-color: var(--background-menu-child);
   margin-bottom: 2px;
 }
 
 .menu-item.selected:has(.menu-item-icon .lucide-baby) {
-  background-color: var(--background-menu-son-selected);
+  background-color: var(--background-menu-child-selected);
 }
 
 .menu-item:has(.menu-item-icon .lucide-git-compare) {

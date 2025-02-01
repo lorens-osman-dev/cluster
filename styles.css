@@ -1,5 +1,5 @@
 .theme-dark {
-  --background-prompt-son: hsl(340.53deg 50% 30%);
+  --background-prompt-child: hsl(340.53deg 50% 30%);
   --background-prompt-cluster: hsl(154.99deg 50% 30%);
   --background-prompt-brother: hsl(210.38deg 50% 30%);
   --background-prompt-orphan: hsl(303deg 50% 30%);
@@ -8,8 +8,8 @@
   --color-tree-Orphans: hsl(303deg 30% 50%);
   --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
   --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
-  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
-  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-child: hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-child-selected: hsl(341deg 50% 30% / 80%) !important;
   --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
   --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
   --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
@@ -27,7 +27,7 @@
 }
 
 .theme-light {
-  --background-prompt-son: hsl(340.53deg 50% 30%);
+  --background-prompt-child: hsl(340.53deg 50% 30%);
   --background-prompt-cluster: hsl(154.99deg 50% 30%);
   --background-prompt-brother: hsl(210.38deg 50% 30%);
   --background-prompt-orphan: hsl(303deg 50% 30%);
@@ -36,8 +36,8 @@
   --color-tree-Orphans: hsl(303deg 70% 30%);
   --background-menu-cluster: hsl(154.99deg 50% 30%/ 40%) !important;
   --background-menu-cluster-selected: hsl(154.99deg 50% 30%/ 80%) !important;
-  --background-menu-son: hsl(341deg 50% 30% / 40%) !important;
-  --background-menu-son-selected: hsl(341deg 50% 30% / 80%) !important;
+  --background-menu-child: hsl(341deg 50% 30% / 40%) !important;
+  --background-menu-child-selected: hsl(341deg 50% 30% / 80%) !important;
   --background-menu-brother: hsl(210deg 50% 30% / 40%) !important;
   --background-menu-brother-selected: hsl(210deg 50% 30% / 80%) !important;
   --background-menu-orphan: hsl(303deg 50% 30%/ 40%) !important;
@@ -437,10 +437,10 @@
   z-index: 60;
   height: 26px;
 }
-.buttonsLineContainer:has(.sonBtn) {
+.buttonsLineContainer:has(.childBtn) {
   background-color: var(--background-button-container-clusters);
 }
-.buttonsLineContainer:not(:has(.sonBtn)) {
+.buttonsLineContainer:not(:has(.childBtn)) {
   background-color: var(--background-button-container-orphans);
 }
 .buttonsLineContainer .extraButtonsContainer {
@@ -470,12 +470,12 @@
 }
 
 .menu-item:has(.menu-item-icon .lucide-baby) {
-  background-color: var(--background-menu-son);
+  background-color: var(--background-menu-child);
   margin-bottom: 2px;
 }
 
 .menu-item.selected:has(.menu-item-icon .lucide-baby) {
-  background-color: var(--background-menu-son-selected);
+  background-color: var(--background-menu-child-selected);
 }
 
 .menu-item:has(.menu-item-icon .lucide-git-compare) {
@@ -551,7 +551,7 @@
 .prompt {
   background-color: var(--background-primary);
 }
-.prompt:has(.brother), .prompt:has(.son), .prompt:has(.cluster), .prompt:has(.delete), .prompt:has(.orphan), .prompt:has(.noThing) {
+.prompt:has(.brother), .prompt:has(.child), .prompt:has(.cluster), .prompt:has(.delete), .prompt:has(.orphan), .prompt:has(.noThing) {
   display: grid !important;
   align-items: center !important;
   grid-template-columns: 30% 1fr 25px 25px;
@@ -560,9 +560,9 @@
 }
 .prompt:has(.brother) .modal-content,
 .prompt:has(.brother) .modal-header,
-.prompt:has(.brother) .modal-close-button, .prompt:has(.son) .modal-content,
-.prompt:has(.son) .modal-header,
-.prompt:has(.son) .modal-close-button, .prompt:has(.cluster) .modal-content,
+.prompt:has(.brother) .modal-close-button, .prompt:has(.child) .modal-content,
+.prompt:has(.child) .modal-header,
+.prompt:has(.child) .modal-close-button, .prompt:has(.cluster) .modal-content,
 .prompt:has(.cluster) .modal-header,
 .prompt:has(.cluster) .modal-close-button, .prompt:has(.delete) .modal-content,
 .prompt:has(.delete) .modal-header,
@@ -588,8 +588,8 @@
 .prompt .inputMsgCon.cluster {
   background-color: var(--background-prompt-cluster);
 }
-.prompt .inputMsgCon.son {
-  background-color: var(--background-prompt-son);
+.prompt .inputMsgCon.child {
+  background-color: var(--background-prompt-child);
 }
 .prompt .inputMsgCon.brother {
   background-color: var(--background-prompt-brother);
@@ -656,7 +656,7 @@
   background-color: var(--background-first-page-clusters) !important;
 }
 
-.inputMsgCon.son:hover svg {
+.inputMsgCon.child:hover svg {
   -webkit-animation: jello-vertical 0.9s both;
   animation: jello-vertical 0.9s both;
 }
