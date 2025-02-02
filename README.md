@@ -44,7 +44,7 @@ The Result :
 
 Folder Structure :
 
-<img src="https://github.com/lorens-osman-dev/cluster/assets/114411575/b05686e8-bb1c-4a23-b691-b50ff607794e" width="300"  height="600">
+<img src="https://github.com/lorens-osman-dev/cluster/blob/assets/files.jpg?raw=true" width="300" >
 
 ### Don't be scared by the words!
 
