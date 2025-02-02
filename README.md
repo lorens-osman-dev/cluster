@@ -36,7 +36,7 @@ With `Cluster` plugin you can make that easily .
 
 Youtube Demo how to make Programming topics with `Cluster` plugin easily:
 
-[![youtube cluster demo](https://github.com/lorens-osman-dev/cluster/assets/114411575/8d784150-a011-430d-b0fd-1210723446a3)](https://www.youtube.com/watch?v=EQDt_44u_Wo)
+[![youtube cluster demo](https://github.com/lorens-osman-dev/cluster/assets/114411575/8d784150-a011-430d-b0fd-1210723446a3)](https://youtube.com/shorts/i-0IstalEDY?feature=share)
 
 The Result :
 
