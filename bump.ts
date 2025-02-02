@@ -5,7 +5,7 @@ import type { ForegroundColorName, BackgroundColorName } from "chalk";
 type Msg = [string, ForegroundColorName | 'white', BackgroundColorName | null];
 
 // Define the package semver and app version
-const packageSemver = "3.0.1"; // Replace with your desired package semver
+const packageSemver = "3.0.2"; // Replace with your desired package semver
 const appVersion = "1.8.4";    // Replace with your desired app version
 
 // Paths to the JSON files

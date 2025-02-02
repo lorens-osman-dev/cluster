@@ -1,12 +1,13 @@
 {
 	"name": "cluster",
-	"version": "3.0.1",
+	"version": "3.0.2",
 	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
 		"build": "tsc -noEmit -skipLibCheck && node esbuild.config.mjs production",
-		"sass": "sass -w ./src/style/style.scss:./styles.css "
+		"sass": "sass -w ./src/style/style.scss:./styles.css ",
+		"bump": "tsx bump.ts"
 	},
 	"keywords": [],
 	"author": "",

@@ -112,13 +112,11 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
         const selfName = file.basename
         const siblings = file.parent?.children
         const isThereChildrenFolder = siblings?.find((item) => item instanceof TFolder && item.name === selfName) as TFolder
-        if (isThereChildrenFolder) {
-            if (!file.basename.endsWith("-cluster")) {
-                buttonsLineContainer.addClasses(["mergeFileFolder"])
-            }
-            if (file.basename.endsWith("-cluster")) {
-                buttonsLineContainer.addClasses(["mergeFileFolderCluster"])
-            }
+        if (isThereChildrenFolder && !file.basename.endsWith("-cluster")) {
+            buttonsLineContainer.addClasses(["mergeFileFolder"])
+        }
+        if (file.basename.endsWith("-cluster")) {
+            buttonsLineContainer.addClasses(["mergeFileFolderCluster"])
         }
 
         const extraButtonsContainer = document.createElement('div');

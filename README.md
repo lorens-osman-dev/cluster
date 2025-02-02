@@ -68,31 +68,31 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 
 ![ORPHANS Buttons](https://github.com/lorens-osman-dev/cluster/blob/assets/orphans-buttons.png?raw=true)
 
-![cluster](https://github.com/lorens-osman-dev/cluster/blob/assets/cluster.svg)
+![cluster](https://github.com/lorens-osman-dev/cluster/blob/assets/cluster.svg?raw=true)
 
 -   This button creates new note inside `CLUSTERS` folder and the note's name will followed by `-cluster` added to the end.
 -   We refer to this note as the `cluster`, and it's the main note.
 -   The `cluster` has a generation value of `0` as property .
 -   The `cluster` has a tag called `Cluster`. All main notes (also known as `cluster`) will have this `Cluster` tag.
 
-![baby](https://github.com/lorens-osman-dev/cluster/blob/assets/babdc.svg)
+![baby](https://github.com/lorens-osman-dev/cluster/blob/assets/babdc.svg?raw=true)
 
 -   This button creates a new note linked to the current note, we call it `child` note.
 -   `child` note means the new created note will contains link to the current note and tag with cluster's name.
 -   The generation property of the `child` note will be the current note's generation +1
 -   A new folder with the same name of current note will be created for all `child` notes of the current note.
 
-![Sibling](https://github.com/lorens-osman-dev/cluster/blob/assets/git-compare.svg)
+![Sibling](https://github.com/lorens-osman-dev/cluster/blob/assets/git-compare.svg?raw=true)
 
 -   This button creates a new note beside the current note, we call it `sibling` note.
 -   `sibling` note means the new created note will copy the parent link, the cluster's tag and the generation property from current note.
 
-![orphan](https://github.com/lorens-osman-dev/cluster/blob/assets/disc.svg)
+![orphan](https://github.com/lorens-osman-dev/cluster/blob/assets/disc.svg?raw=true)
 
 -   This button creates a new note inside `ORPHANS` folder.
 -   `orphan` note has no parent link and no hierarchy.
 
-![delete](https://github.com/lorens-osman-dev/cluster/blob/assets/trash-2.svg)
+![delete](https://github.com/lorens-osman-dev/cluster/blob/assets/trash-2.svg?raw=true)
 
 -   This button deletes current note.
 -   If the current note has no siblings the containing folder will be deleted.
@@ -117,35 +117,9 @@ When you open a note from either the `CLUSTERS` or `ORPHANS` folder the `Cluster
 
 ### ⚙️ PC Recommendation
 
--   Set `Ctrl+Shift+B` hotkey to New sibling command.
--   Set `Ctrl+Shift+S` hotkey to New child command.
--   Set `Ctrl+Shift+C` hotkey to New cluster command.
+-   Set `Ctrl+Shift+S` hotkey to New sibling command.
+-   Set `Ctrl+Shift+C` hotkey to New child command.
 -   Set `Ctrl+Shift+D` hotkey to Delete active note command.
-
-## HELP !
-
-**The Challenge**:
-
-Currently, the Cluster plugin for each `child` note creates a subfolder with the same name as the `parent` note, following these steps :
-
-1. create folder with same name of the `parent` note if is not exist.
-2. Create the `child` note within the newly created folder.
-
-**Benefits:**
-
--   Maintains a consistent file structure.
-
-**Drawbacks:**
-
--   Crowded file navigation pane ("file-explorer"). Each `parent` note with `child` notes creates a folder with the same name as `parent`, resulting in a cluttered file structure (see image below).
-
-<img src="./assets/imags/Frame 1.png" >
-
-**The goal is to make new "file-explorer" like**
-
-<img src="./assets/imags/sdfs.png" >
-
-**we welcome any GitHub pull requests (PRs) contributions.**
 
 ---
 
