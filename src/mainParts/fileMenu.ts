@@ -28,7 +28,6 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
         ||
         (file instanceof TFolder && file.path.startsWith(clusters) && file.path.endsWith(clusters))
       ) {
-        menu.addSeparator()
         menu.addItem((item) => {
           item
             .setTitle("New cluster")
@@ -42,7 +41,6 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
       }
       //- Child menu
       if (file instanceof TFile && file.path.startsWith(clusters)) {
-        menu.addSeparator()
         menu.addItem((item) => {
           item
             .setTitle("New Child")

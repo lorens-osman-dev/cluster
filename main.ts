@@ -7,7 +7,7 @@ export default class clusterPlugin extends Plugin {
 	settings: clusterPluginSettings;
 
 	async onload() {
-		console.log("loading Cluster  sdfsdf plugin");
+		console.log("loading Cluster plugin");
 		const file = this.app.workspace.getActiveFile() as TFile;
 
 		await this.loadSettings();

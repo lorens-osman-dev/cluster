@@ -1,6 +1,7 @@
 //-FILE MENU -------------------*/
 .menu-item:has(.menu-item-icon .lucide-folder-git-2) {
   background-color: var(--background-menu-cluster);
+  margin-bottom: 2px;
 }
 
 .menu-item.selected:has(.menu-item-icon .lucide-folder-git-2) {
@@ -30,4 +31,22 @@
 
 .menu-item.selected:has(.menu-item-icon .lucide-disc) {
   background-color: var(--background-menu-orphan-selected);
+}
+
+.menu-item:has(.menu-item-icon .lucide-focus) {
+  background-color: var(--background-menu-focus);
+  margin-bottom: 2px;
+}
+
+.menu-item.selected:has(.menu-item-icon .lucide-focus) {
+  background-color: var(--background-menu-focus-selected);
+}
+
+.menu-item:has(.menu-item-icon .lucide-log-out) {
+  background-color: var(--background-menu-un-focus);
+  margin-bottom: 2px;
+}
+
+.menu-item.selected:has(.menu-item-icon .lucide-log-out) {
+  background-color: var(--background-menu-un-focus-selected);
 }
