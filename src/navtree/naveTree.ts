@@ -1,4 +1,4 @@
-import { TFile, TFolder, Plugin, Menu } from 'obsidian';
+import { TFile, TFolder, Plugin, Menu, WorkspaceLeaf, MarkdownView } from 'obsidian';
 import { ExplorerLeaf, ElementsObj, Pairs } from '../types/obsidian';
 
 export function newNavTreeStart(plugin: Plugin) {
@@ -46,13 +46,17 @@ export function oldNavTreeChange(plugin: Plugin, pairs: Pairs) {
       if (file instanceof TFile) {
         // Create a new Menu object
         const menu = new Menu();
-
+        const leaf = getLeafForFile(plugin, file)
         // Trigger the 'file-menu' event
-        //@ts-ignore
-        plugin.app.workspace.trigger("file-menu", menu, file, "file-explorer");
+        if (leaf) {
 
-        // Show the menu at the mouse position
-        menu.showAtMouseEvent(e);
+          //@ts-ignore
+          plugin.app.workspace.trigger("file-menu", menu, file, "file-explorer", leaf);
+
+          // Show the menu at the mouse position
+          menu.showAtMouseEvent(e);
+          return
+        }
       }
     });
     targetInnerEl.style.display = "none"
@@ -119,4 +123,18 @@ export function getElementsObj(plugin: Plugin): ElementsObj | undefined {
   });
 
   return elementsObj.folders.length > 0 ? elementsObj : undefined;
+}
+
+function getLeafForFile(plugin: Plugin, file: TFile): WorkspaceLeaf | null {
+  const leaves = plugin.app.workspace.getLeavesOfType("markdown");
+
+  for (const leaf of leaves) {
+    const view = leaf.view;
+
+    if (view instanceof MarkdownView && view.file?.path === file.path) {
+      return leaf; // Found the leaf for this file
+    }
+  }
+
+  return null; // No matching leaf found
 }
