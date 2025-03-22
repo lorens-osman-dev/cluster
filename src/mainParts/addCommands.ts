@@ -74,6 +74,7 @@ export function addCommands(plugin: Plugin) {
 	plugin.addCommand({
 		id: "simple-focus-exit-focus",
 		name: "Exit focus",
+		icon: "log-out",
 		callback: () => {
 			SimpleFocus.exitFocus();
 		},
@@ -81,6 +82,7 @@ export function addCommands(plugin: Plugin) {
 	plugin.addCommand({
 		id: "simple-focus-enter-focus",
 		name: "Enter focus",
+		icon: "focus",
 		callback: () => {
 			const file = plugin.app.workspace.getActiveFile();
 			if (file?.path) {
@@ -91,6 +93,7 @@ export function addCommands(plugin: Plugin) {
 	plugin.addCommand({
 		id: "delete-current-line",
 		name: "Delete current line",
+		icon: "scissors-line-dashed",
 		callback: () => {
 			const view = plugin.app.workspace.getActiveViewOfType(MarkdownView);
 			const editor = view?.editor as Editor;
