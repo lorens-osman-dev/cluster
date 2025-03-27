@@ -13,6 +13,28 @@ const versionsFilePath = "./versions.json";
 const manifestFilePath = "./manifest.json";
 const packageFilePath = "./package.json";
 
+// Function to check if the version Number is already used 
+async function isVersionNumberUsed(): Promise<boolean | undefined> {
+	try {
+		const data = await readFile(manifestFilePath, "utf8");
+		const manifest = JSON.parse(data);
+		if (manifest.version === packageSemver) {
+			console.log(
+				logInsert([
+					`>> version="${packageSemver}" is already used try to update it in bump.ts file.  ✓✓`,
+					"red",
+					null,
+				]),
+			);
+			return true;
+		}
+		return false;
+
+	} catch (err) {
+		console.error("Error updating manifest.json:", err);
+		return
+	}
+}
 // Function to update versions.json
 async function updateVersionsFile() {
 	try {
@@ -119,6 +141,10 @@ export function logInsert(msgArr: Msg) {
 }
 // Main function to run all steps in sequence
 async function main() {
+	const isUsed = await isVersionNumberUsed();
+	if (isUsed) {
+		return;
+	}
 	await updateVersionsFile();
 	await updateManifestFile();
 	await updatePackageJsonFile();
