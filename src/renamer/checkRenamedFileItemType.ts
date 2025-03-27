@@ -11,6 +11,7 @@ export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<T
     [isItem.isFileHasChildren(fileItem as RenamedItem<TFile>) === "alone", "the file has children"],
     [isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>) === "notTheCluster", "the file is cluster"],
   ])
+
   if (check1 === true) {
     return 'file:alone:notTheCluster';
   }
@@ -48,6 +49,7 @@ export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<T
     [isItem.isFolderCluster(fileItem as RenamedItem<TFolder>) === "notTheCluster", "the folder is cluster"],
     [isItem.whatClusteringState(fileItem as RenamedItem<TFolder>) === "unLinked", "the folder linked"],
   ])
+
   if (check5 === true) {
     return 'folder:notTheCluster:unLinked';
   }
@@ -78,4 +80,13 @@ export function checkRenamedFileItemType(plugin: Plugin, fileItem: RenamedItem<T
   if (check8 === true) {
     return 'folder:theCluster:linked';
   }
+
+  const undefinedFileStatus = {
+    type: fileItem.file instanceof TFile ? "file" : "folder",
+    isClusterIfFile: isItem.isFileCluster(plugin, fileItem as RenamedItem<TFile>),
+    hasChildrenIfFile: isItem.isFileHasChildren(fileItem as RenamedItem<TFile>),
+    clusteringStateIfFolder: isItem.whatClusteringState(fileItem as RenamedItem<TFolder>),
+    isClusterIfFolder: isItem.isFolderCluster(fileItem as RenamedItem<TFolder>),
+  }
+  return undefinedFileStatus
 }

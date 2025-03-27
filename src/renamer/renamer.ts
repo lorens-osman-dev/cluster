@@ -14,7 +14,7 @@ export async function renamer(plugin: Plugin, fileItem: RenamedItem<TAbstractFil
     console.log(fileItem.file.name + ": undefined -->", renamedFileItemType);
     return
   }
-  console.log(fileItem.file.name + "-->", renamedFileItemType);
+  // console.log(fileItem.file.name + "-->", renamedFileItemType);
 
   //do rename
   await rename(plugin, fileItem, renamedFileItemType)
@@ -29,13 +29,17 @@ async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>, type
     if (!forbid) {
       await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
       await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.updateGenerationFrontmatter(plugin, fileItem as RenamedItem<TFile>)
     }
   }
   // file:alone:theCluster 
   if (type === "file:alone:theCluster") {
     const forbid = await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
     if (!forbid) {
-      // Add any additional logic if needed
+      await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.updateGenerationFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      // remove parent if there is one need time to work as expected
+      setTimeout(async () => { await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>) }, 100)
     }
   }
   // file:hasChildren:notTheCluster
@@ -44,6 +48,7 @@ async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>, type
     if (!forbid) {
       await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
       await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.updateGenerationFrontmatter(plugin, fileItem as RenamedItem<TFile>)
       await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
     }
   }
@@ -52,6 +57,10 @@ async function rename(plugin: Plugin, fileItem: RenamedItem<TAbstractFile>, type
     const forbid = await doModify.file.forbidClusterRenaming(plugin, fileItem as RenamedItem<TFile>)
     if (!forbid) {
       await doModify.file.renameChildrenFolder(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.updateClusterTagFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      await doModify.file.updateGenerationFrontmatter(plugin, fileItem as RenamedItem<TFile>)
+      // remove parent if there is one need time to work as expected
+      setTimeout(async () => { await doModify.file.updateParentFrontmatter(plugin, fileItem as RenamedItem<TFile>) }, 100)
     }
   }
   //= folders

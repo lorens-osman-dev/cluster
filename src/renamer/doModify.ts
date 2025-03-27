@@ -2,6 +2,7 @@ import { TFile, TFolder, Plugin, Notice, TAbstractFile } from 'obsidian';
 import { RenamedItem } from "src/types/obsidian";
 import isItem from './isItem';
 
+
 async function updateParentFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFile>) {
   if (isItem.isFileCluster(plugin, fileItem) === "notTheCluster") {
     try {
@@ -18,21 +19,100 @@ async function updateParentFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFi
 
     }
   }
-}
-async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFile>) {
-  if (isItem.isFileCluster(plugin, fileItem) === "notTheCluster") {
+  //remove the parent property if there is one because cluster file should'nt have one
+  if (isItem.isFileCluster(plugin, fileItem) === "theCluster") {
     try {
       await plugin.app.fileManager.processFrontMatter(fileItem.file, (frontmatter) => {
         if (!frontmatter) {
           console.error("No frontmatter found in file:", fileItem.file.path);
           return;
         }
-        // Update the "cluster tag" property
+        // Update the "parent" property
+        const parent = frontmatter?.parent
+        if (parent || parent === null || parent instanceof String) {// parent === null means empty
+          delete frontmatter.parent
+          return
+        }
+      });
+    } catch (error) {
+      console.error("Error updating parent frontmatter:", error);
+
+    }
+  }
+}
+async function updateGenerationFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFile>) {
+  if (fileItem.file instanceof TFile) {
+    try {
+      await plugin.app.fileManager.processFrontMatter(fileItem.file, (frontmatter) => {
+        if (!frontmatter) {
+          console.error("No frontmatter found in file:", fileItem.file.path);
+          return;
+        }
+        // Update the "generation" property
+        const generationFromPath = fileItem.oldPath.split('/').length - 2;
+        frontmatter.generation = generationFromPath
+      });
+    } catch (error) {
+      console.error("Error updating generation frontmatter:", error);
+
+    }
+  }
+}
+async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem<TFile>) {
+  if (isItem.isFileCluster(plugin, fileItem) === "notTheCluster") {
+
+    try {
+      await plugin.app.fileManager.processFrontMatter(fileItem.file, (frontmatter) => {
+        if (!frontmatter) {
+          console.error("No frontmatter found in file:", fileItem.file.path);
+          return;
+        }
+        if (!frontmatter.tags) {
+          frontmatter.tags = []
+        }
+
+        // remove the "Cluster" itself if there is one because notTheCluster file should'nt have one
+        const ClusterTagIndex = (frontmatter.tags as string[]).findIndex(tag => tag.contains("Cluster"));
+        if (ClusterTagIndex >= 0) {
+          (frontmatter.tags as string[]).splice(ClusterTagIndex, 1)
+        }
+        // Update the "cluster tag" property  that reference the cluster name
         let tagName = fileItem.newPath.split("/")[1]
         tagName = tagName.endsWith("-cluster") ? tagName : `${tagName}-cluster`
         tagName = tagName.replace(/ /g, "-")
         const clusterTagIndex = (frontmatter.tags as string[]).findIndex(tag => tag.contains("-cluster"));
-        (frontmatter.tags as string[])[clusterTagIndex] = tagName
+        if (clusterTagIndex < 0) {
+          frontmatter.tags.unshift(tagName)
+          return
+        }
+        if (clusterTagIndex >= 0) {
+          (frontmatter.tags as string[]).splice(clusterTagIndex, 1);
+          (frontmatter.tags as string[]).unshift(tagName)
+          return
+        }
+
+      });
+
+    } catch (error) {
+      console.error("Error updating -cluster tag frontmatter:", error);
+    }
+  }
+  if (isItem.isFileCluster(plugin, fileItem) === "theCluster") {
+    try {
+      await plugin.app.fileManager.processFrontMatter(fileItem.file, (frontmatter) => {
+        if (!frontmatter) {
+          console.error("No frontmatter found in file:", fileItem.file.path);
+          return;
+        }
+        if (!frontmatter.tags) {
+          frontmatter.tags = []
+        }
+
+        const clusterTagIndex = (frontmatter.tags as string[]).findIndex(tag => tag.contains("Cluster"));
+        if (clusterTagIndex < 0) {
+          frontmatter.tags.unshift("Cluster")
+          return
+        }
       });
 
     } catch (error) {
@@ -43,13 +123,11 @@ async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem
 
 async function renameLinkedFile(plugin: Plugin, fileItem: RenamedItem<TFolder>): Promise<void> {
   const selfOldName = fileItem.oldPath.split("/").pop();//Removes the last element from an array and returns it.
-  console.log("selfOldName:", selfOldName);
   const selfNewName = `${fileItem.newPath}.md`
   const siblings = fileItem.file.parent?.children
-  console.log("selfNewName:", selfNewName);
   const isTherelinkedFile = siblings?.find((item) => item instanceof TFile && item.basename === selfOldName) as TFile;
   if (!isTherelinkedFile) {
-    console.log("Error: No linked file found.");
+    // console.log("Error: No linked file found.");
     return
   }
   try {
@@ -63,7 +141,7 @@ async function renameChildrenFolder(plugin: Plugin, fileItem: RenamedItem<TFile>
   const siblings = fileItem.file.parent?.children
   const isThereChildrenFolder = siblings?.find((item) => item instanceof TFolder && item.name === selfOldName) as TFolder
   if (!isThereChildrenFolder) {
-    console.log("Error: No children folder found.");
+    // console.log("Error: No children folder found.");
     return
   }
   try {
@@ -132,7 +210,8 @@ const doModify = {
     updateParentFrontmatter,
     updateClusterTagFrontmatter,
     renameChildrenFolder,
-    forbidClusterRenaming
+    forbidClusterRenaming,
+    updateGenerationFrontmatter
   },
   folder: {
     forbidClusterRenaming,

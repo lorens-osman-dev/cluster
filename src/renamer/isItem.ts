@@ -17,23 +17,13 @@ function isFileCluster(plugin: Plugin, fileItem: RenamedItem<TFile>): "theCluste
   if (fileItem.file instanceof TFolder) {
     return
   }
-  const frontmatter = plugin.app.metadataCache.getFileCache(fileItem.file)?.frontmatter;
-  const theClusterTag = (frontmatter?.tags as string[])?.find(tag => tag === "Cluster");
-  const clusterTag = (frontmatter?.tags as string[])?.find(tag => tag.contains("-cluster"));
-  const generationFromFrontmatter = frontmatter?.generation
+
   const generationFromPath = fileItem.oldPath.split('/').length - 2;
-  const parent = frontmatter?.parent
   const oldName = fileItem.oldPath.split("/")[1].slice(0, -3);
-  const newName = fileItem.newPath.split("/")[1].slice(0, -3);
   const theClusterResult = U.IF([
     [fileItem.file instanceof TFile, "its is folder"],
     [oldName.endsWith("-cluster"), "old name didn't ends with -cluster"],
-    [generationFromFrontmatter === 0, "cluster generation must be 0 "],
     [generationFromPath === 0, "cluster generation must be 0 "],
-    [generationFromPath === generationFromFrontmatter, "generationFromFrontmatter must equal generationFromPath "],
-    [theClusterTag === "Cluster", "there is no Cluster tag"],
-    [!clusterTag, `${clusterTag} forbidden`],
-    [!parent, `the parent property ${parent} forbidden`],
   ])
   if (theClusterResult === true) {
     return "theCluster"
@@ -41,12 +31,7 @@ function isFileCluster(plugin: Plugin, fileItem: RenamedItem<TFile>): "theCluste
   const notTheClusterResult = U.IF([
     [fileItem.file instanceof TFile, "its is folder"],
     [!(oldName.endsWith("-cluster")), "old name ends with -cluster"],
-    [!(generationFromFrontmatter === 0), "generation must be bigger than 0 "],
     [!(generationFromPath === 0), "generation must be bigger than 0 "],
-    [generationFromPath === generationFromFrontmatter, "generationFromFrontmatter must equal generationFromPath "],
-    [!(theClusterTag === "Cluster"), "Cluster tag forbidden"],
-    [typeof clusterTag === 'string' && clusterTag.contains("-cluster"), `${clusterTag} is missing`],
-    [parent, `the parent property ${parent} forbidden`],
   ])
   if (notTheClusterResult === true) {
     return "notTheCluster"
@@ -60,7 +45,6 @@ function isFolderCluster(fileItem: RenamedItem<TFolder>): "theCluster" | "notThe
 
   const generationFromPath = fileItem.oldPath.split('/').length - 2;
   const oldName = fileItem.oldPath.split("/")[1];
-  const newName = fileItem.newPath.split("/")[1];
   const theClusterResult = U.IF([
     [fileItem.file instanceof TFolder, "its is file"],
     [oldName.endsWith("-cluster"), "old name didn't ends with -cluster"],
