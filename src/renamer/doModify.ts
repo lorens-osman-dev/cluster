@@ -30,6 +30,7 @@ async function updateClusterTagFrontmatter(plugin: Plugin, fileItem: RenamedItem
         // Update the "cluster tag" property
         let tagName = fileItem.newPath.split("/")[1]
         tagName = tagName.endsWith("-cluster") ? tagName : `${tagName}-cluster`
+        tagName = tagName.replace(/ /g, "-")
         const clusterTagIndex = (frontmatter.tags as string[]).findIndex(tag => tag.contains("-cluster"));
         (frontmatter.tags as string[])[clusterTagIndex] = tagName
       });
