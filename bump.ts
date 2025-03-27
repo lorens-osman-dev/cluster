@@ -5,7 +5,7 @@ import type { ForegroundColorName, BackgroundColorName } from "chalk";
 type Msg = [string, ForegroundColorName | "white", BackgroundColorName | null];
 
 // Define the package semver and app version
-const packageSemver = "3.0.6"; // Replace with your desired package semver
+const packageSemver = "3.0.7"; // Replace with your desired package semver
 const appVersion = "1.8.4"; // Replace with your desired app version
 
 // Paths to the JSON files
@@ -21,7 +21,7 @@ async function isVersionNumberUsed(): Promise<boolean | undefined> {
 		if (manifest.version === packageSemver) {
 			console.log(
 				logInsert([
-					`>> version="${packageSemver}" is already used try to update it in bump.ts file.  ✓✓`,
+					`>> version="${packageSemver}" is already used try to update it in bump.ts file.  ❌`,
 					"red",
 					null,
 				]),
