@@ -218,17 +218,23 @@ export default class familyModal extends Modal {
         if (currentActiveFileName?.endsWith("-cluster")) {
           new Notice(`You cant make Sibling to a cluster.\nCreate new cluster instead`);
         } else {
-          const result = await templates(getActiveFile, "sibling");
 
-          if (result.state == true) {
-            const siblingNameFromInput = this.inputEl.value.trim();
-            if (siblingNameFromInput.endsWith("-cluster")) {
-              new Notice("The name should'nt contain '-cluster' suffix", 3e3)
-              return
+          await renamer2(this.plugin, getActiveFile)
+          setTimeout(async () => {
+            const result = await templates(getActiveFile, "sibling");
+
+            if (result.state == true) {
+              const siblingNameFromInput = this.inputEl.value.trim();
+              if (siblingNameFromInput.endsWith("-cluster")) {
+                new Notice("The name should'nt contain '-cluster' suffix", 3e3)
+                return
+              }
+              this.setFolder(getActiveFile?.parent, "");
+              this.createNewNote(appObject, siblingNameFromInput, result.siblingTemplate);
+              this.app.commands.executeCommandById('file-explorer:reveal-active-file')
+
             }
-            this.setFolder(getActiveFile?.parent, "");
-            this.createNewNote(appObject, siblingNameFromInput, result.siblingTemplate);
-          }
+          }, 100)
         }
       } else {
         new Notice("Create new sibling should not work outside [CLUSTERS] folder")
