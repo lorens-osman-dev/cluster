@@ -171,8 +171,9 @@ export default class familyModal extends Modal {
         else if (!getActiveFile.basename.endsWith("-cluster")) {
           if (!((getActiveFile.path.match(/\//g) || []).length == 1)) {
 
-            const result = await templates(getActiveFile, "normalChild");
-            if (result.state) {
+            await renamer2(this.plugin, getActiveFile)
+            setTimeout(async () => {
+              const result = await templates(getActiveFile, "normalChild");
               const childNameFromInput = this.inputEl.value.trim();
               if (childNameFromInput.endsWith("-cluster")) {
                 new Notice("The name should'nt contain '-cluster' suffix", 3e3)
@@ -187,7 +188,10 @@ export default class familyModal extends Modal {
               // @ts-ignore
               this.setFolder(newCreatedChildrenFolder, "");
               await this.createNewNote(appObject, childNameFromInput, result.normalChildTemplate);
-            }
+              this.app.commands.executeCommandById('file-explorer:reveal-active-file')
+            }, 100)
+
+
 
           } else {
             new Notice("The Cluster's name should ends with '-cluster' word.\nExample:'lorens-cluster' ,You need to change the note name.", 3e3)
