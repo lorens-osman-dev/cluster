@@ -143,24 +143,29 @@ export default class familyModal extends Modal {
       if (getActiveFile?.path?.startsWith(clusters)) {
         if (getActiveFile.basename.endsWith("-cluster")) {
           if ((getActiveFile.path.match(/\//g) || []).length == 1) {
-            const result = await templates(getActiveFile, "clusterChild");
-            if (result.state) {
-              const childNameFromInput = this.inputEl.value.trim();
-              if (childNameFromInput.endsWith("-cluster")) {
-                new Notice("The name should'nt contain '-cluster' suffix", 3e3)
-                return
-              }
-              const childrenFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
-              await this.createDirectory(appObject, "", childrenFolderPath);
-              const newCreatedChildrenFolder = getActiveFile.parent?.children?.find(
-                (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
-              );
 
-              // @ts-ignore
-              this.setFolder(newCreatedChildrenFolder, "");
-              renamer2(this.plugin, getActiveFile)
-              await this.createNewNote(appObject, childNameFromInput, result.clusterChildTemplate);
-            }
+            await renamer2(this.plugin, getActiveFile)
+            setTimeout(async () => {
+              const result = await templates(getActiveFile, "clusterChild");
+              if (result.state) {
+                const childNameFromInput = this.inputEl.value.trim();
+                if (childNameFromInput.endsWith("-cluster")) {
+                  new Notice("The name should'nt contain '-cluster' suffix", 3e3)
+                  return
+                }
+                const childrenFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
+                await this.createDirectory(appObject, "", childrenFolderPath);
+                const newCreatedChildrenFolder = getActiveFile.parent?.children?.find(
+                  (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
+                );
+
+                // @ts-ignore
+                this.setFolder(newCreatedChildrenFolder, "");
+                renamer2(this.plugin, getActiveFile)
+                await this.createNewNote(appObject, childNameFromInput, result.clusterChildTemplate);
+                this.app.commands.executeCommandById('file-explorer:reveal-active-file')
+              }
+            }, 100)
 
           } else {
             new Notice("The Cluster should not be in this generation.\nChange the note name. \nOr move it to generation 0", 3e3)
@@ -174,21 +179,23 @@ export default class familyModal extends Modal {
             await renamer2(this.plugin, getActiveFile)
             setTimeout(async () => {
               const result = await templates(getActiveFile, "normalChild");
-              const childNameFromInput = this.inputEl.value.trim();
-              if (childNameFromInput.endsWith("-cluster")) {
-                new Notice("The name should'nt contain '-cluster' suffix", 3e3)
-                return
-              }
-              const childrenFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
-              await this.createDirectory(appObject, "", childrenFolderPath);
-              const newCreatedChildrenFolder = getActiveFile.parent?.children.find(
-                (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
-              );
+              if (result.state) {
+                const childNameFromInput = this.inputEl.value.trim();
+                if (childNameFromInput.endsWith("-cluster")) {
+                  new Notice("The name should'nt contain '-cluster' suffix", 3e3)
+                  return
+                }
+                const childrenFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
+                await this.createDirectory(appObject, "", childrenFolderPath);
+                const newCreatedChildrenFolder = getActiveFile.parent?.children.find(
+                  (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
+                );
 
-              // @ts-ignore
-              this.setFolder(newCreatedChildrenFolder, "");
-              await this.createNewNote(appObject, childNameFromInput, result.normalChildTemplate);
-              this.app.commands.executeCommandById('file-explorer:reveal-active-file')
+                // @ts-ignore
+                this.setFolder(newCreatedChildrenFolder, "");
+                await this.createNewNote(appObject, childNameFromInput, result.normalChildTemplate);
+                this.app.commands.executeCommandById('file-explorer:reveal-active-file')
+              }
             }, 100)
 
 
