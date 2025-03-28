@@ -14,7 +14,7 @@ export function addEvents(plugin: ExtendedPlugin) {
   plugin.registerEvent(
     plugin.app.workspace.on("file-open", async (file: TFile) => {
       if (file) {
-        await P.buttonsLine(plugin.app, file, plugin.settings);	// Add Cluster Buttons 
+        await P.buttonsLine(plugin, file, plugin.settings);	// Add Cluster Buttons 
         await P.coloringTreePanel(plugin.app, file);
         plugin.settings.foldProperties ? await P.foldPropertiesElement(plugin.app, file) : null; // Fold Properties
         await P.unsorted.addUnsortedFilesCounter(plugin.app);

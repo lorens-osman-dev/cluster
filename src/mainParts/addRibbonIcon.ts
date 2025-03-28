@@ -19,7 +19,7 @@ export function addRibbonIcon(plugin: Plugin) {
   plugin.addRibbonIcon("cluster-svg", "Create new cluster", (evt) => {
     createClustersAndOrphansFolder(plugin.app);
     new familyModal(
-      plugin.app,
+      plugin,
       NewFileLocation.NewTab,
       "newCluster",
       undefined,

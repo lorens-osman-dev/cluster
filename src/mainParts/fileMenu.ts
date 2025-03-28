@@ -35,7 +35,7 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
             .onClick(async () => {
               createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(plugin.app, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
+              new familyModal(plugin, NewFileLocation.NewTab, "newCluster", graphActiveFile).open();
             });
         });
       }
@@ -48,7 +48,7 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
             .onClick(async () => {
               createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(plugin.app, NewFileLocation.NewTab, "newChild", graphActiveFile).open();
+              new familyModal(plugin, NewFileLocation.NewTab, "newChild", graphActiveFile).open();
             });
         });
       }
@@ -65,7 +65,7 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
             .onClick(async () => {
               createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(plugin.app, NewFileLocation.NewTab, "newSibling", graphActiveFile).open();
+              new familyModal(plugin, NewFileLocation.NewTab, "newSibling", graphActiveFile).open();
             });
         });
       }
@@ -83,7 +83,7 @@ export function fileMenu(plugin: Plugin, SimpleFocus: SimpleFocusClass) {
             .onClick(async () => {
               createClustersAndOrphansFolder(plugin.app);
               const graphActiveFile = file
-              new familyModal(plugin.app, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
+              new familyModal(plugin, NewFileLocation.NewTab, "newOrphan", graphActiveFile).open();
             });
         });
       }

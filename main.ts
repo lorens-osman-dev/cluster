@@ -14,7 +14,7 @@ export default class clusterPlugin extends Plugin {
 		this.addSettingTab(new settingTab(this.app, this));
 
 
-		file ? await P.buttonsLine(this.app, file, this.settings) : null;
+		file ? await P.buttonsLine(this, file, this.settings) : null;
 		P.addEvents(this)
 		P.addRibbonIcon(this);
 		setTimeout(() => P.newNavTreeStart(this), 500)
@@ -37,7 +37,7 @@ export default class clusterPlugin extends Plugin {
 		//FIX if there more than one file in workspace you need to remove the buttons line from them all
 		// Remove Buttons line
 		const file = this.app.workspace.getActiveFile() as TFile;
-		await P.buttonsLine(this.app, file, this.settings, true);
+		await P.buttonsLine(this, file, this.settings, true);
 		P.unsorted.unSortedObserver(this.app, false);
 		console.log("unloading Cluster plugin");
 	}

@@ -13,10 +13,10 @@ export function addCommands(plugin: Plugin) {
 		callback: () => {
 			createClustersAndOrphansFolder(plugin.app);
 			new familyModal(
-				plugin.app,
+				plugin,
 				NewFileLocation.NewTab,
 				"newCluster",
-				undefined,
+				undefined
 			).open();
 		},
 	});
@@ -26,7 +26,7 @@ export function addCommands(plugin: Plugin) {
 		callback: () => {
 			createClustersAndOrphansFolder(plugin.app);
 			new familyModal(
-				plugin.app,
+				plugin,
 				NewFileLocation.NewTab,
 				"newChild",
 				undefined,
@@ -39,7 +39,7 @@ export function addCommands(plugin: Plugin) {
 		callback: () => {
 			createClustersAndOrphansFolder(plugin.app);
 			new familyModal(
-				plugin.app,
+				plugin,
 				NewFileLocation.NewTab,
 				"newSibling",
 				undefined,
@@ -52,7 +52,7 @@ export function addCommands(plugin: Plugin) {
 		callback: () => {
 			createClustersAndOrphansFolder(plugin.app);
 			new familyModal(
-				plugin.app,
+				plugin,
 				NewFileLocation.NewTab,
 				"newOrphan",
 				undefined,

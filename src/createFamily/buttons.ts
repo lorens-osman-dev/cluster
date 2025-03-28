@@ -1,4 +1,4 @@
-import { App, TFile, setTooltip, setIcon, addIcon, MarkdownView, Editor, Platform, TFolder } from "obsidian";
+import { TFile, setTooltip, setIcon, addIcon, MarkdownView, Editor, Platform, TFolder, Plugin } from "obsidian";
 import familyModal from "./familyModal";
 import U from '../util/U';
 import deleteActiveNoteModal from "./deleteActiveNoteModal";
@@ -9,12 +9,12 @@ import type { clusterPluginSettings } from "../settings/settings";
 const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 let Vars = {}
-export async function buttonsLine(appObject: App, file: TFile, settings?: clusterPluginSettings, removeButtons?: boolean) {
+export async function buttonsLine(plugin: Plugin, file: TFile, settings?: clusterPluginSettings, removeButtons?: boolean) {
 
     Vars = settings as clusterPluginSettings;
     //! Android 
     if (Platform.isMobile) {
-        const LEAF = appObject.workspace.getActiveViewOfType(MarkdownView)
+        const LEAF = plugin.app.workspace.getActiveViewOfType(MarkdownView)
         if (LEAF !== null) {
             const obsidianContainer = LEAF?.containerEl
 
@@ -24,7 +24,7 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: cluste
             if (removeButtons) {//remove buttons when on unload
                 RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
             } else {
-                appendOrRemoveChild(appObject, file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+                appendOrRemoveChild(plugin, file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
                 firstPageOfClusters(file, obsidianContainerElements)
             }
 
@@ -33,7 +33,7 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: cluste
     }
     //! PC 
     else {
-        const activeLeave = appObject.workspace.getActiveViewOfType(MarkdownView)
+        const activeLeave = plugin.app.workspace.getActiveViewOfType(MarkdownView)
         //@ts-ignore
         const activeLeavePath = activeLeave?.file?.path as string
         if (activeLeavePath.startsWith(clusters) || activeLeavePath.startsWith(orphans)) {
@@ -44,10 +44,10 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: cluste
             const obsidianHeaderEl = activeLeave?.headerEl
 
             if (removeButtons) {//remove buttons when on unload
-                RemoveButtonsLine(file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+                RemoveButtonsLine(file, obsidianContainer as HTMLElement, obsidianContainerElements, obsidianHeaderEl)
             } else {
                 // append buttonsLineContainer to DOM if the file  in clusters folder or in orphans folder
-                appendOrRemoveChild(appObject, file, obsidianContainer, obsidianContainerElements, obsidianHeaderEl)
+                appendOrRemoveChild(plugin, file, obsidianContainer as HTMLElement, obsidianContainerElements, obsidianHeaderEl)
                 firstPageOfClusters(file, obsidianContainerElements)
 
             }
@@ -58,16 +58,16 @@ export async function buttonsLine(appObject: App, file: TFile, settings?: cluste
             //@ts-ignore
             const obsidianHeaderEl2 = activeLeave?.headerEl
             // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
-            RemoveChild(file, obsidianContainer2, obsidianContainerElements2, obsidianHeaderEl2)
+            RemoveChild(file, obsidianContainer2 as HTMLElement, obsidianContainerElements2, obsidianHeaderEl2)
             firstPageOfClusters(file, obsidianContainerElements2)
 
         }
     }
 
 }
-function RemoveChild(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
+function RemoveChild(file: TFile, obsidianContainer: HTMLElement, obsidianContainerElements: Element[], obsidianHeaderEl: HTMLElement) {
     // check if buttonsLineContainer exist in the DOM or not
-    const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
+    const isButtonsLineContainer: Element | undefined = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
 
     // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
     if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
@@ -75,9 +75,9 @@ function RemoveChild(file: TFile, obsidianContainer: any, obsidianContainerEleme
     }
 }
 // remove buttonsLineContainer on unload
-function RemoveButtonsLine(file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
+function RemoveButtonsLine(file: TFile, obsidianContainer: HTMLElement, obsidianContainerElements: Element[], obsidianHeaderEl: HTMLElement) {
     // check if buttonsLineContainer exist in the DOM or not
-    const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
+    const isButtonsLineContainer: Element | undefined = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
 
     // remove buttonsLineContainer on unload
     if (isButtonsLineContainer && (file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
@@ -85,9 +85,9 @@ function RemoveButtonsLine(file: TFile, obsidianContainer: any, obsidianContaine
     }
 }
 //- Append Or Remove Child FUNCTION
-function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any, obsidianContainerElements: any, obsidianHeaderEl: any) {
+function appendOrRemoveChild(plugin: Plugin, file: TFile, obsidianContainer: HTMLElement, obsidianContainerElements: Element[], obsidianHeaderEl: HTMLElement) {
     // check if buttonsLineContainer exist in the DOM or not
-    const isButtonsLineContainer: any = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
+    const isButtonsLineContainer: Element | undefined = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("buttonsLineContainer"))
     // this duplicate to RemoveChild() but its necessary for mobile users
     // remove buttonsLineContainer from DOM if the file not in clusters folder or in orphans folder
     if (isButtonsLineContainer && !(file?.path?.startsWith(orphans) || file?.path?.startsWith(clusters))) {
@@ -125,33 +125,33 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
         extraButtonsContainer.style.backgroundColor = Vars.buttonsLineContainerBG_clusters
 
         // Making Buttons
-        const clusterBtn = makeButton(appObject, "Cluster", "clusterBtn", "Create New Cluster in [CLUSTERS] folder")
+        const clusterBtn = makeButton(plugin, "Cluster", "clusterBtn", "Create New Cluster in [CLUSTERS] folder")
         setExternalIcon(clusterBtn, "cluster")
 
-        const childBtn = makeButton(appObject, "Child", "childBtn", `Create Child for current [${file.basename}] note`)
+        const childBtn = makeButton(plugin, "Child", "childBtn", `Create Child for current [${file.basename}] note`)
         setIcon(childBtn, "baby")
 
-        const siblingBtn = makeButton(appObject, "Sibling", "siblingBtn", `Create Sibling for current [${file.basename}] note`)
+        const siblingBtn = makeButton(plugin, "Sibling", "siblingBtn", `Create Sibling for current [${file.basename}] note`)
         setIcon(siblingBtn, "git-compare")
 
-        const orphanBtn = makeButton(appObject, "Orphan", "orphanBtn", `Create New Orphan note in [ORPHANS] folder`)
+        const orphanBtn = makeButton(plugin, "Orphan", "orphanBtn", `Create New Orphan note in [ORPHANS] folder`)
         setIcon(orphanBtn, "disc")
 
-        const deleteBtn = makeButton(appObject, "Delete", "deleteBtn", `Delete the current [${file.basename}] note along with its associated child notes if they exist`)
+        const deleteBtn = makeButton(plugin, "Delete", "deleteBtn", `Delete the current [${file.basename}] note along with its associated child notes if they exist`)
         setIcon(deleteBtn, "trash-2")
 
         // Making Extra Buttons
-        const extraBtn = makeButton(appObject, "extraBtn", "extraBtn", `Show / Hide extra buttons`, extraButtonsContainer, file)
+        const extraBtn = makeButton(plugin, "extraBtn", "extraBtn", `Show / Hide extra buttons`, extraButtonsContainer, file)
         setIcon(extraBtn, "chevron-left-square")
 
 
-        const deleteLineBtn = makeButton(appObject, "deleteLineBtn", "deleteLineBtn", `Delete the current line`)
+        const deleteLineBtn = makeButton(plugin, "deleteLineBtn", "deleteLineBtn", `Delete the current line`)
         setIcon(deleteLineBtn, "chevrons-left")
-        const undoBtn = makeButton(appObject, "undoBtn", "undoBtn", `Undo the last action`)
+        const undoBtn = makeButton(plugin, "undoBtn", "undoBtn", `Undo the last action`)
         setIcon(undoBtn, "redo-2")
-        const coffeeBtn = makeButton(appObject, "coffeeBtn", "coffeeBtn", `coffee`)
+        const coffeeBtn = makeButton(plugin, "coffeeBtn", "coffeeBtn", `coffee`)
         setIcon(coffeeBtn, "coffee")
-        const puzzleBtn = makeButton(appObject, "puzzleBtn", "puzzleBtn", `puzzle tooltip message `)
+        const puzzleBtn = makeButton(plugin, "puzzleBtn", "puzzleBtn", `puzzle tooltip message `)
         setIcon(puzzleBtn, "puzzle")
 
 
@@ -189,31 +189,31 @@ function appendOrRemoveChild(appObject: App, file: TFile, obsidianContainer: any
 
 
 //- Make Button FUNCTION
-function makeButton(appObject: App, type: string, className: string, tooltipMsg: string, element?: HTMLElement, file?: TFile) {
+function makeButton(plugin: Plugin, type: string, className: string, tooltipMsg: string, element?: HTMLElement, file?: TFile) {
     const button = document.createElement('div');
     button.textContent = type;
     setTooltip(button, tooltipMsg, { delay: 10 })
     button.addClasses(["btn", className])
     button.addEventListener('click', async () => {
         if (type == "Cluster") {
-            createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, U.NewFileLocation.NewTab, "newCluster", undefined).open();
+            createClustersAndOrphansFolder(plugin.app);
+            new familyModal(plugin, U.NewFileLocation.NewTab, "newCluster", undefined).open();
         }
         else if (type == "Child") {
-            createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, U.NewFileLocation.NewTab, "newChild", undefined).open()
+            createClustersAndOrphansFolder(plugin.app);
+            new familyModal(plugin, U.NewFileLocation.NewTab, "newChild", undefined).open()
         }
         else if (type == "Sibling") {
-            createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, U.NewFileLocation.NewTab, "newSibling", undefined).open();
+            createClustersAndOrphansFolder(plugin.app);
+            new familyModal(plugin, U.NewFileLocation.NewTab, "newSibling", undefined).open();
         }
         else if (type == "Orphan") {
-            createClustersAndOrphansFolder(appObject);
-            new familyModal(appObject, U.NewFileLocation.NewTab, "newOrphan", undefined).open();
+            createClustersAndOrphansFolder(plugin.app);
+            new familyModal(plugin, U.NewFileLocation.NewTab, "newOrphan", undefined).open();
         }
         else if (type == "Delete") {
-            createClustersAndOrphansFolder(appObject);
-            new deleteActiveNoteModal(appObject, U.NewFileLocation.NewTab, "deleteNote").open();
+            createClustersAndOrphansFolder(plugin.app);
+            new deleteActiveNoteModal(plugin.app, U.NewFileLocation.NewTab, "deleteNote").open();
         }
         // Extra Buttons
         else if (type == "extraBtn") {
@@ -226,13 +226,13 @@ function makeButton(appObject: App, type: string, className: string, tooltipMsg:
             }
         }
         else if (type == "deleteLineBtn") {
-            const view = appObject.workspace.getActiveViewOfType(MarkdownView);
+            const view = plugin.app.workspace.getActiveViewOfType(MarkdownView);
             const editor = view?.editor as Editor
             editor.exec("deleteLine")
             editor.focus()
         }
         else if (type == "undoBtn") {
-            const view = appObject.workspace.getActiveViewOfType(MarkdownView);
+            const view = plugin.app.workspace.getActiveViewOfType(MarkdownView);
             const editor = view?.editor as Editor
             editor.undo()
             editor.focus()
@@ -242,10 +242,10 @@ function makeButton(appObject: App, type: string, className: string, tooltipMsg:
             window.location.href = coffeeLink;
         }
         else if (type == "puzzleBtn") {
-            const puzzleFileExists = appObject.vault.getAbstractFileByPath("ORPHANS/puzzle.md")
+            const puzzleFileExists = plugin.app.vault.getAbstractFileByPath("ORPHANS/puzzle.md")
             if (puzzleFileExists === null) {
-                const puzzleFile = await appObject.vault.create("/ORPHANS/puzzle.md", puzzleTemplate)
-                appObject.workspace.getLeaf(true).openFile(puzzleFile);
+                const puzzleFile = await plugin.app.vault.create("/ORPHANS/puzzle.md", puzzleTemplate)
+                plugin.app.workspace.getLeaf(true).openFile(puzzleFile);
             }
         }
 
@@ -256,7 +256,7 @@ function makeButton(appObject: App, type: string, className: string, tooltipMsg:
 }
 
 //- Set Cluster Icon FUNCTION
-function setExternalIcon(con: any, type: string) {
+function setExternalIcon(con: HTMLElement, type: string) {
 
     if (type == "cluster") {
 
@@ -275,7 +275,7 @@ function setExternalIcon(con: any, type: string) {
 }
 
 //- First Page Of Clusters FUNCTION
-function firstPageOfClusters(file: TFile, obsidianContainerElements: any) {
+function firstPageOfClusters(file: TFile, obsidianContainerElements: Element[]) {
 
 
     const viewContentElement = obsidianContainerElements.find((item: HTMLElement) => item.classList.contains("view-content")) as HTMLElement

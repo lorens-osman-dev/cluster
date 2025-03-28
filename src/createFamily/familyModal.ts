@@ -1,8 +1,9 @@
-import { App, normalizePath, Platform, TFolder, Notice, Modal, setIcon } from "obsidian";
+import { App, normalizePath, Platform, TFolder, Notice, Modal, setIcon, Plugin } from "obsidian";
 import { path } from '../util/utils';
 import svgElements from "./svg";
 import { templates, clusterTemplate, orphanTemplate } from "./templates";
 import { NewFileLocation } from '../util/U';
+import renamer2 from "./renamer2";
 
 
 
@@ -10,6 +11,7 @@ const clusters = "CLUSTERS"
 const orphans = "ORPHANS"
 export default class familyModal extends Modal {
   app: App;
+  plugin: Plugin
   mode: NewFileLocation;
   folder: TFolder;
   newDirectoryPath: string;
@@ -18,13 +20,14 @@ export default class familyModal extends Modal {
   inputListener: any;
   createType: string;
   graphActiveFile: any
-  constructor(app: App, mode: NewFileLocation, createType: string, graphActiveFile: any) {
+  constructor(plugin: Plugin, mode: NewFileLocation, createType: string, graphActiveFile: any) {
 
-    super(app);
-    this.app = app;
+    super(plugin.app);
+    this.app = plugin.app;
     this.graphActiveFile = graphActiveFile
     this.createType = createType;
     this.mode = mode;
+    this.plugin = plugin
 
     //#region Create input
     this.inputEl = document.createElement('input');
@@ -155,6 +158,7 @@ export default class familyModal extends Modal {
 
               // @ts-ignore
               this.setFolder(newCreatedChildrenFolder, "");
+              renamer2(this.plugin, getActiveFile)
               await this.createNewNote(appObject, childNameFromInput, result.clusterChildTemplate);
             }
 
@@ -168,16 +172,15 @@ export default class familyModal extends Modal {
           if (!((getActiveFile.path.match(/\//g) || []).length == 1)) {
 
             const result = await templates(getActiveFile, "normalChild");
-
             if (result.state) {
               const childNameFromInput = this.inputEl.value.trim();
               if (childNameFromInput.endsWith("-cluster")) {
                 new Notice("The name should'nt contain '-cluster' suffix", 3e3)
                 return
               }
-              const childrenFolderPath = `${getActiveFile!.parent!.path}/${currentActiveFileName}`;
+              const childrenFolderPath = `${getActiveFile?.parent?.path}/${currentActiveFileName}`;
               await this.createDirectory(appObject, "", childrenFolderPath);
-              const newCreatedChildrenFolder = getActiveFile.parent!.children.find(
+              const newCreatedChildrenFolder = getActiveFile.parent?.children.find(
                 (item: any) => item instanceof TFolder && item.name == `${currentActiveFileName}`
               );
 
@@ -199,9 +202,9 @@ export default class familyModal extends Modal {
     }
     //-make Sibling to the current active file
     else if (this.createType == "newSibling") {
-      if (getActiveFile!.path.startsWith(clusters)) {
+      if (getActiveFile?.path.startsWith(clusters)) {
         // the next if statement to prevent make Sibling to a cluster
-        if (currentActiveFileName!.endsWith("-cluster")) {
+        if (currentActiveFileName?.endsWith("-cluster")) {
           new Notice(`You cant make Sibling to a cluster.\nCreate new cluster instead`);
         } else {
           const result = await templates(getActiveFile, "sibling");
@@ -212,7 +215,7 @@ export default class familyModal extends Modal {
               new Notice("The name should'nt contain '-cluster' suffix", 3e3)
               return
             }
-            this.setFolder(getActiveFile!.parent!, "");
+            this.setFolder(getActiveFile?.parent, "");
             this.createNewNote(appObject, siblingNameFromInput, result.siblingTemplate);
           }
         }
@@ -225,7 +228,7 @@ export default class familyModal extends Modal {
 
 
       const rootChildren = this.app.vault.getRoot().children;
-      const orphansFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == orphans);
+      const orphansFolder = rootChildren.find((item) => item instanceof TFolder && item.name == orphans);
       // @ts-ignore
       this.setFolder(orphansFolder, "");
       const orphanName = this.inputEl.value.trim()
@@ -236,7 +239,7 @@ export default class familyModal extends Modal {
 
 
       const rootChildren = this.app.vault.getRoot().children;
-      const clustersFolder = rootChildren.find((item: any) => item instanceof TFolder && item.name == clusters);
+      const clustersFolder = rootChildren.find((item) => item instanceof TFolder && item.name == clusters);
       // @ts-ignore
       this.setFolder(clustersFolder, "");
       if (this.inputEl.value == "") {
