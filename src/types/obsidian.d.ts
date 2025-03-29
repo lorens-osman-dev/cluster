@@ -12,6 +12,21 @@ declare module 'obsidian' {
     on(name: 'deleteToMove', callback: (data: TAbstractFile) => any, ctx?: any): EventRef;
     trigger(name: 'deleteToMove', ...data: [TAbstractFile]): void;
   }
+  interface App {
+    commands: {
+      // Command storage objects
+      commands: Record<string, any>;
+      editorCommands: Record<string, any>;
+
+      // Methods
+      addCommand: (command: any) => void;
+      executeCommand: (command: any, context?: any) => boolean;
+      executeCommandById: (id: string, context?: any) => boolean;
+      findCommand: (id: string) => any | null;
+      listCommands: () => any[];
+      removeCommand: (id: string) => void;
+    }
+  }
 }
 
 interface ExplorerLeaf extends WorkspaceLeaf {
