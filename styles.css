@@ -396,6 +396,7 @@
 .is-phone .prompt:has(.btn) .prompt-input {
   grid-area: prompt-input;
   align-self: start;
+  z-index: -1;
 }
 .is-phone .prompt:has(.noThing) {
   grid-template-columns: none;
@@ -750,6 +751,17 @@
 
 .plugin-simple-focus-hidden {
   display: none;
+}
+
+.workspace-tab-container .workspace-leaf-content .view-header {
+  position: relative;
+}
+.workspace-tab-container .workspace-leaf-content .view-content {
+  mask-image: none !important;
+}
+.workspace-tab-container .workspace-leaf-content .view-content .markdown-preview-view,
+.workspace-tab-container .workspace-leaf-content .view-content .cm-editor .cm-scroller {
+  padding-top: 0 !important;
 }
 
 /*# sourceMappingURL=styles.css.map */

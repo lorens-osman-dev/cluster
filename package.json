@@ -1,6 +1,6 @@
 {
 	"name": "cluster",
-	"version": "3.0.8",
+	"version": "4.0.0",
 	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
 	"main": "main.js",
 	"scripts": {
@@ -20,7 +20,9 @@
 		"chalk": "^5.4.1",
 		"esbuild": "0.17.3",
 		"obsidian": "latest",
+		"sass": "^1.99.0",
 		"tslib": "2.4.0",
+		"tsx": "^4.21.0",
 		"typescript": "4.7.4"
 	}
 }

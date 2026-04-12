@@ -40,3 +40,19 @@
 .plugin-simple-focus-hidden {
 	display: none;
 }
+
+.workspace-tab-container .workspace-leaf-content {
+	.view-header {
+		// background-color: red !important;
+		position: relative;
+	}
+
+	.view-content {
+		mask-image: none !important;
+
+		.markdown-preview-view,
+		.cm-editor .cm-scroller {
+			padding-top: 0 !important;
+		}
+	}
+}
